@@ -20,34 +20,8 @@ function http_parse_headers($headers){
     return $headerdata;
 }
 
-/*
 //Function to discovery an entity's meta post
-//Unflexible version, only works with my entity
-function discover_entity($entity_uri, $export){
-        $discovery = get_headers($entity_uri);
-        $discovery['link'] = 'posts/http%3A%2F%2F1e7c6fc9b470.alpha.attic.is/meta'; //TODO: Make this flexible
-       	$ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $_GET['entity'].$discovery['link']);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	    $meta = json_decode(curl_exec($ch), true);
-	    curl_close($ch);
-	    if ($export == true) {	
-	     	var_export($meta);
-         	echo "<hr />";
-	        }
-	    return $meta;
-}*/
-
-//Flexible version needs some more work
 function discover_link($entity_uri, $debug){
-        /*$cinit = curl_init();
-        curl_setopt($cinit, CURLOPT_URL, $entity_uri);
-        curl_setopt($cinit, CURLOPT_HEADER, 1);
-        $discovery = curl_exec($cinit);
-        curl_close($cinit);
-        $header_size = curl_getinfo($init, CURLINFO_HEADER_SIZE);
-        $discovery_header = substr($result, 0, $header_size);
-        $header = substr($result, 0, $header_size);*/
         $entity_sub = substr($entity_uri, 0, strlen($entity_uri)-1);
         $header_result = get_headers($entity_uri);
         $header = http_parse_headers($header_result);
@@ -75,7 +49,7 @@ function discover_link($entity_uri, $debug){
 }
 
 function generate_mac($header_type, $ts, $nonce, $method, $request_uri, $host, $port, $app, $hawk_key, $debug) {
-    //TODO: Finish and implement that everywhere
+    //TODO: Implement that everywhere
     $mac_data = $header_type."\n".$ts."\n".$nonce."\n".$method."\n".$request_uri."\n".$host."\n".$port."\n\n\n".$app."\n\n";
     $mac_sha256 = hash_hmac('sha256', $mac_data, $hawk_key, true);
     $mac = base64_encode($mac_sha256);
