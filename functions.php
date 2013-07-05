@@ -1,6 +1,5 @@
 <?php
 //All the functions used in Tasky
-
 //Functions to parse the header to an array
 function http_parse_headers($headers){
     if($headers === false){
@@ -48,6 +47,7 @@ function discover_link($entity_uri, $debug){
 	    return $meta;
 }
 
+//Function to generate the mac for requests
 function generate_mac($header_type, $ts, $nonce, $method, $request_uri, $host, $port, $app, $hawk_key, $debug) {
     //TODO: Implement that everywhere
     $mac_data = $header_type."\n".$ts."\n".$nonce."\n".$method."\n".$request_uri."\n".$host."\n".$port."\n\n\n".$app."\n\n";

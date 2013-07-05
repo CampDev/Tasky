@@ -26,7 +26,7 @@ require_once('functions.php');
 				$post_data = json_encode($post_raw);
 
 				echo $post_data;
-				
+
 				$time = time();
 				$nonce = uniqid('Tasky_', true); //Generating the nonce TODO: Use a PHP library to do that more secure
 
@@ -38,7 +38,7 @@ require_once('functions.php');
 				$mac_send = generate_mac('hawk.1.header', $time, $nonce, 'POST', '/posts', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], true);
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['hawk_id'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"')); //Setting the HTTP header
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"')); //Setting the HTTP header
 				curl_setopt($ch, CURLOPT_POST, 1);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -61,7 +61,7 @@ require_once('functions.php');
 				curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=https://tent.io/types/status/v0');
 				curl_setopt($init, CURLOPT_HTTPGET, 1);
 				curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($init, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['hawk_id'].'", mac="'.$mac_posts.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'" Content-Type: application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"')); //Setting the HTTP header
+				curl_setopt($init, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_posts.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'" Content-Type: application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"')); //Setting the HTTP header
 				$posts = curl_exec($init);
 				curl_close($init);
 				$posts = json_decode($posts, true);

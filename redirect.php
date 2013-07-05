@@ -59,7 +59,7 @@ session_start();
 				echo "<b>Curl Result: </b>";
     			var_export($result);
     			$_SESSION['access_token'] = $result['access_token'];
-    			//$_SESSION['hawk_key'] = $result['hawk_key'];
+    			$_SESSION['hawk_key'] = $result['hawk_key'];
 				echo "<p>Awesome, Tasky is authenticated and you can start using it!</p>";
 				echo '<p><a href="index.php">Home</a></p>';
 			}
