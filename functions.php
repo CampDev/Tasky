@@ -1,0 +1,89 @@
+<?php
+//All the functions used in Tasky
+
+//Functions to parse the header to an array
+function http_parse_headers($headers){
+    if($headers === false){
+        return false;
+        }
+    $headers = str_replace("\r","",$headers);
+    $headers = explode("\n",$headers);
+    foreach($headers as $value){
+        $header = explode(": ",$value);
+        if($header[0] && !$header[1]){
+            $headerdata['status'] = $header[0];
+            }
+        elseif($header[0] && $header[1]){
+            $headerdata[$header[0]] = $header[1];
+            }
+        }
+    return $headerdata;
+}
+
+/*
+//Function to discovery an entity's meta post
+//Unflexible version, only works with my entity
+function discover_entity($entity_uri, $export){
+        $discovery = get_headers($entity_uri);
+        $discovery['link'] = 'posts/http%3A%2F%2F1e7c6fc9b470.alpha.attic.is/meta'; //TODO: Make this flexible
+       	$ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $_GET['entity'].$discovery['link']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	    $meta = json_decode(curl_exec($ch), true);
+	    curl_close($ch);
+	    if ($export == true) {	
+	     	var_export($meta);
+         	echo "<hr />";
+	        }
+	    return $meta;
+}*/
+
+//Flexible version needs some more work
+function discover_link($entity_uri, $debug){
+        /*$cinit = curl_init();
+        curl_setopt($cinit, CURLOPT_URL, $entity_uri);
+        curl_setopt($cinit, CURLOPT_HEADER, 1);
+        $discovery = curl_exec($cinit);
+        curl_close($cinit);
+        $header_size = curl_getinfo($init, CURLINFO_HEADER_SIZE);
+        $discovery_header = substr($result, 0, $header_size);
+        $header = substr($result, 0, $header_size);*/
+        $entity_sub = substr($entity_uri, 0, strlen($entity_uri)-1);
+        $header_result = get_headers($entity_uri);
+        $header = http_parse_headers($header_result);
+        $discovery_link = str_replace("<", "", $header_result[2]);
+		$discovery_link = str_replace(">", "", $discovery_link);
+        $discovery_link = str_replace("Link: ", "", $discovery_link);
+		$discovery_link = str_replace('; rel="https://tent.io/rels/meta-post"', "", $discovery_link);
+       	$ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $entity_sub.$discovery_link);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	    $meta = json_decode(curl_exec($ch), true);
+	    curl_close($ch);
+	    if ($debug == true) {
+            echo "<p><b>Entity-Sub: </b>".$entity_sub.$discovery_link."</p>";
+            echo "<hr /><p><b>Header: </b></p>";
+            var_dump($header_result);
+            echo "<p><b>Status: ".$header_result[0]."</b></p>";
+            echo "<p><b>Length: ".$header_result[1]."</b></p>";
+            echo "<hr /><p><b>Discovered Link: </b></p>";
+            echo "<p>".$discovery_link."</p>";
+            echo "<hr /> <p><b>Meta Post: </b></p>";	
+	     	var_export($meta);
+	        }
+	    return $meta;
+}
+
+function generate_mac($header_type, $ts, $nonce, $method, $request_uri, $host, $port, $app, $hawk_key, $debug) {
+    //TODO: Finish and implement that everywhere
+    $mac_data = $header_type."\n".$ts."\n".$nonce."\n".$method."\n".$request_uri."\n".$host."\n".$port."\n\n\n".$app."\n\n";
+    $mac_sha256 = hash_hmac('sha256', $mac_data, $hawk_key, true);
+    $mac = base64_encode($mac_sha256);
+    if ($debug == true) {
+        echo "<p><b>Mac Data:</b> ".$mac_data."</p>";
+        echo "<p><b>Mac-SHA256:</b> ".$mac_sha256."</p>";
+        echo "<p><b>Mac:</b> ".$mac."</p>";
+    }
+    return $mac;
+}
+?>

@@ -1,0 +1,52 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500);
+
+/* General Style */
+body {
+	width: 100%;
+	min-width: 320px;
+	max-width: 1400px;
+	height: auto;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 300;
+}
+
+#body_wrap {
+	width: 95%;
+	height: auto;
+	padding: 2%;
+}
+
+h1, h2, h3, h4 {
+	text-align: center;
+	font-weight: 400;
+}
+
+h1.page_heading {
+	color: #4A66D9;
+	font-size: 100px;
+}
+
+h2.page_heading {
+	color: #4A66D9;
+}
+
+h2.error {
+	color: #cd0d00;
+}
+
+a, a:hover {
+	text-decoration: none;
+	color: #3F8AEB;
+}
+
+textarea.message {
+	width: 400px;
+	height: 100px;
+}
+
+footer {
+	height: auto;
+	width: 98%;
+	padding: 1%;
+	margin: auto;
+}
