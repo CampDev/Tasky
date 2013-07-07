@@ -15,15 +15,17 @@ if (!isset($_SESSION['entity'])) {
 		<div id="body_wrap">
 			<h2 class="page_heading">Tasky</h2>
 			<form align="center" action="send_post.php" method="post">
-				<p>Message:</p>
-				<p><textarea name="message" class="message"></textarea> </p>
+				<p><b>Title:</b> <input type="text" name="title" placeholder="Your awesome task" /></p>
+				<p><b>Priority:</b> <select name="priority" size="1"><option value="0">Low</option><option value="1">Avarage</option><option value="2">High</option></select></p>
+				<p><b>List:</b> <select name="list"><option>To Do</option></select></legend></p>
+				<p>Notes:</p>
+				<p><textarea name="notes" class="message"></textarea> </p>
 				<p><input type="submit"></p>
 			</form>
+			<p align="center">Note: Bold fields are required</p>
 		</div>
 		<footer><h3>Created by <a href="https://cacauu.tent.is">^Cacauu</a></h3>
 		<h3><a href="developer.php">Developer Resources</a></h3>
-		<?php
-		?>
 	</footer>
 	</body>
 </html>
