@@ -23,7 +23,6 @@ function http_parse_headers($headers){
 function discover_link($entity_uri, $debug){
         $entity_sub = substr($entity_uri, 0, strlen($entity_uri)-1);
         $header_result = get_headers($entity_uri);
-        $header = http_parse_headers($header_result);
         $discovery_link = str_replace("<", "", $header_result[2]);
 		$discovery_link = str_replace(">", "", $discovery_link);
         $discovery_link = str_replace("Link: ", "", $discovery_link);
