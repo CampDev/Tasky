@@ -25,9 +25,16 @@ require_once('functions.php');
 				</form>
 			<?}
 			else { ?>
-				<h2>You got the following options:</h2>
+				<h2>Create a new task:</h2> <!-- This should be collapsible somehow, takes way to much space in this way -->
+				<form align="center" action="send_post.php" method="post">
+					<p><b>Title:</b> <input type="text" name="title" placeholder="Your awesome task" /></p>
+					<p><b>Priority:</b> <select name="priority" size="1"><option value="0">Low</option><option value="1">Avarage</option><option value="2">High</option></select></p>
+					<p><b>List:</b> <select name="list"><option>To Do</option></select></legend></p>
+					<p>Notes:</p>
+					<p><textarea name="notes" class="message"></textarea> </p>
+					<p><input type="submit"></p>
+				</form>
 				<h2>Your Tasks:</h2>
-				<table>
 					<?php
 					$entity = $_SESSION['entity'];
 					$entity_sub = substr($entity, 7, strlen($entity)-8);
@@ -42,8 +49,8 @@ require_once('functions.php');
 					curl_close($init);
 					$posts = json_decode($posts, true);
 					var_export($posts['posts']);
+					//This returns the raw (json_decoded) data from the Tent server. That is where you could add your style and work with them.
 					?>
-				</table>
 				<h3><a href="logout.php">Logout</a></h3>
 			<?}
 		?>
