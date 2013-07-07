@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('functions.php');
 ?>
 <html>
 	<head>
@@ -25,8 +26,24 @@ session_start();
 			<?}
 			else { ?>
 				<h2>You got the following options:</h2>
-				<h3><a href="new_post.php">Write a new post</a></h3>
-				<h3><a href="read_posts.php">Read your posts</a></h3>
+				<h2>Your Tasks:</h2>
+				<table>
+					<?php
+					$entity = $_SESSION['entity'];
+					$entity_sub = substr($entity, 7, strlen($entity)-8);
+					$nonce = uniqid('Tasky_', true);
+					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http://cacauu.de/tasky/task/v0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$init = curl_init();
+					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http://cacauu.de/tasky/task/v0.1');
+					curl_setopt($init, CURLOPT_HTTPGET, 1);
+					curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($init, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'" Content-Type: application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"')); //Setting the HTTP header
+					$posts = curl_exec($init);
+					curl_close($init);
+					$posts = json_decode($posts, true);
+					var_export($posts['posts']);
+					?>
+				</table>
 				<h3><a href="logout.php">Logout</a></h3>
 			<?}
 		?>
