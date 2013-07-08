@@ -16,7 +16,7 @@ if (!isset($_SESSION['entity'])) {
 			<h2 class="page_heading">Tasky</h2>
 			<form align="center" action="send_post.php" method="post">
 				<p><b>Title:</b> <input type="text" name="title" placeholder="Your awesome task" /></p>
-				<p><b>Priority:</b> <select name="priority" size="1"><option value="0">Low</option><option value="1">Avarage</option><option value="2">High</option></select></p>
+				<p>Priority: <select name="priority" size="1"><option value="0">Low</option><option SELECTED value="1">Average</option><option value="2">High</option><option value="3">Urgent</option></select></p>
 				<p><b>List:</b> <select name="list"><option>To Do</option></select></legend></p>
 				<p>Notes:</p>
 				<p><textarea name="notes" class="message"></textarea> </p>
