@@ -22,8 +22,7 @@ session_start();
 			$entity = $_GET['entity'];
 		}
 
-		//Session stuff #2
-		$_SESSION['entity'] = $entity;
+		$_SESSION['entity_old'] = $entity;
 
         require_once('functions.php');
         $meta = discover_link($entity, true); //Using discover_entity-function from discovery.php with entity from get and no debugging features

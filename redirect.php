@@ -15,12 +15,13 @@ session_start();
 			echo "<p>No access, please try again!</p>"; //TODO: Add Error Message for easier debugging
 		}
 		else { //If there is a code...
-			$entity = $_SESSION['entity'];
+			$entity = $_SESSION['entity_old'];
+			unset($_SESSION['entity_old']);
 			$entity_sub = substr($entity, 7, strlen($entity)-8);
 			$time = time();
 
 			//$_SESSION['oauth_code'] = $_GET['code'];
-			$oauth_url = $_SESSION['entity']."oauth/authorization";
+			$oauth_url = $entity."oauth/authorization";
 			$nonce = uniqid('Tasky_', true); //Generating the nonce TODO: Use a PHP library to do that more secure
 			$mac_data = "hawk.1.header\n".$time."\n".$nonce."\nPOST"."\n/oauth/authorization\n".$entity_sub."\n80"."\n\n\n".$_SESSION['client_id']."\n\n"; //Setting the data used in the Mac for the header request
 			$mac_sha256 = hash_hmac('sha256', $mac_data, $_SESSION['hawk_key'], true); //Encrypting mac_data with sha256, using the Hawk Key as a secret
@@ -58,6 +59,7 @@ session_start();
 			{
 				echo "<b>Curl Result: </b>";
     			var_export($result);
+    			$_SESSION['entity'] = $entity;
     			$_SESSION['access_token'] = $result['access_token'];
     			$_SESSION['hawk_key'] = $result['hawk_key'];
 				echo "<p>Awesome, Tasky is authenticated and you can start using it!</p>";
