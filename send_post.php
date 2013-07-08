@@ -19,7 +19,7 @@ require_once('functions.php');
 			if (isset($_GET['type'])) {
 					switch ($_GET['type']) {
 						case 'status': 
-						//Create a status
+						//$type = 
 						break;
 		
 						case 'essay': 
@@ -84,8 +84,8 @@ require_once('functions.php');
 			$mac_send = generate_mac('hawk.1.header', $time, $nonce, 'POST', '/posts', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], true);
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="'.$type.'"')); //Setting the HTTP header
-			echo 'Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="'.$type.'"';
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="'.$type.'#"')); //Setting the HTTP header
+			echo 'Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="'.$type.'#"';
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
