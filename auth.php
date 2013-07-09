@@ -1,6 +1,7 @@
 <?php
 //Session Stuff #1
 session_start();
+require_once('functions.php');
 ?>
 <html>
 	<head>
@@ -12,19 +13,16 @@ session_start();
 		<div id="body_wrap">
 			<h2 class="page_heading">Tasky</h2>
 <?php
-		//TODO: Add / to $entity if it doesn't end with /
-		if (!substr(urldecode($_GET['entity']), strlen(urldecode($_GET['entity']))-1) == '/') {
-			//TODO: Make this thing work and add a / to the entity if needed
+		//Check if entity already ends with /, if not adds /
+		if (substr(urldecode($_GET['entity']), -1) == '/') {
 			$entity = $_GET['entity'];
-			echo "<p>Your entity doesn't end with \"/\", please add one and try again!</p>";
 		}
 		else {
-			$entity = $_GET['entity'];
+			$entity = $_GET['entity']."/";
 		}
 
 		$_SESSION['entity_old'] = $entity;
 
-        require_once('functions.php');
         $meta = discover_link($entity, true); //Using discover_entity-function from discovery.php with entity from get and no debugging features
         $_SESSION['new_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['new_post'];
         $_SESSION['posts_feed_endpoint'] = $meta['post']['content']['servers'][0]['urls']['posts_feed'];

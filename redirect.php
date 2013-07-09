@@ -17,7 +17,9 @@ session_start();
 		else { //If there is a code...
 			$entity = $_SESSION['entity_old'];
 			unset($_SESSION['entity_old']);
-			$entity_sub = substr($entity, 7, strlen($entity)-8);
+			$entity_sub = str_replace("http://", "", $entity);
+			$entity_sub = str_replace("https://", "", $entity_sub);
+			$_SESSION['entity_sub'] = $entity_sub;
 			$time = time();
 
 			//$_SESSION['oauth_code'] = $_GET['code'];
