@@ -19,7 +19,8 @@ session_start();
 			unset($_SESSION['entity_old']);
 			$entity_sub = str_replace("http://", "", $entity);
 			$entity_sub = str_replace("https://", "", $entity_sub);
-			$_SESSION['entity_sub'] = $entity_sub;
+			$entity_sub = substr($entity_sub, 0, strlen($entity_sub)-1);
+			$_SESSION['entity_sub'] = $entity_sub; //Setting the sub entity (no http(s) and / at the end) as a Session variable
 			$time = time();
 
 			//$_SESSION['oauth_code'] = $_GET['code'];

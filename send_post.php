@@ -78,8 +78,9 @@ require_once('functions.php');
 
 			//Generating the MAC for the request
 			$entity = $_SESSION['entity'];
-			$_SESSION['entity_sub'] = $entity_sub;
+			$entity_sub = $_SESSION['entity_sub'];
 
+			echo "<p><b>Sub: </b>".$entity_sub."</p>";
 			echo "<h2>Posting</h2>";
 			$mac_send = generate_mac('hawk.1.header', $time, $nonce, 'POST', '/posts', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], true);
 			$ch = curl_init();
