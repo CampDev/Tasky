@@ -20,6 +20,7 @@ require_once('functions.php');
 		else {
 			$entity = $_GET['entity']."/";
 		}
+		echo "<p><b>Entity: </b>".$entity."</p>";
 
 		$_SESSION['entity_old'] = $entity;
 
@@ -34,7 +35,7 @@ require_once('functions.php');
 				'name' => 'Tasky',
 				'url' => 'http://cacauu.de/tasky/',
 				'types' => array(
-					'write' => array('https://tent.io/types/basic-profile/v0', 'https://tent.io/types/status/v0', 'https://tent.io/types/essay/v0', 'http://cacauu.de/tasky/task/v0.1', 'http://cacauu.de/tasky/list/v0.1'),
+					'write' => array('https://tent.io/types/status/v0', 'http://cacauu.de/tasky/task/v0.1', 'http://cacauu.de/tasky/list/v0.1'),
 					),
 				'redirect_uri' => 'http://localhost:8888/tent-tasks/redirect.php',
 				),
