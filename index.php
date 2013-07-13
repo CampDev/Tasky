@@ -30,6 +30,7 @@ require_once('functions.php');
 					<p><b>Title:</b> <input type="text" name="title" placeholder="Your awesome task" /></p>
 					<p>Priority: <select name="priority" size="1"><option value="0">Low</option><option SELECTED value="1">Average</option><option value="2">High</option><option value="3">Urgent</option></select></p>
 					<p><b>List:</b> <select name="list"><option>To Do</option></select></legend></p>
+					<p>Due: <input type="date" name="duedate"/></p>
 					<p>Notes:</p>
 					<p><textarea name="notes" class="message"></textarea> </p>
 					<p><input type="submit"></p>
@@ -39,17 +40,38 @@ require_once('functions.php');
 					$entity = $_SESSION['entity'];
 					$entity_sub = $_SESSION['entity_sub'];
 					$nonce = uniqid('Tasky_', true);
-					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http://cacauu.de/tasky/task/v0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&limit=20', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$init = curl_init();
-					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http://cacauu.de/tasky/task/v0.1');
+					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&limit=20');
 					curl_setopt($init, CURLOPT_HTTPGET, 1);
 					curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($init, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'" Content-Type: application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"')); //Setting the HTTP header
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
+					echo "<table style='width: 100%;'>";
+					echo "<tr><td><b>Title</b></td><td><b>Due</b></td><td><b>Note</b></td><td><b>Priority</b></td></tr>";
+					foreach ($posts['posts'] as $task) {
+						$content = $task['content'];
+						echo "<tr>";
+						echo "<td>".$content['title']."</td>";
+						if ($content['duedate'] != '') {
+							echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
+						}
+						else {
+							echo "<td></td>";
+						}
+						if ($content['note'] != '') {
+							echo "<td>".$content['note']."</td>";
+						}
+						else {
+							echo "<td></td>";
+						}
+						echo "<td>".$content['priority']."</td>";
+						echo "</tr>";
+					}
+					echo "</table>";
 					var_export($posts['posts']);
-					//This returns the raw (json_decoded) data from the Tent server. That is where you could add your style and work with them.
 					?>
 				<h3><a href="logout.php">Logout</a></h3>
 			<?}
