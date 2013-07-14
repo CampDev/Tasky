@@ -47,7 +47,8 @@ require_once('functions.php');
                 $_SESSION['access_token'] = $result['access_token'];
                 $_SESSION['hawk_key'] = $result['hawk_key'];
 				$_SESSION['entity'] = $entity;
-				header('Location: index.php?loggedin=true');
+				$_SESSION['loggedin'] = true;
+				header('Location: index.php');
 			}
 		}
 ?>

@@ -43,6 +43,22 @@ a, a:hover {
 	color: #3F8AEB;
 }
 
+.prio_0 {
+	color: #219807;
+}
+
+.prio_1 {
+	color: #CFCF1B;
+}
+
+.prio_2 {
+	color: #D68411;
+}
+
+.prio_3 {
+	color: #cd0d00;
+}
+
 textarea.message {
 	width: 400px;
 	height: 100px;

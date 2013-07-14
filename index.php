@@ -25,8 +25,9 @@ require_once('functions.php');
 				</form>
 			<?}
 			else { 
-				if (isset($_GET['loggedin']) AND $_GET['loggedin'] == true OR $_GET['loggedin'] == 'true') {
+				if (isset($_SESSION['loggedin']) AND $_SESSION['loggedin'] == true) {
 					echo "<h2 class='loggedin'>Logged in successfully!</h2>";
+					unset($_SESSION['loggedin']);
 				}
 				?>
 				<h2>Create a new task:</h2> <!-- This should be collapsible somehow, takes way to much space in this way -->
@@ -59,7 +60,7 @@ require_once('functions.php');
 						$content = $task['content'];
 						echo "<tr>";
 						echo "<td>".$content['title']."</td>";
-						if ($content['duedate'] != '') {
+						if (isset($content['duedate']) AND $content['duedate'] != '') {
 							echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
 						}
 						else {
@@ -71,7 +72,7 @@ require_once('functions.php');
 						else {
 							echo "<td></td>";
 						}
-						echo "<td>".$content['priority']."</td>";
+						echo "<td><div class='prio_".$content['priority']."'>".$content['priority']."</div></td>";
 						echo "</tr>";
 					}
 					echo "</table>";
