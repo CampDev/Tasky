@@ -23,7 +23,7 @@ require_once('functions.php');
 					<p>Entity: <input type="url" name="entity" placeholder="https://cacauu.tent.is" /> 
 					<input type="submit" /></p> 
 				</form>
-			<?}
+			<?php }
 			else { 
 				if (isset($_SESSION['loggedin']) AND $_SESSION['loggedin'] == true) {
 					echo "<h2 class='loggedin'>Logged in successfully!</h2>";
@@ -61,7 +61,12 @@ require_once('functions.php');
 						echo "<tr>";
 						echo "<td>".$content['title']."</td>";
 						if (isset($content['duedate']) AND $content['duedate'] != '') {
-							echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
+							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
+								echo "<td style='color: 'cd0d00;'>Today</td>";
+							}
+							else {
+								echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
+							}
 						}
 						else {
 							echo "<td></td>";
@@ -79,7 +84,7 @@ require_once('functions.php');
 					var_export($posts['posts']);
 					?>
 				<h3><a href="logout.php">Logout</a></h3>
-			<?}
+			<?php }
 		?>
 		</div>
 
