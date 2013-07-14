@@ -24,7 +24,11 @@ require_once('functions.php');
 					<input type="submit" /></p> 
 				</form>
 			<?}
-			else { ?>
+			else { 
+				if (isset($_GET['loggedin']) AND $_GET['loggedin'] == true OR $_GET['loggedin'] == 'true') {
+					echo "<h2 class='loggedin'>Logged in successfully!</h2>";
+				}
+				?>
 				<h2>Create a new task:</h2> <!-- This should be collapsible somehow, takes way to much space in this way -->
 				<form align="center" action="send_post.php" method="post">
 					<p><b>Title:</b> <input type="text" name="title" placeholder="Your awesome task" /></p>

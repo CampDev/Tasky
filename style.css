@@ -34,6 +34,10 @@ h2.error {
 	color: #cd0d00;
 }
 
+h2.loggedin {
+	color: #219807;
+}
+
 a, a:hover {
 	text-decoration: none;
 	color: #3F8AEB;
