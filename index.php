@@ -59,6 +59,7 @@ require_once('functions.php');
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
 						echo "<tr>";
+						echo "<td><a href='send_post.php?type=complete&id=".$task['id']."'>&#10003;</a> <a href='send_post.php?type=delete&id=".$task['id']."'>X</a></td>";
 						echo "<td>".$content['title']."</td>";
 						if (isset($content['duedate']) AND $content['duedate'] != '') {
 							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {

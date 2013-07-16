@@ -1,22 +1,24 @@
 <?php
 //All the functions used in Tasky
 //Functions to parse the header to an array
-function http_parse_headers($headers){
-    if($headers === false){
-        return false;
-        }
-    $headers = str_replace("\r","",$headers);
-    $headers = explode("\n",$headers);
-    foreach($headers as $value){
-        $header = explode(": ",$value);
-        if($header[0] && !$header[1]){
-            $headerdata['status'] = $header[0];
+if (!function_exists('http_parse_headers')) {
+    function http_parse_headers($headers){
+        if($headers === false){
+            return false;
             }
-        elseif($header[0] && $header[1]){
-            $headerdata[$header[0]] = $header[1];
+        $headers = str_replace("\r","",$headers);
+        $headers = explode("\n",$headers);
+        foreach($headers as $value){
+            $header = explode(": ",$value);
+            if($header[0] && !$header[1]){
+                $headerdata['status'] = $header[0];
+                }
+            elseif($header[0] && $header[1]){
+                $headerdata[$header[0]] = $header[1];
+                }
             }
-        }
-    return $headerdata;
+        return $headerdata;
+    }
 }
 
 //Function to discovery an entity's meta post
