@@ -12,10 +12,10 @@ if (!function_exists('http_parse_headers')) {
             $header = explode(": ",$value);
             if($header[0] && !$header[1]){
                 $headerdata['status'] = $header[0];
-                }
+            }
             elseif($header[0] && $header[1]){
                 $headerdata[$header[0]] = $header[1];
-                }
+            }
             }
         return $headerdata;
     }
@@ -60,5 +60,10 @@ function generate_mac($header_type, $ts, $nonce, $method, $request_uri, $host, $
         echo "<p><b>Mac:</b> ".$mac."</p>";
     }
     return $mac;
+}
+
+function generate_auth_header($hawk_id, $mac, $ts, $nonce, $app_id) {
+    $auth_header = 'Authorization: Hawk id="'.$hawk_id.'", mac="'.$mac.'", ts="'.$ts.'", nonce="'.$nonce.'", app="'.$app_id.'"';
+    return $auth_header;
 }
 ?>

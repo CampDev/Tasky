@@ -12,54 +12,82 @@ require_once('functions.php');
 
 	<body>
 		<div id="body_wrap">
-			<h1 class="page_heading">Welcome to Tasky</h1>
-			<h2>Tasky is a <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
 			<?php
 			if (!isset($_SESSION['entity']) OR isset($_GET['error'])) {
 				if (isset($_GET['error'])) {
 					echo "<h2 class='error'>Error: ".urldecode($_GET['error'])."</h2>";
-				}?>
+				} ?>
+				<h1 class="page_heading">Welcome to Tasky</h1>
+				<h2>Tasky is a <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
 				<form align="center" action="auth.php" method="get"> 
 					<p>Entity: <input type="url" name="entity" placeholder="https://cacauu.tent.is" /> 
 					<input type="submit" /></p> 
 				</form>
 			<?php }
-			else { 
+			else { ?>
+			<h1 class="page_heading">Tasky</h2>
+			<?php 
+				$entity = $_SESSION['entity'];
+				$entity_sub = $_SESSION['entity_sub'];
+
 				if (isset($_SESSION['loggedin']) AND $_SESSION['loggedin'] == true) {
 					echo "<h2 class='loggedin'>Logged in successfully!</h2>";
 					unset($_SESSION['loggedin']);
 				}
+
+				$nonce = uniqid('Tasky_', true);
+				$mac_posts = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+				$init_lists = curl_init();
+				curl_setopt($init_lists, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1');
+				curl_setopt($init_lists, CURLOPT_HTTPGET, 1);
+				curl_setopt($init_lists, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($init_lists, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_posts.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"')); //Setting the HTTP header
+				$lists = curl_exec($init_lists);
+				curl_close($init_lists);
+				$lists = json_decode($lists, true);
+				//var_export($lists['posts']);
 				?>
 				<h2>Create a new task:</h2> <!-- This should be collapsible somehow, takes way to much space in this way -->
 				<form align="center" action="send_post.php" method="post">
 					<p><b>Title:</b> <input type="text" name="title" placeholder="Your awesome task" /></p>
-					<p>Priority: <select name="priority" size="1"><option value="0">Low</option><option SELECTED value="1">Average</option><option value="2">High</option><option value="3">Urgent</option></select></p>
-					<p><b>List:</b> <select name="list"><option>To Do</option></select></legend></p>
+					<p>Priority: <select name="priority" size="1">
+						<option value="0">Low</option>
+						<option SELECTED value="1">Average</option>
+						<option value="2">High</option>
+						<option value="3">Urgent</option>
+					</select></p>
+					<p><b>List:</b> <select name="list">
+						<?php
+						foreach ($lists['posts'] as $list) {
+							if(!is_null($list['content']['name'])) {
+								echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
+							}
+						}
+						?>
+					</select></p>
 					<p>Due: <input type="date" name="duedate"/></p>
 					<p>Notes:</p>
 					<p><textarea name="notes" class="message"></textarea> </p>
 					<p><input type="submit"></p>
 				</form>
 				<h2>Your Tasks:</h2>
-					<?php
-					$entity = $_SESSION['entity'];
-					$entity_sub = $_SESSION['entity_sub'];
-					$nonce = uniqid('Tasky_', true);
+					<?php					
 					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&limit=20', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$init = curl_init();
 					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&limit=20');
 					curl_setopt($init, CURLOPT_HTTPGET, 1);
 					curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
-					curl_setopt($init, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'" Content-Type: application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"')); //Setting the HTTP header
+					//curl_setopt($init, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'" Content-Type: application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"')); //Setting the HTTP header
+					curl_setopt($init, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id']))); //Setting the HTTP header
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
 					echo "<table style='width: 100%;'>";
-					echo "<tr><td><b>Title</b></td><td><b>Due</b></td><td><b>Note</b></td><td><b>Priority</b></td></tr>";
+					echo "<tr><td></td><td><b>Title</b></td><td><b>Due</b></td><td><b>Note</b></td><td><b>Priority</b></td><td></td></tr>";
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
 						echo "<tr>";
-						echo "<td><a href='send_post.php?type=complete&id=".$task['id']."'>&#10003;</a> <a href='send_post.php?type=delete&id=".$task['id']."'>X</a></td>";
+						echo "<td style='color: #219807;'><a href='send_post.php?type=complete&id=".$task['id']."'>&#10003;</a></td>";
 						echo "<td>".$content['title']."</td>";
 						if (isset($content['duedate']) AND $content['duedate'] != '') {
 							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
@@ -79,6 +107,7 @@ require_once('functions.php');
 							echo "<td></td>";
 						}
 						echo "<td><div class='prio_".$content['priority']."'>".$content['priority']."</div></td>";
+						echo "<td style='color: #cd0d00;'><a href='send_post.php?type=delete&id=".$task['id']."'>X</a></td>";
 						echo "</tr>";
 					}
 					echo "</table>";

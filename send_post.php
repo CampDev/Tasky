@@ -40,7 +40,7 @@ require_once('functions.php');
 								'public' => false,
 							),
 							'content' => array(
-								'name' => $_GET['name'],
+								'name' => $_GET['title'],
 								'description' => $description,
 							)
 						);
@@ -54,10 +54,10 @@ require_once('functions.php');
 						//Create a task
 					}
 				}
-			elseif (isset($_POST['title'])) {
+			elseif (isset($_POST['title']) && isset($_POST['priority'])) {
 				$type = 'http://cacauu.de/tasky/task/v0.1';
 				$post_raw = array(
-					'type' => 'http://cacauu.de/tasky/task/v0.1#',
+					'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 					'permissions' => array(
 						'public' => false,
 					),
@@ -65,8 +65,13 @@ require_once('functions.php');
 						'title' => $_POST['title'],
 						'priority' => $_POST['priority'],
 						'note' => $_POST['notes'],
-						'duedate' => strtotime($_POST['duedate']),
-					)
+						'list' => $_POST['list'],
+					),
+					'mentions' => array(
+						array(
+							'post' => $_POST['list'],
+						),
+					),
 				);
 			}
 			echo "<p><b>Type: </b>".$type."</p>";
@@ -83,12 +88,10 @@ require_once('functions.php');
 
 			echo "<p><b>Sub: </b>".$entity_sub."</p>";
 			echo "<h2>Posting</h2>";
-			echo "<p><b>Due: </b>".$_POST['duedate']."</p>";
-			echo "<p>Unix: ".strtotime($_POST['duedate'])."</p>";
-			$mac_send = generate_mac('hawk.1.header', $time, $nonce, 'POST', '/posts', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], true);
+			$mac_send = generate_mac('hawk.1.header', $time, $nonce, 'POST', '/posts', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="'.$type.'#"')); //Setting the HTTP header
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="'.$type.'#todo"')); //Setting the HTTP header
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
