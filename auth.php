@@ -20,6 +20,7 @@ require_once('functions.php');
         $meta = discover_link($entity, false); //Using discover_entity-function from discovery.php with entity from get and no debugging features
         $_SESSION['new_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['new_post'];
         $_SESSION['posts_feed_endpoint'] = $meta['post']['content']['servers'][0]['urls']['posts_feed'];
+        $_SESSION['single_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['post'];
 
         //Creating App Information JSON
         $app_json = array(

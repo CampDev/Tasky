@@ -66,6 +66,7 @@ require_once('functions.php');
 						'priority' => $_POST['priority'],
 						'note' => $_POST['notes'],
 						'list' => $_POST['list'],
+						'status' => 'To Do',
 					),
 					'mentions' => array(
 						array(

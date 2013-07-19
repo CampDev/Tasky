@@ -29,7 +29,7 @@ require_once('functions.php');
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $oauth_url); //Setting the request url
 			curl_setopt($ch, CURLOPT_POST, 1); //Setting the request method to POST
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['hawk_id'].'", mac="'.$mac.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"')); //Setting the HTTP header
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['hawk_id'], $mac, $time, $nonce, $_SESSION['client_id']))); //Setting the HTTP header
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $access_code); //Setting the post data
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			$result_json = curl_exec($ch); //Getting and decoding (next line) the result

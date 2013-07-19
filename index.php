@@ -45,10 +45,9 @@ require_once('functions.php');
 				$lists = curl_exec($init_lists);
 				curl_close($init_lists);
 				$lists = json_decode($lists, true);
-				//var_export($lists['posts']);
 				?>
 				<h2>Create a new task:</h2> <!-- This should be collapsible somehow, takes way to much space in this way -->
-				<form align="center" action="send_post.php" method="post">
+				<form align="center" action="task_handler.php?type=task" method="post">
 					<p><b>Title:</b> <input type="text" name="title" placeholder="Your awesome task" /></p>
 					<p>Priority: <select name="priority" size="1">
 						<option value="0">Low</option>
@@ -63,6 +62,7 @@ require_once('functions.php');
 								echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
 							}
 						}
+						echo "<h2><a href='new_post.php?type=list'>Create a new list</a></h2>";
 						?>
 					</select></p>
 					<p>Due: <input type="date" name="duedate"/></p>
@@ -70,6 +70,12 @@ require_once('functions.php');
 					<p><textarea name="notes" class="message"></textarea> </p>
 					<p><input type="submit"></p>
 				</form>
+				<h2 align="center">Your Lists:<?php foreach ($lists['posts'] as $list) {
+					if(!is_null($list['content']['name'])) {
+						echo " <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> |";
+					}
+				} ?>
+				</h2>
 				<h2>Your Tasks:</h2>
 					<?php					
 					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&limit=20', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
@@ -77,17 +83,16 @@ require_once('functions.php');
 					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&limit=20');
 					curl_setopt($init, CURLOPT_HTTPGET, 1);
 					curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
-					//curl_setopt($init, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'" Content-Type: application/vnd.tent.post.v0+json; type="https://tent.io/types/status/v0#"')); //Setting the HTTP header
 					curl_setopt($init, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id']))); //Setting the HTTP header
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
 					echo "<table style='width: 100%;'>";
-					echo "<tr><td></td><td><b>Title</b></td><td><b>Due</b></td><td><b>Note</b></td><td><b>Priority</b></td><td></td></tr>";
+					echo "<tr><td></td><td><b>Title</b></td><td><b>Due</b></td><td>Status</td><td><b>Note</b></td><td><b>Priority</b></td><td></td><td></td></tr>";
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
 						echo "<tr>";
-						echo "<td style='color: #219807;'><a href='send_post.php?type=complete&id=".$task['id']."'>&#10003;</a></td>";
+						echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'>&#10003;</a></td>";
 						echo "<td>".$content['title']."</td>";
 						if (isset($content['duedate']) AND $content['duedate'] != '') {
 							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
@@ -100,6 +105,12 @@ require_once('functions.php');
 						else {
 							echo "<td></td>";
 						}
+						if (isset($content['status']) AND $content['status'] != '') {
+							echo "<td>".$content['status']."</td>";
+						}
+						else {
+							echo "<td></td>";
+						}
 						if ($content['note'] != '') {
 							echo "<td>".$content['note']."</td>";
 						}
@@ -107,7 +118,8 @@ require_once('functions.php');
 							echo "<td></td>";
 						}
 						echo "<td><div class='prio_".$content['priority']."'>".$content['priority']."</div></td>";
-						echo "<td style='color: #cd0d00;'><a href='send_post.php?type=delete&id=".$task['id']."'>X</a></td>";
+						echo "<td><a href='task_handler.php?type=update?id=".$task['id']."'>Edit</a></td>";
+						echo "<td style='color: #cd0d00;'><a href='task_handler.php?type=delete&id=".$task['id']."'>X</a></td>";
 						echo "</tr>";
 					}
 					echo "</table>";
