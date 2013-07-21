@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('functions.php');
+require_once('markdown.php');
 ?>
 <html>
 	<head>
@@ -142,7 +143,7 @@ require_once('functions.php');
 							echo "<td></td>";
 						}
 						if ($content['notes'] != '' AND !is_null($content['notes'])) {
-							echo "<td>".$content['notes']."</td>";
+							echo "<td>".Markdown($content['notes'])."</td>";
 						}
 						else {
 							echo "<td></td>";
