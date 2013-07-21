@@ -47,7 +47,7 @@ require_once('markdown.php');
 				}
 
 				if (isset($_SESSION['completed_task'])) {
-					echo "<h2 class='loggedin'>Completed new task \"".$_SESSION['completed_task']."\"</h2>";
+					echo "<h2 class='loggedin'>Completed task \"".$_SESSION['completed_task']."\"</h2>";
 					unset($_SESSION['completed_task']);
 				}
 
@@ -124,11 +124,11 @@ require_once('markdown.php');
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
 						echo "<tr>";
-						echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'>&#10003;</a></td>";
+						echo "<td style='color: #219807;'><a class='complete' href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'>&#10003;</a></td>";
 						echo "<td>".$content['title']."</td>";
 						if (isset($content['duedate']) AND $content['duedate'] != '') {
 							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
-								echo "<td style='color: 'cd0d00;'>Today</td>";
+								echo "<td style='color: cd0d00;'>Today</td>";
 							}
 							else {
 								echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
@@ -138,7 +138,7 @@ require_once('markdown.php');
 							echo "<td></td>";
 						}
 						if (isset($content['status']) AND $content['status'] != '') {
-							echo "<td style='color: green;'>".$content['status']."</td>";
+							echo "<td>".$content['status']."</td>";
 						}
 						else {
 							echo "<td></td>";
@@ -150,8 +150,8 @@ require_once('markdown.php');
 							echo "<td></td>";
 						}
 						echo "<td><div class='prio_".$content['priority']."'>".$content['priority']."</div></td>";
-						echo "<td><a href='edit.php?type=update&id=".$task['id']."'>Edit</a></td>";
-						echo "<td style='color: #cd0d00;'><a href='task_handler.php?type=delete&id=".$task['id']."'>X</a></td>";
+						echo "<td><a class='edit' href='edit.php?type=update&id=".$task['id']."'>Edit</a></td>";
+						echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'>X</a></td>";
 						echo "</tr>";
 					}
 					echo "</table>";

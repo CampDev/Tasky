@@ -59,6 +59,14 @@ a, a:hover {
 	color: #cd0d00;
 }
 
+a.complete {
+	color: #219807;
+}
+
+a.delete, a.edit {
+	color: #cd0d00;
+}
+
 textarea.message {
 	width: 400px;
 	height: 100px;
