@@ -93,6 +93,7 @@ require_once('markdown.php');
 					<p>Due: <input type="date" name="duedate"/></p>
 					<p>Notes:</p>
 					<p><textarea name="notes" class="message"></textarea> </p>
+					<p>You can use <a href="http://daringfireball.net/projects/markdown/">Markdown</a> in your notes to add links and style to the text</p>
 					<p><input type="submit"></p>
 				</form>
 				<h2 align="center">Your Lists:<?php foreach ($lists['posts'] as $list) {

@@ -33,7 +33,6 @@ require_once('functions.php');
 			$current_task_json = curl_exec($ch_current);
 			curl_close($ch_current);
 			$current_task = json_decode($current_task_json, true);
-			echo "<p>".$current_task['post']['version']['id']."</p>";
 			?>
 			<form align="center" method="post" action="task_handler.php?type=update&id=<?php echo $current_task['post']['id']; ?>&parent=<?php echo $current_task['post']['version']['id']; ?>">
 				<p><b>Title:</b> <input type="text" name="title" value="<?php echo $current_task['post']['content']['title']; ?>" /></p>
@@ -82,6 +81,7 @@ require_once('functions.php');
 					<?php $_SESSION['duedate'] = $current_task['post']['content']['duedate']; ?>
 					<p>Notes:</p>
 					<p><textarea name="notes" class="message"><?php if(!is_null($current_task['post']['content']['notes'])) {echo $current_task['post']['content']['notes'];} ?></textarea></p>
+					<p>You can use <a href="http://daringfireball.net/projects/markdown/">Markdown</a> in your notes to add links and style to the text</p>
 					<p><input type="submit"></p>
 			</form>
 		</div>
