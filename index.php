@@ -35,6 +35,31 @@ require_once('functions.php');
 					unset($_SESSION['loggedin']);
 				}
 
+				if (isset($_SESSION['new_list'])) {
+					echo "<h2 class='loggedin'>Created list \" ".$_SESSION['new_list']."\"</h2>";
+					unset($_SESSION['new_list']);
+				}
+
+				if (isset($_SESSION['new_task'])) {
+					echo "<h2 class='loggedin'>Created new task \" ".$_SESSION['new_task']."\"</h2>";
+					unset($_SESSION['new_task']);
+				}
+
+				if (isset($_SESSION['completed_task'])) {
+					echo "<h2 class='loggedin'>Completed new task \"".$_SESSION['completed_task']."\"</h2>";
+					unset($_SESSION['completed_task']);
+				}
+
+				if (isset($_SESSION['updated'])) {
+					echo "<h2 class='loggedin'>Updated task \"".$_SESSION['updated']."\"</h2>";
+					unset($_SESSION['updated']);
+				}
+
+				if (isset($_SESSION['deleted'])) {
+					echo "<h2 class='error'>Deleted successfully</h2>";
+					unset($_SESSION['deleted']);
+				}
+
 				$nonce = uniqid('Tasky_', true);
 				$mac_posts = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 				$init_lists = curl_init();
@@ -62,7 +87,6 @@ require_once('functions.php');
 								echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
 							}
 						}
-						echo "<h2><a href='new_post.php?type=list'>Create a new list</a></h2>";
 						?>
 					</select></p>
 					<p>Due: <input type="date" name="duedate"/></p>
@@ -76,11 +100,17 @@ require_once('functions.php');
 					}
 				} ?>
 				</h2>
+					<p align="center"><b>Create a new list: </b>
+					<form align="center" method="post" action="task_handler.php?type=list">
+						<input type="text" name="list_name" />
+						<input type="submit">
+					</form>
+					</p>
 				<h2>Your Tasks:</h2>
 					<?php					
-					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&limit=20', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$init = curl_init();
-					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&limit=20');
+					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1');
 					curl_setopt($init, CURLOPT_HTTPGET, 1);
 					curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($init, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id']))); //Setting the HTTP header
@@ -88,7 +118,7 @@ require_once('functions.php');
 					curl_close($init);
 					$posts = json_decode($posts, true);
 					echo "<table style='width: 100%;'>";
-					echo "<tr><td></td><td><b>Title</b></td><td><b>Due</b></td><td>Status</td><td><b>Note</b></td><td><b>Priority</b></td><td></td><td></td></tr>";
+					echo "<tr><td></td><td><b>Title</b></td><td><b>Due</b></td><td><b>Status</b></td><td><b>Note</b></td><td><b>Priority</b></td><td></td><td></td></tr>";
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
 						echo "<tr>";
@@ -106,24 +136,24 @@ require_once('functions.php');
 							echo "<td></td>";
 						}
 						if (isset($content['status']) AND $content['status'] != '') {
-							echo "<td>".$content['status']."</td>";
+							echo "<td style='color: green;'>".$content['status']."</td>";
 						}
 						else {
 							echo "<td></td>";
 						}
-						if ($content['note'] != '') {
-							echo "<td>".$content['note']."</td>";
+						if ($content['notes'] != '' AND !is_null($content['notes'])) {
+							echo "<td>".$content['notes']."</td>";
 						}
 						else {
 							echo "<td></td>";
 						}
 						echo "<td><div class='prio_".$content['priority']."'>".$content['priority']."</div></td>";
-						echo "<td><a href='task_handler.php?type=update?id=".$task['id']."'>Edit</a></td>";
+						echo "<td><a href='edit.php?type=update&id=".$task['id']."'>Edit</a></td>";
 						echo "<td style='color: #cd0d00;'><a href='task_handler.php?type=delete&id=".$task['id']."'>X</a></td>";
 						echo "</tr>";
 					}
 					echo "</table>";
-					var_export($posts['posts']);
+					//var_export($posts['posts']);
 					?>
 				<h3><a href="logout.php">Logout</a></h3>
 			<?php }
