@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('functions.php');
-require_once('markdown.php');
+require_once('tent-markdown.php');
 ?>
 <html>
 	<head>
@@ -12,21 +12,26 @@ require_once('markdown.php');
 	</head>
 
 	<body>
+
+<div style="width: 100%; height: 50px; color: white; background: gray;">
+	<div style="margin: auto; max-width: 1000px; padding: 10px;">Tasky<a href="new_post_page.php"><img src="img/createpost.png" style="float: right;"></a><a href="logout.php" style="float: right;">Logout</a>
+</div>
+</div>
+
 		<div id="body_wrap">
 			<?php
 			if (!isset($_SESSION['entity']) OR isset($_GET['error'])) {
 				if (isset($_GET['error'])) {
 					echo "<h2 class='error'>Error: ".urldecode($_GET['error'])."</h2>";
 				} ?>
-				<h1 class="page_heading">Welcome to Tasky</h1>
-				<h2>Tasky is a <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
-				<form align="center" action="auth.php" method="get"> 
-					<p>Entity: <input type="url" name="entity" placeholder="https://cacauu.tent.is" /> 
-					<input type="submit" /></p> 
-				</form>
+				<h2 class="page_heading">Welcome to Tasky</h2>
+				<h3>Tasky is a <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h3>
+				<p><form align="center" action="auth.php" method="get"> 
+					<input type="url" name="entity" placeholder="https://cacauu.tent.is" /> 
+					<input type="submit" />
+				</form></p>
 			<?php }
 			else { ?>
-			<h1 class="page_heading">Tasky</h2>
 			<?php 
 				$entity = $_SESSION['entity'];
 				$entity_sub = $_SESSION['entity_sub'];
@@ -72,43 +77,7 @@ require_once('markdown.php');
 				curl_close($init_lists);
 				$lists = json_decode($lists, true);
 				?>
-				<h2>Create a new task:</h2> <!-- This should be collapsible somehow, takes way to much space in this way -->
-				<form align="center" action="task_handler.php?type=task" method="post">
-					<p><b>Title:</b> <input type="text" name="title" placeholder="Your awesome task" /></p>
-					<p>Priority: <select name="priority" size="1">
-						<option value="0">Low</option>
-						<option SELECTED value="1">Average</option>
-						<option value="2">High</option>
-						<option value="3">Urgent</option>
-					</select></p>
-					<p><b>List:</b> <select name="list">
-						<?php
-						foreach ($lists['posts'] as $list) {
-							if(!is_null($list['content']['name'])) {
-								echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
-							}
-						}
-						?>
-					</select></p>
-					<p>Due: <input type="date" name="duedate"/></p>
-					<p>Notes:</p>
-					<p><textarea name="notes" class="message"></textarea> </p>
-					<p>You can use <a href="http://daringfireball.net/projects/markdown/">Markdown</a> in your notes to add links and style to the text</p>
-					<p><input type="submit"></p>
-				</form>
-				<h2 align="center">Your Lists:<?php foreach ($lists['posts'] as $list) {
-					if(!is_null($list['content']['name'])) {
-						echo " <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> |";
-					}
-				} ?>
-				</h2>
-					<p align="center"><b>Create a new list: </b>
-					<form align="center" method="post" action="task_handler.php?type=list">
-						<input type="text" name="list_name" />
-						<input type="submit">
-					</form>
-					</p>
-				<h2>Your Tasks:</h2>
+
 					<?php					
 					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$init = curl_init();
@@ -119,13 +88,20 @@ require_once('markdown.php');
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
-					echo "<table style='width: 100%;'>";
-					echo "<tr><td></td><td><b>Title</b></td><td><b>Due</b></td><td><b>Status</b></td><td><b>Note</b></td><td><b>Priority</b></td><td></td><td></td></tr>";
+					echo "<table style=' width: 100%; max-width: 1000px; margin: auto;'>";
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
 						echo "<tr>";
-						echo "<td style='color: #219807;'><a class='complete' href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'>&#10003;</a></td>";
-						echo "<td>".$content['title']."</td>";
+						echo "<td><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
+
+						if ($content['notes'] != '' AND !is_null($content['notes'])) {
+							echo "<br><i><div style='font-size: 11px;'>".Tent_Markdown($content['notes'])."</div></i></a></td>";
+						}
+						else {
+							echo "</td>";
+						}
+
+
 						if (isset($content['duedate']) AND $content['duedate'] != '') {
 							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
 								echo "<td style='color: cd0d00;'>Today</td>";
@@ -137,33 +113,46 @@ require_once('markdown.php');
 						else {
 							echo "<td></td>";
 						}
-						if (isset($content['status']) AND $content['status'] != '') {
-							echo "<td>".$content['status']."</td>";
-						}
-						else {
-							echo "<td></td>";
-						}
-						if ($content['notes'] != '' AND !is_null($content['notes'])) {
-							echo "<td>".Markdown($content['notes'])."</td>";
-						}
-						else {
-							echo "<td></td>";
-						}
+
 						echo "<td><div class='prio_".$content['priority']."'>".$content['priority']."</div></td>";
-						echo "<td><a class='edit' href='edit.php?type=update&id=".$task['id']."'>Edit</a></td>";
-						echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'>X</a></td>";
+
+						if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
+						echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
+						}
+						elseif (isset($content['status']) AND $content['status'] == 'Done') {
+						echo "<td style='color: #aaa;'><img src='img/checked.png'></td>";	
+						}
+						else {
+							echo "<td></td>";
+						}
+
+						echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png'></a></td>";
 						echo "</tr>";
 					}
 					echo "</table>";
-					//var_export($posts['posts']);
 					?>
-				<h3><a href="logout.php">Logout</a></h3>
+				
+				<hr>
+				<h4 align="center">Your Lists:<?php foreach ($lists['posts'] as $list) {
+					if(!is_null($list['content']['name'])) {
+						echo " <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> |";
+					}
+				} ?>
+				</h4>
+					<p align="center"><b>Create a new list: </b>
+					<form align="center" method="post" action="task_handler.php?type=list">
+						<input type="text" name="list_name" />
+						<input type="submit">
+					</form>
+					</p>
+
+				
 			<?php }
 		?>
 		</div>
-
-		<footer><h3>Created by <a href="https://cacauu.tent.is">^Cacauu</a></h3>
-		<h3><a href="developer.php">Developer Resources</a></h3>
+		<hr>
+		<footer><h4>Created by <a href="https://cacauu.tent.is">^Cacauu</a></h4>
+		<h4><a href="developer.php">Developer Resources</a></h4>
 		</footer>
 	</body>
 </html>

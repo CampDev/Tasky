@@ -2,12 +2,10 @@
 
 /* General Style */
 body {
-	width: 100%;
-	min-width: 320px;
-	max-width: 1400px;
 	height: auto;
 	font-family: 'Ubuntu', sans-serif;
 	font-weight: 300;
+	margin: 0px;
 }
 
 #body_wrap {
@@ -64,7 +62,7 @@ a.complete {
 }
 
 a.delete, a.edit {
-	color: #cd0d00;
+	color: black;
 }
 
 textarea.message {
@@ -77,4 +75,8 @@ footer {
 	width: 98%;
 	padding: 1%;
 	margin: auto;
+}
+
+td 	{
+	padding: 7px;
 }

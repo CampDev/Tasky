@@ -81,7 +81,7 @@ require_once('functions.php');
 					<?php $_SESSION['duedate'] = $current_task['post']['content']['duedate']; ?>
 					<p>Notes:</p>
 					<p><textarea name="notes" class="message"><?php if(!is_null($current_task['post']['content']['notes'])) {echo $current_task['post']['content']['notes'];} ?></textarea></p>
-					<p>You can use <a href="http://daringfireball.net/projects/markdown/">Markdown</a> in your notes to add links and style to the text</p>
+					<p>You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text</p>
 					<p><input type="submit"></p>
 			</form>
 		</div>
