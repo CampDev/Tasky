@@ -13,11 +13,10 @@ require_once('tent-markdown.php');
 
 	<body>
 
-	<?php if(isset($_SESSION['entity'])) { ?>
-	<div style="width: 100%; height: 50px; color: white; background: gray;">
-		<div style="margin: auto; max-width: 1000px; padding: 10px;">Tasky<a href="new_post_page.php"><img src="img/createpost.png" style="float: right;"></a><a href="logout.php" style="float: right;">Logout</a></div>
-	</div>
-	<?php } ?>
+<div style="width: 100%; height: 50px; color: white; background: gray;">
+	<div style="margin: auto; max-width: 1000px; padding: 10px;">Tasky<a href="new_post_page.php"><img src="img/createpost.png" style="float: right;"></a><a href="logout.php" style="float: right;">Logout</a>
+</div>
+</div>
 
 		<div id="body_wrap">
 			<?php
@@ -93,6 +92,20 @@ require_once('tent-markdown.php');
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
 						echo "<tr>";
+
+                        if (isset($content['priority']) AND $content['priority'] == '0') {
+                        echo "<td style='width: 10px;'><div style='width: 7px; height: 7px; background: green; border-radius: 5px;'></div></td>";
+                        }
+                        elseif (isset($content['priority']) AND $content['priority'] == '1') {
+                        echo "<td style='width: 10px;'><div style='width: 7px; height: 7px; background: gold; border-radius: 5px;'></div></td>";
+                        }
+                        elseif (isset($content['priority']) AND $content['priority'] == '2') {
+                        echo "<td style='width: 10px;'><div style='width: 7px; height: 7px; background: orange; border-radius: 5px;'></div></td>";
+                        }
+                        elseif (isset($content['priority']) AND $content['priority'] == '3') {
+                        echo "<td style='width: 10px;'><div style='width: 7px; height: 7px; background: red; border-radius: 5px;'></div></td>";
+                        }
+
 						echo "<td><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
 
 						if ($content['notes'] != '' AND !is_null($content['notes'])) {
@@ -115,13 +128,11 @@ require_once('tent-markdown.php');
 							echo "<td></td>";
 						}
 
-						echo "<td><div class='prio_".$content['priority']."'>".$content['priority']."</div></td>";
-
 						if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
 						echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
 						}
 						elseif (isset($content['status']) AND $content['status'] == 'Done') {
-						echo "<td style='color: #aaa;'><img src='img/checked.png'></td>";	
+						echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></td>";	
 						}
 						else {
 							echo "<td></td>";
