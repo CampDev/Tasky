@@ -26,14 +26,14 @@ require_once('tent-markdown.php');
 					<input type="url" name="entity" placeholder="https://cacauu.tent.is" /> 
 					<input type="submit" />
 				</form></p>
-<h2>Tasky is a <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
+<h2>Tasky is a free <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
 
 <div id="features">
 <div class="container">
 
-<div id="feature"><h3><b>Create tasks</b></h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
-<div id="feature"><h3><b>Organise them</b></h3>We already support lists, priorities and deadlines and we are working towards allowing tags as well.</div>
-<div id="feature"><h3><b>Be productive</b></h3>Keep your tasks in sync across all devices. Tasky automatically syncs everything with your tent provider.</div>
+<div id="feature"><h3><b>1. Create tasks</b></h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
+<div id="feature"><h3><b>2. Organise them</b></h3>Each task is part of a list, which you can filter even further using priorities, deadlines and labels.</div>
+<div id="feature"><h3><b>3. Productivity!</b></h3>Keep your tasks in sync across all devices. Tasky automatically syncs everything with your tent provider.</div>
 </div>
 </div>
 
@@ -41,9 +41,9 @@ require_once('tent-markdown.php');
 <h2>How does Tasky differ from other apps</h2>
 <div id="features">
 <div class="container">
-<h3>We are inherently social</h3>
-<h3>Tight integration with other tent apps</h3>
-<h3>Open source</h3>
+<div id="feature"><h3><b>We are inherently social</h3></div>
+<div id="feature"><h3><b>Tight integration with other tent apps</h3></div>
+<div id="feature"><h3><b>Open source</h3></div>
 </div>
 </div>
 
@@ -151,19 +151,30 @@ require_once('tent-markdown.php');
 				}
 				echo "</table>";
 				?>
-				<div class="list-menu">
-				<h4>Your Lists</h4><?php foreach ($lists['posts'] as $list) {
+				<div class="sidebar">
+				<br><b>Lists</b>
+                <select style="height: 30px; width: 150px;">
+                <option>All lists</option><?php foreach ($lists['posts'] as $list) {
 					if(!is_null($list['content']['name'])) {
-						echo "<li> <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> </li>";
+						echo "<option> <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> </option>";
 					}
 				} ?>
-					<p align="center"><b>Create a new list: </b>
+                </select>
+					<p align="center">
 					<form align="center" method="post" action="task_handler.php?type=list">
-						<input type="text" name="list_name" />
+						<input type="text" name="list_name" placeholder="Add new list" />
 						<input type="submit">
 					</form>
 					</p>
+                <b>Views</b>
+                <li>All tasks</li>
+                <li>Due today</li>
+                <li>Upcoming</li>
+                <li>Calendar</li>
+                <br>
+                <b>Labels</b>
                 </div>
+
 				
 			<?php }
 			elseif (isset($_SESSION['entity']) and isset($_GET['list'])) {
@@ -239,12 +250,12 @@ require_once('tent-markdown.php');
 				echo "</table>";
 			?>
 			<div class="list-menu">
-				<h4>Your Lists</h4><?php foreach ($lists['posts'] as $list) {
+				<h4><b>Your Lists</b></h4><?php foreach ($lists['posts'] as $list) {
 					if(!is_null($list['content']['name'])) {
 						echo "<li> <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> </li>";
 					}
 				} ?>
-					<p align="center"><b>Create a new list: </b>
+					<p>
 					<form align="center" method="post" action="task_handler.php?type=list">
 						<input type="text" name="list_name" />
 						<input type="submit">
