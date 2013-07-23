@@ -88,7 +88,7 @@ require_once('tent-markdown.php');
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
-					echo "<table style=' width: 100%; max-width: 1000px; margin: auto;'>";
+					echo "<table>";
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
 						echo "<tr>";
@@ -143,26 +143,23 @@ require_once('tent-markdown.php');
 					}
 					echo "</table>";
 					?>
-				
-				<hr>
-				<h4 align="center">Your Lists:<?php foreach ($lists['posts'] as $list) {
+				<div class="list-menu">
+				<h4>Your Lists</h4><?php foreach ($lists['posts'] as $list) {
 					if(!is_null($list['content']['name'])) {
-						echo " <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> |";
+						echo "<li> <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> </li>";
 					}
 				} ?>
-				</h4>
 					<p align="center"><b>Create a new list: </b>
 					<form align="center" method="post" action="task_handler.php?type=list">
 						<input type="text" name="list_name" />
 						<input type="submit">
 					</form>
 					</p>
-
+                </div>
 				
 			<?php }
 		?>
 		</div>
-		<hr>
 		<footer><h4>Created by <a href="https://cacauu.tent.is">^Cacauu</a></h4>
 		<h4><a href="developer.php">Developer Resources</a></h4>
 		</footer>
