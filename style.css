@@ -3,7 +3,7 @@
 /* General Style */
 body {
 	height: auto;
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 	margin: 0px;
 }
@@ -12,6 +12,8 @@ body {
 	width: 95%;
 	height: auto;
 	padding: 2%;
+    max-width: 1000px;
+    margin: auto;
 }
 
 h1, h2, h3, h4 {
@@ -41,22 +43,6 @@ a, a:hover {
 	color: #3F8AEB;
 }
 
-.prio_0 {
-	color: #219807;
-}
-
-.prio_1 {
-	color: #CFCF1B;
-}
-
-.prio_2 {
-	color: #D68411;
-}
-
-.prio_3 {
-	color: #cd0d00;
-}
-
 a.complete {
 	color: #219807;
 }
@@ -75,8 +61,22 @@ footer {
 	width: 98%;
 	padding: 1%;
 	margin: auto;
+    clear: both;
 }
 
 td 	{
-	padding: 7px;
+	padding: 9px;
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    float: right;
+}
+
+div.list-menu {
+    width: 170px;
+    background: lightgray;
+    padding: 10px;
 }
