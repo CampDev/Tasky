@@ -93,9 +93,9 @@ table {
     margin-top: 20px;
 }
 
-div.list-menu {
+div.sidebar {
     width: 200px;
-    background: lightgray;
+    background: #E9E9E9;
     padding: 10px;
     height: 100%;
 }
@@ -111,6 +111,19 @@ div.list-menu {
     padding: 10px;
     float: left;
     text-align: center;
+}
+
+#header-inner a:link,
+#header-inner a:visited,
+#header-inner a:active {
+    color: white;
+    font-size: 20px;
+}
+
+#header-inner a:hover {
+    color: white;
+    font-size: 20px;
+    text-decoration: underline;
 }
 
 div.container {
