@@ -42,6 +42,11 @@
 								),
 							),
 						),
+						'mentions' => array(
+							array(
+								'post' => $current_task['post']['content']['list'],
+							),
+						),
 					);
 					$completed_post = json_encode($completed_post_raw);
 					$mac = generate_mac('hawk.1.header', time(), $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
@@ -79,7 +84,7 @@
 					$uncompleted_post_raw = array(
 						'id' => $id,
 						'entity' => substr($_SESSION['entity'], 0, strlen($_SESSION['entity']) -1),
-						'type' => 'http://cacauu.de/tasky/task/v0.1#done',
+						'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 						'content' => array(
 							'title' => $current_task['post']['content']['title'],
 							'status' => 'To Do',
@@ -96,6 +101,11 @@
 								),
 							),
 						),
+						'mentions' => array(
+							array(
+								'post' => $current_task['post']['content']['list'],
+							),
+						),
 					);
 					$uncompleted_post = json_encode($uncompleted_post_raw);
 					$mac = generate_mac('hawk.1.header', time(), $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
@@ -104,7 +114,7 @@
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT"); 
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $uncompleted_post);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#done"'));
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#todo"'));
 					$uncomplete_task = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($uncomplete_task['error'])) {
@@ -140,6 +150,11 @@
 								array(
 									'version' => $parent,
 								),
+							),
+						),
+						'mentions' => array(
+							array(
+								'post' => $_SESSION['list'],
 							),
 						),
 					);

@@ -13,10 +13,11 @@ require_once('tent-markdown.php');
 
 	<body>
 
-<div style="width: 100%; height: 50px; color: white; background: gray;">
-	<div style="margin: auto; max-width: 1000px; padding: 10px;">Tasky<a href="new_post_page.php"><img src="img/createpost.png" style="float: right;"></a><a href="logout.php" style="float: right;">Logout</a>
-</div>
-</div>
+	<?php if(isset($_SESSION['entity'])) { ?>
+	<div style="width: 100%; height: 50px; color: white; background: gray;">
+		<div style="margin: auto; max-width: 1000px; padding: 10px;">Tasky<a href="new_post_page.php"><img src="img/createpost.png" style="float: right;"></a><a href="logout.php" style="float: right;">Logout</a></div>
+	</div>
+	<?php } ?>
 
 		<div id="body_wrap">
 			<?php
@@ -31,8 +32,7 @@ require_once('tent-markdown.php');
 					<input type="submit" />
 				</form></p>
 			<?php }
-			else { ?>
-			<?php 
+			elseif (isset($_SESSION['entity']) AND !isset($_GET['list'])) { 
 				$entity = $_SESSION['entity'];
 				$entity_sub = $_SESSION['entity_sub'];
 
@@ -75,74 +75,65 @@ require_once('tent-markdown.php');
 				curl_setopt($init_lists, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_posts.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"')); //Setting the HTTP header
 				$lists = curl_exec($init_lists);
 				curl_close($init_lists);
-				$lists = json_decode($lists, true);
-				?>
+				$lists = json_decode($lists, true);					
+				$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+				$init = curl_init();
+				curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1');
+				curl_setopt($init, CURLOPT_HTTPGET, 1);
+				curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($init, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id']))); //Setting the HTTP header
+				$posts = curl_exec($init);
+				curl_close($init);
+				$posts = json_decode($posts, true);
+				echo "<table>";
+				foreach ($posts['posts'] as $task) {
+					$content = $task['content'];
+					echo "<tr>";
 
-					<?php					
-					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
-					$init = curl_init();
-					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1');
-					curl_setopt($init, CURLOPT_HTTPGET, 1);
-					curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
-					curl_setopt($init, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id']))); //Setting the HTTP header
-					$posts = curl_exec($init);
-					curl_close($init);
-					$posts = json_decode($posts, true);
-					echo "<table>";
-					foreach ($posts['posts'] as $task) {
-						$content = $task['content'];
-						echo "<tr>";
+                    if (isset($content['priority'])) {
+                    	echo "<td style='width: 10px;'><div class='prio_".$content['priority']."'></div></td>";
+                    }
+                  	else {
+                  		echo "<td></td>";
+                  	}
 
-                        if (isset($content['priority']) AND $content['priority'] == '0') {
-                        echo "<td style='width: 10px;'><div style='width: 7px; height: 7px; background: green; border-radius: 5px;'></div></td>";
-                        }
-                        elseif (isset($content['priority']) AND $content['priority'] == '1') {
-                        echo "<td style='width: 10px;'><div style='width: 7px; height: 7px; background: gold; border-radius: 5px;'></div></td>";
-                        }
-                        elseif (isset($content['priority']) AND $content['priority'] == '2') {
-                        echo "<td style='width: 10px;'><div style='width: 7px; height: 7px; background: orange; border-radius: 5px;'></div></td>";
-                        }
-                        elseif (isset($content['priority']) AND $content['priority'] == '3') {
-                        echo "<td style='width: 10px;'><div style='width: 7px; height: 7px; background: red; border-radius: 5px;'></div></td>";
-                        }
+					echo "<td><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
 
-						echo "<td><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
-
-						if ($content['notes'] != '' AND !is_null($content['notes'])) {
-							echo "<br><i><div style='font-size: 11px;'>".Tent_Markdown($content['notes'])."</div></i></a></td>";
-						}
-						else {
-							echo "</td>";
-						}
-
-
-						if (isset($content['duedate']) AND $content['duedate'] != '') {
-							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
-								echo "<td style='color: cd0d00;'>Today</td>";
-							}
-							else {
-								echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
-							}
-						}
-						else {
-							echo "<td></td>";
-						}
-
-						if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
-						echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
-						}
-						elseif (isset($content['status']) AND $content['status'] == 'Done') {
-						echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></td>";	
-						}
-						else {
-							echo "<td></td>";
-						}
-
-						echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png'></a></td>";
-						echo "</tr>";
+					if ($content['notes'] != '' AND !is_null($content['notes'])) {
+						echo "<br><i><div style='font-size: 11px;'>".Tent_Markdown($content['notes'])."</div></i></a></td>";
 					}
-					echo "</table>";
-					?>
+					else {
+						echo "</td>";
+					}
+
+
+					if (isset($content['duedate']) AND $content['duedate'] != '') {
+						if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
+							echo "<td style='color: cd0d00;'>Today</td>";
+						}
+						else {
+							echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
+						}
+					}
+					else {
+						echo "<td></td>";
+					}
+
+					if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
+						echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
+					}
+					elseif (isset($content['status']) AND $content['status'] == 'Done') {
+						echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></td>";	
+					}
+					else {
+						echo "<td></td>";
+					}
+
+					echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png'></a></td>";
+					echo "</tr>";
+				}
+				echo "</table>";
+				?>
 				<div class="list-menu">
 				<h4>Your Lists</h4><?php foreach ($lists['posts'] as $list) {
 					if(!is_null($list['content']['name'])) {
@@ -158,7 +149,94 @@ require_once('tent-markdown.php');
                 </div>
 				
 			<?php }
-		?>
+			elseif (isset($_SESSION['entity']) and isset($_GET['list'])) {
+				$entity = $_SESSION['entity'];
+				$entity_sub = $_SESSION['entity_sub'];
+				$nonce = uniqid('Tasky_', true);
+				$mac_posts = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+				$init_lists = curl_init();
+				curl_setopt($init_lists, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1');
+				curl_setopt($init_lists, CURLOPT_HTTPGET, 1);
+				curl_setopt($init_lists, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($init_lists, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_posts.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"')); //Setting the HTTP header
+				$lists = curl_exec($init_lists);
+				curl_close($init_lists);
+				$lists = json_decode($lists, true);	
+
+				$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&mentions='.$_GET['list'], $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+				$init = curl_init();
+				curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&mentions='.$_GET['list']);
+				curl_setopt($init, CURLOPT_HTTPGET, 1);
+				curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($init, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id']))); //Setting the HTTP header
+				$posts = curl_exec($init);
+				curl_close($init);
+				$posts = json_decode($posts, true);
+				echo "<table>";
+				foreach ($posts['posts'] as $task) {
+					$content = $task['content'];
+					echo "<tr>";
+
+                    if (isset($content['priority'])) {
+                    	echo "<td style='width: 10px;'><div class='prio_".$content['priority']."'></div></td>";
+                    }
+                  	else {
+                  		echo "<td></td>";
+                  	}
+
+					echo "<td><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
+
+					if ($content['notes'] != '' AND !is_null($content['notes'])) {
+						echo "<br><i><div style='font-size: 11px;'>".Tent_Markdown($content['notes'])."</div></i></a></td>";
+					}
+					else {
+						echo "</td>";
+					}
+
+
+					if (isset($content['duedate']) AND $content['duedate'] != '') {
+						if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
+							echo "<td style='color: cd0d00;'>Today</td>";
+						}
+						else {
+							echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
+						}
+					}
+					else {
+						echo "<td></td>";
+					}
+
+					if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
+						echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
+					}
+					elseif (isset($content['status']) AND $content['status'] == 'Done') {
+						echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></td>";	
+					}
+					else {
+						echo "<td></td>";
+					}
+
+					echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png'></a></td>";
+					echo "</tr>";
+				}
+				echo "</table>";
+			?>
+			<div class="list-menu">
+				<h4>Your Lists</h4><?php foreach ($lists['posts'] as $list) {
+					if(!is_null($list['content']['name'])) {
+						echo "<li> <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> </li>";
+					}
+				} ?>
+					<p align="center"><b>Create a new list: </b>
+					<form align="center" method="post" action="task_handler.php?type=list">
+						<input type="text" name="list_name" />
+						<input type="submit">
+					</form>
+					</p>
+                </div>
+			<?php 
+			}
+			?>
 		</div>
 		<footer><h4>Created by <a href="https://cacauu.tent.is">^Cacauu</a></h4>
 		<h4><a href="developer.php">Developer Resources</a></h4>
