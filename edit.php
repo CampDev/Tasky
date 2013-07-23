@@ -12,9 +12,13 @@ require_once('functions.php');
 		<title>Tasky</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<script type="text/javascript" src="live.js"></script>
 	</head>
 
 	<body>
+
+    <?php include('header.php');?>
+
 		<div id="body_wrap">
 			<?php
 			$id = $_GET['id'];
