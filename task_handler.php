@@ -59,6 +59,60 @@
 					}
 					break;
 
+				case 'uncomplete': //Post completed
+					//Getting the current version of the post
+					$id = $_GET['id'];
+					$nonce = uniqid('Tasky_', true);
+					$current_url = str_replace("{entity}", urlencode($entity_sub), $_SESSION['single_post_endpoint']);
+					$current_url = str_replace("{post}", $id, $current_url);
+					$mac_current = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$ch_current = curl_init();
+					curl_setopt($ch_current, CURLOPT_URL, $current_url);
+					curl_setopt($ch_current, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch_current, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac_current, time(), $nonce, $_SESSION['client_id'])));
+					$current_task_json = curl_exec($ch_current);
+					curl_close($ch_current);
+					$current_task = json_decode($current_task_json, true);
+					$parent_version = $_GET['parent'];
+
+					//Building the new task
+					$uncompleted_post_raw = array(
+						'id' => $id,
+						'entity' => substr($_SESSION['entity'], 0, strlen($_SESSION['entity']) -1),
+						'type' => 'http://cacauu.de/tasky/task/v0.1#done',
+						'content' => array(
+							'title' => $current_task['post']['content']['title'],
+							'status' => 'To Do',
+							'priority' => $current_task['post']['content']['priority'],
+							'list' => $current_task['post']['content']['list'],
+							'assignee' => '',
+							'duedate' => $current_task['post']['content']['duedate'],
+							'notes' => $current_task['post']['content']['notes'],
+						),
+						'version' => array(
+							'parents' => array(
+								array(
+									'version' => $parent_version,
+								),
+							),
+						),
+					);
+					$uncompleted_post = json_encode($uncompleted_post_raw);
+					$mac = generate_mac('hawk.1.header', time(), $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT"); 
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $uncompleted_post);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#done"'));
+					$uncomplete_task = curl_exec($ch);
+					curl_close($ch);
+					if (!isset($uncomplete_task['error'])) {
+						$_SESSION['uncompleted_task'] = $current_task['post']['content']['title'];
+						header('Location: index.php');
+					}
+					break;
+
 				case 'update': //Updated post sent
 					$id = $_GET['id'];
 					$parent = $_GET['parent'];
