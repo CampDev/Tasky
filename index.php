@@ -13,24 +13,41 @@ require_once('tent-markdown.php');
 
 	<body>
 
-	<?php if(isset($_SESSION['entity'])) { ?>
-	<div style="width: 100%; height: 50px; color: white; background: gray;">
-		<div style="margin: auto; max-width: 1000px; padding: 10px;">Tasky<a href="new_post_page.php"><img src="img/createpost.png" style="float: right;"></a><a href="logout.php" style="float: right;">Logout</a></div>
-	</div>
-	<?php } ?>
+    <?php include('header.php');?>
 
-		<div id="body_wrap">
 			<?php
 			if (!isset($_SESSION['entity']) OR isset($_GET['error'])) {
 				if (isset($_GET['error'])) {
 					echo "<h2 class='error'>Error: ".urldecode($_GET['error'])."</h2>";
 				} ?>
-				<h2 class="page_heading">Welcome to Tasky</h2>
-				<h3>Tasky is a <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h3>
+
+				<h1 class="page_heading">Welcome to Tasky</h1>
 				<p><form align="center" action="auth.php" method="get"> 
 					<input type="url" name="entity" placeholder="https://cacauu.tent.is" /> 
 					<input type="submit" />
 				</form></p>
+<h2>Tasky is a <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
+
+<div id="features">
+<div class="container">
+
+<div id="feature"><h3><b>Create tasks</b></h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
+<div id="feature"><h3><b>Organise them</b></h3>We already support lists, priorities and deadlines and we are working towards allowing tags as well.</div>
+<div id="feature"><h3><b>Be productive</b></h3>Keep your tasks in sync across all devices. Tasky automatically syncs everything with your tent provider.</div>
+</div>
+</div>
+
+
+<h2>How does Tasky differ from other apps</h2>
+<div id="features">
+<div class="container">
+<h3>We are inherently social</h3>
+<h3>Tight integration with other tent apps</h3>
+<h3>Open source</h3>
+</div>
+</div>
+
+
 			<?php }
 			elseif (isset($_SESSION['entity']) AND !isset($_GET['list'])) { 
 				$entity = $_SESSION['entity'];
@@ -85,7 +102,7 @@ require_once('tent-markdown.php');
 				$posts = curl_exec($init);
 				curl_close($init);
 				$posts = json_decode($posts, true);
-				echo "<table>";
+				echo "<div class='container'><table>";
 				foreach ($posts['posts'] as $task) {
 					$content = $task['content'];
 					echo "<tr>";
@@ -237,7 +254,7 @@ require_once('tent-markdown.php');
 			<?php 
 			}
 			?>
-		</div>
+        </div>
 		<footer><h4>Created by <a href="https://cacauu.tent.is">^Cacauu</a></h4>
 		<h4><a href="developer.php">Developer Resources</a></h4>
 		</footer>
