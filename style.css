@@ -8,14 +8,6 @@ body {
 	margin: 0px;
 }
 
-#body_wrap {
-	width: 95%;
-	height: auto;
-	padding: 2%;
-    max-width: 1000px;
-    margin: auto;
-}
-
 h1, h2, h3, h4 {
 	text-align: center;
 	font-weight: 400;
@@ -96,12 +88,32 @@ td 	{
 
 table {
     width: 100%;
-    max-width: 800px;
+    max-width: 750px;
     float: right;
+    margin-top: 20px;
 }
 
 div.list-menu {
-    width: 170px;
+    width: 200px;
     background: lightgray;
     padding: 10px;
+    height: 100%;
+}
+
+#features {
+    background: lightgray;
+    width: 100%;
+    height: 200px;
+}
+
+#feature {
+    width: 300px;
+    padding: 10px;
+    float: left;
+    text-align: center;
+}
+
+div.container {
+    max-width: 1000px;
+    margin: auto;
 }
