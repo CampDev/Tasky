@@ -12,11 +12,8 @@ require_once('functions.php');
 
 	<body>
 
+<?php include('header.php'); ?>
 
-	<?php if(isset($_SESSION['entity'])) { ?>
-	<div style="width: 100%; height: 50px; color: white; background: gray;">
-		<div style="margin: auto; max-width: 1000px; padding: 10px;">Tasky<a href="new_post_page.php"><img src="img/createpost.png" style="float: right;"></a><a href="logout.php" style="float: right;">Logout</a></div>
-	</div>
 	<?php } ?>
 
 			<?php 
