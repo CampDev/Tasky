@@ -13,7 +13,9 @@ require_once('tent-markdown.php');
 
 	<body>
 
-    <?php include('header.php');?>
+<div id="landing-banner" style="background: #3D6AA2; height: 150px; width: 100%; color: white; padding-top: 50px; text-align: center;">
+<h2>Tasky is a free <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
+</div>
 
 			<?php
 			if (!isset($_SESSION['entity']) OR isset($_GET['error'])) {
@@ -21,12 +23,11 @@ require_once('tent-markdown.php');
 					echo "<h2 class='error'>Error: ".urldecode($_GET['error'])."</h2>";
 				} ?>
 
-				<h1 class="page_heading">Welcome to Tasky</h1>
-				<p><form align="center" action="auth.php" method="get"> 
-					<input type="url" name="entity" placeholder="https://cacauu.tent.is" /> 
-					<input type="submit" />
+				<p><form align="center" action="auth.php" method="get" style="margin: 100px;"> 
+					<input type="url" name="entity" placeholder="https://cacauu.tent.is" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;"/> 
+					<input type="submit" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #ddd;" />
 				</form></p>
-<h2>Tasky is a free <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
+
 
 <div id="features">
 <div class="container">
