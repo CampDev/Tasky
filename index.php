@@ -13,9 +13,7 @@ require_once('tent-markdown.php');
 
 	<body>
 
-<div id="landing-banner" style="background: #3D6AA2; height: 150px; width: 100%; color: white; padding-top: 50px; text-align: center;">
-<h2>Tasky is a free <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
-</div>
+<?php include('header.php'); ?>
 
 			<?php
 			if (!isset($_SESSION['entity']) OR isset($_GET['error'])) {
@@ -23,28 +21,34 @@ require_once('tent-markdown.php');
 					echo "<h2 class='error'>Error: ".urldecode($_GET['error'])."</h2>";
 				} ?>
 
-				<p><form align="center" action="auth.php" method="get" style="margin: 100px;"> 
-					<input type="url" name="entity" placeholder="https://cacauu.tent.is" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;"/> 
+<div id="landing-banner" style="background: #3D6AA2; height: 180px; width: 100%; color: white; padding-top: 60px; text-align: center;">
+<h2>Tasky is a free <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
+				<p><form align="center" action="auth.php" method="get" style="margin: 35px;"> 
+					<input type="url" name="entity" placeholder="https://name.tent-provider.com" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 200px;"/> 
 					<input type="submit" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #ddd;" />
 				</form></p>
+</div>
 
 
-<div id="features">
+
+
+<div id="features" style="background: none; border: 0px;">
 <div class="container">
 
-<div id="feature"><h3><b>1. Create tasks</b></h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
-<div id="feature"><h3><b>2. Organise them</b></h3>Each task is part of a list, which you can filter even further using priorities, deadlines and labels.</div>
-<div id="feature"><h3><b>3. Productivity!</b></h3>Keep your tasks in sync across all devices. Tasky automatically syncs everything with your tent provider.</div>
+<h2><b>Clear your mind and start being productive</b></h2>
+<div id="feature"><h3>1. Create tasks</h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
+<div id="feature"><h3>2. Organise them</h3>Each task is part of a list, which you can filter even further using priorities, deadlines and labels.</div>
+<div id="feature"><h3>3. Productivity!</h3>Keep your tasks in sync across all devices. Tasky automatically syncs everything with your tent provider.</div>
 </div>
 </div>
 
 
-<h2>How does Tasky differ from other apps</h2>
+<h2><b>How does Tasky differ from other apps</b></h2>
 <div id="features">
 <div class="container">
-<div id="feature"><h3><b>We are inherently social</h3></div>
-<div id="feature"><h3><b>Tight integration with other tent apps</h3></div>
-<div id="feature"><h3><b>Open source</h3></div>
+<div id="feature"><h3>We are inherently social</h3>See what your friends need doing.</div>
+<div id="feature"><h3>Tight integration with other tent apps</h3>Your tasks in your calendar and Attic files attached to tasks.</div>
+<div id="feature"><h3>Open source</h3>Help us out!</div>
 </div>
 </div>
 
