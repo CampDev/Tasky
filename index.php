@@ -83,6 +83,16 @@ require_once('tent-markdown.php');
 					unset($_SESSION['deleted']);
 				}
 
+				?>
+
+
+
+				<div class='container'><div class='task-list'>
+
+<div class="filters">Priority / title / deadline / status</div>
+
+				<?php
+
 				$nonce = uniqid('Tasky_', true);
 				$mac_posts = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 				$init_lists = curl_init();
@@ -102,7 +112,7 @@ require_once('tent-markdown.php');
 				$posts = curl_exec($init);
 				curl_close($init);
 				$posts = json_decode($posts, true);
-				echo "<div class='container'><table>";
+				echo "<table>";
 				foreach ($posts['posts'] as $task) {
 					$content = $task['content'];
 					echo "<tr>";
@@ -149,23 +159,10 @@ require_once('tent-markdown.php');
 					echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png'></a></td>";
 					echo "</tr>";
 				}
-				echo "</table>";
+				echo "</table></div>";
 				?>
 				<div class="sidebar">
-				<br><b>Lists</b>
-                <select style="height: 30px; width: 150px;">
-                <option>All lists</option><?php foreach ($lists['posts'] as $list) {
-					if(!is_null($list['content']['name'])) {
-						echo "<option> <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> </option>";
-					}
-				} ?>
-                </select>
-					<p align="center">
-					<form align="center" method="post" action="task_handler.php?type=list">
-						<input type="text" name="list_name" placeholder="Add new list" />
-						<input type="submit">
-					</form>
-					</p>
+
                 <b>Views</b>
                 <li>All tasks</li>
                 <li>Due today</li>
@@ -173,6 +170,12 @@ require_once('tent-markdown.php');
                 <li>Calendar</li>
                 <br>
                 <b>Labels</b>
+					<p align="center">
+					<form align="center" method="post" action="task_handler.php?type=list">
+						<input type="text" name="list_name" placeholder="Add new list" />
+						<input type="submit">
+					</form>
+					</p>
                 </div>
 
 				
