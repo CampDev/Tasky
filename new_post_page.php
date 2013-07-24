@@ -12,9 +12,10 @@ require_once('functions.php');
 
 	<body>
 
+
 <?php include('header.php'); ?>
 
-	<?php } ?>
+<div class="container">
 
 			<?php 
 				$entity = $_SESSION['entity'];
@@ -61,11 +62,13 @@ require_once('functions.php');
 				curl_close($init_lists);
 				$lists = json_decode($lists, true);
 				?>
+
+<div id="new-task" style="width: 400px; margin: auto;">
 				<h2>Create a new task:</h2>
 				<form align="center" action="task_handler.php?type=task" method="post">
-					<p><b>Title:</b> <input type="text" name="title" placeholder="Your awesome task" /></p>
+					<p><input type="text" name="title" placeholder="Your awesome task" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 5px;" /></p>
 
-					<p>List: <select name="list">
+					<p><select name="list" style="border: 1px solid #ccc; background: none; border-radius: 5px; padding: 3px;">
 						<?php
 						foreach ($lists['posts'] as $list) {
 							if(!is_null($list['content']['name'])) {
@@ -73,20 +76,20 @@ require_once('functions.php');
 							}
 						}
 						?>
-					</select>Priority:
-					<select name="priority" size="1">
+					</select>
+					<select name="priority" size="1" style="border: 1px solid #ccc; background: none; border-radius: 5px; padding: 3px;">
 						<option value="0">Low</option>
 						<option SELECTED value="1">Average</option>
 						<option value="2">High</option>
 						<option value="3">Urgent</option>
-					</select></p>
-					<p>Due: <input type="date" name="duedate"/></p>
-					<p><textarea name="notes" placeholder="Add a description" class="message"></textarea> </p>
+					</select>
+					<input type="date" name="duedate" style="border: 1px solid #ccc; background: none; border-radius: 5px; padding: 3px;"/></p>
+					<p><textarea name="notes" placeholder="Add a description" style="width: 100%; padding: 3px; border: 1px solid #ccc; border-radius: 5px;" class="message"></textarea> </p>
 					<p>You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text</p>					<p><input type="submit"></p>
 				</form>
-
+</div>
 				<hr>
-
+</div>
 
 		<footer><h3>Created by <a href="https://cacauu.tent.is">^Cacauu</a></h3>
 		<h3><a href="developer.php">Developer Resources</a></h3>
