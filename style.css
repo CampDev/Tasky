@@ -88,18 +88,19 @@ td 	{
 }
 
 table {
-    width: 100%;
-    max-width: 750px;
+    width: 750px;
     float: right;
     margin-top: 20px;
 }
 
 div.sidebar {
-    width: 200px;
-    background: #E9E9E9;
-    padding: 10px;
+    width: 180px;
+    background: rgb(240, 240, 240);
+    padding: 20px;
     height: 100%;
+    border-right: 1px solid #ddd;
 }
+
 
 #features {
     background: #eee;
@@ -119,16 +120,47 @@ div.sidebar {
 #header-inner a:visited,
 #header-inner a:active {
     color: white;
-    font-size: 20px;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+div.header {
+    background: #3D6AA2;
+    width: 100%;
+    height: 50px;
+    color: white;
+}
+
+#header-inner {
+    padding: 10px;
+    padding-left: 30px;
 }
 
 #header-inner a:hover {
     color: white;
-    font-size: 20px;
     text-decoration: underline;
 }
 
 div.container {
     max-width: 1000px;
     margin: auto;
+}
+
+div.task-list {
+    float: right;
+    width: 750px;
+}
+
+li {
+    font-size: 14px;
+}
+div.filters {
+    float: right;
+    width: 753px;
+    background: rgb(245, 245, 245);
+    height: 15px;
+    border-bottom: 1px solid #ddd;
+    padding: 13px;
+    text-align: right;
+    font-size: 14px;
 }
