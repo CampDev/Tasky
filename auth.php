@@ -31,7 +31,7 @@ require_once('functions.php');
 				'types' => array(
 					'write' => array('https://tent.io/types/status/v0', 'http://cacauu.de/tasky/task/v0.1', 'http://cacauu.de/tasky/list/v0.1'),
 					),
-				'redirect_uri' => 'http://localhost:8888/tent-tasks/redirect.php',
+				'redirect_uri' => 'http://localhost:8888/tasky_git/redirect.php',
 				),
 			'permissions' => array('public' => false),
 		);

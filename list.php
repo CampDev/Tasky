@@ -60,29 +60,19 @@
 
 			    <div class="sidebar">
                 <b>Lists</b><hr>
-<!--
+
 				<?php 
 					foreach ($lists['posts'] as $list) {
 						echo "<p><a href='list.php?list=".$list['id']."'>".$list['content']['name']."</a></p>";
 					}
 				?>
--->
+
 					<p align="center">
 					<form align="center" method="post" action="task_handler.php?type=list">
 						<input type="text" name="list_name" placeholder="Add new list" class="text"/>
 						<input type="submit" class="text">
 					</form>
                     </p>
-<!--                <b>Views</b><hr>
-                <li>Due today</li>
-                <li>Upcoming</li>
-                <li>Calendar</li>
-                <br>
-                <b>People on this list</b><hr>
-                <br><br>
-                <b>Labels</b><hr>
-                <br><br>
--->
                 </div>
 
 				<div class='task-list'>
