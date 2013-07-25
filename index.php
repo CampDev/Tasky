@@ -55,9 +55,6 @@ require_once('tent-markdown.php');
 
 			<?php }
 			elseif (isset($_SESSION['entity']) AND !isset($_GET['list'])) { 
-				$entity = $_SESSION['entity'];
-				$entity_sub = $_SESSION['entity_sub'];
-
 				if (isset($_SESSION['loggedin']) AND $_SESSION['loggedin'] == true) {
 					echo "<h2 class='loggedin'>Logged in successfully!</h2>";
 					unset($_SESSION['loggedin']);
@@ -97,17 +94,6 @@ require_once('tent-markdown.php');
 <div class="filters">Priority / title / deadline / status</div>
 
 				<?php
-
-				$nonce = uniqid('Tasky_', true);
-				$mac_posts = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
-				$init_lists = curl_init();
-				curl_setopt($init_lists, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1');
-				curl_setopt($init_lists, CURLOPT_HTTPGET, 1);
-				curl_setopt($init_lists, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($init_lists, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_posts.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"')); //Setting the HTTP header
-				$lists = curl_exec($init_lists);
-				curl_close($init_lists);
-				$lists = json_decode($lists, true);					
 				$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 				$init = curl_init();
 				curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1');
@@ -187,17 +173,7 @@ require_once('tent-markdown.php');
 			<?php }
 			elseif (isset($_SESSION['entity']) and isset($_GET['list'])) {
 				$entity = $_SESSION['entity'];
-				$entity_sub = $_SESSION['entity_sub'];
-				$nonce = uniqid('Tasky_', true);
-				$mac_posts = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
-				$init_lists = curl_init();
-				curl_setopt($init_lists, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1');
-				curl_setopt($init_lists, CURLOPT_HTTPGET, 1);
-				curl_setopt($init_lists, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($init_lists, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_posts.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"')); //Setting the HTTP header
-				$lists = curl_exec($init_lists);
-				curl_close($init_lists);
-				$lists = json_decode($lists, true);	
+				$entity_sub = $_SESSION['entity_sub'];	
 
 				$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&mentions='.$_GET['list'], $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 				$init = curl_init();
