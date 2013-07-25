@@ -11,7 +11,7 @@ require_once('functions.php');
 	<head>
 		<title>Tasky</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<script type="text/javascript" src="live.js"></script>
 	</head>
 
@@ -21,6 +21,7 @@ require_once('functions.php');
 
 		<div id="body_wrap">
 			<?php
+			if (isset($_GET['id'])) {
 			$id = $_GET['id'];
 			$nonce = uniqid('Tasky_', true);
 			$entity_sub = substr_replace($_SESSION['entity'] ,"",-1);
@@ -98,7 +99,6 @@ require_once('functions.php');
 							}
 						?>
 					</select>
-					<?php //$_SESSION['list'] = $current_task['post']['content']['list']; //Setting the list to the one that is currently active. TODO: Make this changeable ?>
 					<?php $_SESSION['duedate'] = $current_task['post']['content']['duedate']; ?>
 					<input type="date" name="duedate" class="select"> <!-- TODO: Make this work as well -->
 					<p><textarea name="notes" class="note"><?php if(!is_null($current_task['post']['content']['notes'])) {echo $current_task['post']['content']['notes'];} ?></textarea></p>
@@ -106,6 +106,30 @@ require_once('functions.php');
 					<p><input type="submit"></p>
 			</form>
             </div>
+            <?php
+        	}
+        	elseif (isset($_GET['list'])) {
+        		$id = $_GET['list'];
+				$entity_sub_list = substr_replace($_SESSION['entity'] ,"",-1);
+				$current_url = str_replace("{entity}", urlencode($entity_sub_list), $_SESSION['single_post_endpoint']);
+				$current_url = str_replace("{post}", $id, $current_url);
+				$mac_current = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts/'.urlencode($entity_sub_list)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+				$ch_current = curl_init();
+				curl_setopt($ch_current, CURLOPT_URL, $current_url);
+				curl_setopt($ch_current, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch_current, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac_current, time(), $nonce, $_SESSION['client_id'])));
+				$current_list = curl_exec($ch_current);
+				curl_close($ch_current);
+				$current_list = json_decode($current_list, true);
+				var_export($current_list); ?>
+				<form align="center" method="post" action="task_handler.php?type=update_list&id=<?php echo $current_list['post']['id']; ?>&parent=<?php echo $current_list['post']['version']['id']; ?>">
+					<p><input name="name" type="text" value="<?php echo $current_list['post']['content']['name']; ?>" /></p>
+					<p><textarea name="description" class="notes"><?php echo $current_list['post']['content']['description']; ?></textarea></p>
+					<p><input type="submit" /></p>
+				</form>
+        	<?php
+        	}
+            ?>
 		</div>
 <?php include('footer.php') ?>
 

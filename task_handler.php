@@ -200,6 +200,62 @@
 					}
 					break;
 
+				case 'update_list': //Updated post sent
+					$id = $_GET['id'];
+					$parent = $_GET['parent'];
+					$name = $_POST['name'];
+					$description = $_POST['description'];
+					$updated_list = array(
+						'type' => 'http://cacauu.de/tasky/list/v0.1#',
+						'permissions' => array(
+							'public' => false,
+						),
+						'content' => array(
+							'name' => $name,
+							'description' => $description,
+						)
+					);
+					$f = fopen('request.txt', 'w');
+					$updated_list = json_encode($updated_list);
+					var_export($updated_list);
+					echo "<hr />";
+					$mac = generate_mac('hawk.1.header', time(), $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT"); 
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $updated_list);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/list/v0.1#'));
+					curl_setopt($ch, CURLOPT_VERBOSE, 1);
+					curl_setopt($ch, CURLOPT_STDERR, $f);
+					$update_list = curl_exec($ch);
+					curl_close($ch);
+					var_export($update_list);
+					fclose($f);
+					/*if (!isset($update_task['error'])) {
+						$_SESSION['updated'] = $_POST['title'];
+						header('Location: index.php');
+					}*/
+					break;
+
+				case 'delete':
+					$id = $_GET['id'];
+					$mac = generate_mac('hawk.1.header', time(), $nonce, "DELETE", '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+					curl_setopt($ch, CURLOPT_VERBOSE, 1);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json;'));
+					$delete = curl_exec($ch);
+					curl_close($ch);
+					if (!isset($delete['error'])) {
+						$_SESSION['deleted'] = true;
+						header('Location: index.php');
+					}
+					break;
+
 				case 'task':
 					$post_raw = array(
 						'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
