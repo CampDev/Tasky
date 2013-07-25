@@ -113,14 +113,15 @@ div.sidebar {
 
 
 #features {
-    background: #eee;
+    background: #27ae60;
     border-top: 1px solid #ddd;
     width: 100%;
-    height: auto;
+    height: 500px;
     margin-top: 50px;
     text-align: center;
     clear: both;
     margin-bottom: 30px;
+    padding-top: 10px;
 }
 
 #feature {
