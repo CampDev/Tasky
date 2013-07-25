@@ -22,7 +22,7 @@ require_once('tent-markdown.php');
 				} ?>
 
 <div id="landing-banner" style="background: #3D6AA2; height: 180px; width: 100%; color: white; padding-top: 60px; text-align: center;">
-<h2>Tasky is a free <b>Task Managment App</b> based on <a href="https://tent.io">Tent</a></h2>
+<h2>Clear your mind and become productive!</h2>
 				<p><form align="center" action="auth.php" method="get" style="margin: 35px;"> 
 					<input type="url" name="entity" placeholder="https://name.tent-provider.com" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 200px;"/> 
 					<input type="submit" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #ddd;" />
@@ -32,10 +32,10 @@ require_once('tent-markdown.php');
 
 
 
-<div id="features" style="background: none; border: 0px; height: auto;">
+<div id="features" style="">
 <div class="container">
 
-<h2><b>Clear your mind and start being productive!</b></h2>
+<h2>Tasky is a free <b>Task Managment</b> App...</h2>
 <div id="feature"><h3>1. Create tasks</h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
 <div id="feature"><h3>2. Organise them</h3>Each task is part of a list, which you can filter even further using priorities, deadlines and labels.</div>
 <div id="feature"><h3>3. Productivity!</h3>Keep your tasks in sync across all devices. Tasky automatically syncs everything with your tent provider.</div>
@@ -45,14 +45,25 @@ require_once('tent-markdown.php');
 
 
 
-<div id="features">
-<h2 style="color: white;"><b>What makes us special</b></h2>
+<div id="features" style="background: #27ae60;">
+<h2 style="color: white;">... made for everyone with a <b>life</b>...</h2>
 <div class="container">
-<div id="feature"><h3 style="color: white;">We are inherently social</h3>Your tent friends are already here. See what they should be doing!</div>
-<div id="feature"><h3 style="color: white;">Tight integration</h3>Tasky integrates perfectly with other tent applications.</div>
-<div id="feature"><h3 style="color: white;">Open source</h3>Help us out! We are on Github. :)</div>
+<div id="feature"><h3 style="color: white;">Personal</h3>Keep a list of your groceries, roofs that need repairing and birthday presents to buy, and share them with your partner in life.</div>
+<div id="feature"><h3 style="color: white;">Projects</h3>Weddings, school projects, birthday parties or even holiday preparations; Tasky will help you out.</div>
+<div id="feature"><h3 style="color: white;">Business</h3>Stay organised by assigning tasks to collegues and have tasks assigned to you. Subtasks, comments and attachments will ensure high productivity.</div>
 </div>
-</div>
+
+<div id="features"><h2 style="color: white;">... sporting tons of <b>features</b>...</h2></div>
+
+<div id="features"><h2 style="color: white;">... and powered by the social <b>tent</b> protocol.</h2></div>
+
+<div id="features"><h2 style="color: white;"><b>Give it a try!</b></h2>
+				<p><form align="center" action="auth.php" method="get" style="margin: 35px;"> 
+					<input type="url" name="entity" placeholder="https://name.tent-provider.com" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 200px;"/> 
+					<input type="submit" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #ddd;" />
+				</form></p>
+
+</div></div>
 
 
 			<?php }
