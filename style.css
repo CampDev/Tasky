@@ -97,9 +97,10 @@ td 	{
 }
 
 table {
-    width: 100%;
-    float: right;
-    margin-top: 20px;
+    width: 95%;
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 div.sidebar {
@@ -146,7 +147,6 @@ div.header {
 
 #header-inner {
     padding: 10px;
-    padding-left: 30px;
 }
 
 #header-inner a:hover {
@@ -160,7 +160,7 @@ div.container {
 }
 
 div.task-list {
-    float: right;
+    float: left;
     max-width: 750px;
     width: 100%;
 }
@@ -169,7 +169,6 @@ li {
     font-size: 14px;
 }
 div.filters {
-    float: right;
     width: 753px;
     background: rgb(245, 245, 245);
     height: 15px;
@@ -241,6 +240,15 @@ input.select {
         border: 0px;
         padding: 0px;
         padding-top: 20px;
+    }
+
+}
+
+/* Mobile */
+@media screen and (max-width: 1300px) {
+
+    div.container {
+    max-width: 100%;
     }
 
 }
