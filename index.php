@@ -32,24 +32,25 @@ require_once('tent-markdown.php');
 
 
 
-<div id="features" style="background: none; border: 0px;">
+<div id="features" style="background: none; border: 0px; height: auto;">
 <div class="container">
 
-<h2><b>Clear your mind and start being productive</b></h2>
+<h2><b>Clear your mind and start being productive!</b></h2>
 <div id="feature"><h3>1. Create tasks</h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
 <div id="feature"><h3>2. Organise them</h3>Each task is part of a list, which you can filter even further using priorities, deadlines and labels.</div>
 <div id="feature"><h3>3. Productivity!</h3>Keep your tasks in sync across all devices. Tasky automatically syncs everything with your tent provider.</div>
+<img src="img/tasks.png" style="text-align: center; margin-top: 30px;">
 </div>
 </div>
 
 
 
 <div id="features">
-<h2><b>How does Tasky differ from other apps</b></h2>
+<h2 style="color: white;"><b>What makes us special</b></h2>
 <div class="container">
-<div id="feature"><h3>We are inherently social</h3>See what your friends need doing.</div>
-<div id="feature"><h3>Tight integration with other tent apps</h3>Your tasks in your calendar and Attic files attached to tasks.</div>
-<div id="feature"><h3>Open source</h3>Help us out!</div>
+<div id="feature"><h3 style="color: white;">We are inherently social</h3>Your tent friends are already here. See what they should be doing!</div>
+<div id="feature"><h3 style="color: white;">Tight integration</h3>Tasky integrates perfectly with other tent applications.</div>
+<div id="feature"><h3 style="color: white;">Open source</h3>Help us out! We are on Github. :)</div>
 </div>
 </div>
 
