@@ -56,17 +56,46 @@
 				$posts = curl_exec($init);
 				curl_close($init);
 				$posts = json_decode($posts, true);
+                ?>
+
+			    <div class="sidebar">
+                <b>Lists</b><hr>
+<!--
+				<?php 
+					foreach ($lists['posts'] as $list) {
+						echo "<p><a href='list.php?list=".$list['id']."'>".$list['content']['name']."</a></p>";
+					}
+				?>
+-->
+					<p align="center">
+					<form align="center" method="post" action="task_handler.php?type=list">
+						<input type="text" name="list_name" placeholder="Add new list" class="text"/>
+						<input type="submit" class="text">
+					</form>
+                    </p>
+<!--                <b>Views</b><hr>
+                <li>Due today</li>
+                <li>Upcoming</li>
+                <li>Calendar</li>
+                <br>
+                <b>People on this list</b><hr>
+                <br><br>
+                <b>Labels</b><hr>
+                <br><br>
+-->
+                </div>
+
+				<div class='task-list'>
+				<div class="filters"><span style="margin-top: -8px; font-weight: bold; color: #4069a7; font-size: 22px; float: left;"><?php echo $current_list['post']['content']['name']; ?></span>Priority / title / deadline / status</div>
+				<?php 
 				if ($posts['posts'] == '' OR $posts['posts'] == array()) {
-					echo "<h3>No posts in ".$current_list['post']['content']['name']."</h3>";
+					echo "No posts in ".$current_list['post']['content']['name']."";
 				}
 				elseif (isset($posts['error'])) {
 					echo "<h3 style='color: red;'>Error: ".$posts['error']."</h3>";
 				}
 				else { ?>
-
-				<div class='task-list'>
-				<div class="filters"><span style="margin-top: -8px; font-weight: bold; color: #4069a7; font-size: 22px; float: left;"><?php echo $current_list['post']['content']['name']; ?></span>Priority / title / deadline / status</div>
-				<?php 
+                <?php
 					echo "<table>";
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
@@ -117,14 +146,6 @@
 					echo "</table></div>";
 					}
 				?>
-
-			<div class="sidebar">
-				<?php 
-					foreach ($lists['posts'] as $list) {
-						echo "<p><a href='list.php?list=".$list['id']."'>".$list['content']['name']."</a></p>";
-					}
-				?>
-            </div>
         	</div>
 	</body>
 </html>
