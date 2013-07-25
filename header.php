@@ -15,7 +15,8 @@
         ?>
 
         <div class="header">
-            <div id="header-inner" class="container">
+        <div class="container">
+            <div id="header-inner">
                 <a href="index.php">
                     <img src="" style="width: 40px; height: 40px; margin-top: -5px;">
                 </a>
@@ -32,4 +33,5 @@
                 <a href="logout.php" style="float: right;">Logout</a>
                 <?php } ?>
             </div>
+        </div>
         </div>
