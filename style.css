@@ -116,7 +116,8 @@ div.sidebar {
     width: 100%;
     text-align: center;
     clear: both;
-    padding-top: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
 
 #feature {
@@ -125,6 +126,7 @@ div.sidebar {
     float: left;
     text-align: center;
     height: auto;
+    margin-bottom: 40px;
 }
 
 #header-inner a:link,
