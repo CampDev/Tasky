@@ -144,7 +144,7 @@
 							'title' => $_POST['title'],
 							'status' => $_POST['status'],
 							'priority' => $_POST['priority'],
-							'list' => $_SESSION['list'],
+							'list' => $_POST['list'],
 							'assignee' => '',
 							'duedate' => $_SESSION['duedate'],
 							'notes' => $_POST['notes'],
@@ -159,7 +159,7 @@
 						'mentions' => array(
 							array(
 								'entity' => $_SESSION['entity_sub'],
-								'post' => $_SESSION['list'],
+								'post' => $_POST['list'],
 								'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 							),
 						),

@@ -47,7 +47,12 @@ require_once('functions.php');
 						<?php
 						foreach ($lists['posts'] as $list) {
 							if(!is_null($list['content']['name'])) {
-								echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
+								if ($list['id'] == $current_task['post']['content']['list']) {
+									echo "<option SELECTED value='".$list['id']."'>".$list['content']['name']."</option>";
+								}
+								else {
+									echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
+								}
 							}
 						}
 						?>
@@ -93,7 +98,7 @@ require_once('functions.php');
 							}
 						?>
 					</select>
-					<?php $_SESSION['list'] = $current_task['post']['content']['list']; //Setting the list to the one that is currently active. TODO: Make this changeable ?>
+					<?php //$_SESSION['list'] = $current_task['post']['content']['list']; //Setting the list to the one that is currently active. TODO: Make this changeable ?>
 					<?php $_SESSION['duedate'] = $current_task['post']['content']['duedate']; ?>
 					<input type="date" name="duedate" class="select"> <!-- TODO: Make this work as well -->
 					<p><textarea name="notes" class="note"><?php if(!is_null($current_task['post']['content']['notes'])) {echo $current_task['post']['content']['notes'];} ?></textarea></p>
