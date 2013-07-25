@@ -43,8 +43,9 @@ require_once('tent-markdown.php');
 </div>
 
 
-<h2><b>How does Tasky differ from other apps</b></h2>
+
 <div id="features">
+<h2><b>How does Tasky differ from other apps</b></h2>
 <div class="container">
 <div id="feature"><h3>We are inherently social</h3>See what your friends need doing.</div>
 <div id="feature"><h3>Tight integration with other tent apps</h3>Your tasks in your calendar and Attic files attached to tasks.</div>
@@ -250,8 +251,6 @@ require_once('tent-markdown.php');
 			}
 			?>
         </div>
-		<footer><h4>Created by <a href="https://cacauu.tent.is">^Cacauu</a></h4>
-		<h4><a href="developer.php">Developer Resources</a></h4>
-		</footer>
+<?php include('footer.php') ?>
 	</body>
 </html>
