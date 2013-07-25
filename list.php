@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once('functions.php');
-	require_once('Tent-Markdown.php');
+	require_once('tent-markdown.php');
 	if (!isset($_SESSION['entity'])) {
 		$error = "You're not logged in!";
 		header('Location: index.php?error='.urlencode($error));
