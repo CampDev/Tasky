@@ -44,7 +44,9 @@
 						),
 						'mentions' => array(
 							array(
+								'entity' => $_SESSION['entity_sub'],
 								'post' => $current_task['post']['content']['list'],
+								'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 							),
 						),
 					);
@@ -103,7 +105,9 @@
 						),
 						'mentions' => array(
 							array(
+								'entity' => $_SESSION['entity_sub'],
 								'post' => $current_task['post']['content']['list'],
+								'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 							),
 						),
 					);
@@ -154,7 +158,9 @@
 						),
 						'mentions' => array(
 							array(
+								'entity' => $_SESSION['entity_sub'],
 								'post' => $_SESSION['list'],
+								'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 							),
 						),
 					);
@@ -210,7 +216,9 @@
 						),
 						'mentions' => array(
 							array(
+								'entity' => $_SESSION['entity_sub'],
 								'post' => $_POST['list'],
+								'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 							),
 						),
 					);

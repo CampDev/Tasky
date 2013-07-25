@@ -19,12 +19,11 @@
                 <a href="index.php">
                     <img src="" style="width: 40px; height: 40px; margin-top: -5px;">
                 </a>
-
-                <select style="height: 30px; width: 150px;border: 1px solid white;margin-left: 20px;position: absolute;top: 10px;">
-                    <option>All lists</option>
+                <select style="height: 30px; width: 150px;border: 1px solid white;margin-left: 20px;position: absolute;top: 10px;" onchange="location = this.options[this.selectedIndex].value;">
+                    <option value="index.php">All Lists</option>
                     <?php foreach ($lists['posts'] as $list) {
                         if(!is_null($list['content']['name'])) {
-                            echo "<option> <a href='index.php?list=".$list['id']."'>".$list['content']['name']."</a> </option>";
+                            echo "<option value='list.php?list=".$list['id']."'>".$list['content']['name']."</option>";
                         }
                     } ?>
                 </select>
