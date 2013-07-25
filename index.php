@@ -32,15 +32,13 @@ require_once('tent-markdown.php');
 
 
 
-<div id="features" style="">
-<div class="container">
+<div id="features" class="container">
 
 <h2>Tasky is a free <b>Task Managment</b> App...</h2>
-<div id="feature"><h3>1. Create tasks</h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
-<div id="feature"><h3>2. Organise them</h3>Each task is part of a list, which you can filter even further using priorities, deadlines and labels.</div>
-<div id="feature"><h3>3. Productivity!</h3>Keep your tasks in sync across all devices. Tasky automatically syncs everything with your tent provider.</div>
-<img src="img/tasks.png" style="text-align: center; margin-top: 30px;">
-</div>
+<div style="width: 800px; margin: auto;"><img src="img/tasks.png" style="text-align: center; margin-top: 30px; box-shadow: 0px 0px 40px gray; border-radius: 5px; width: 500px;"></div>
+<div id="feature"><h3>Create tasks</h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
+<div id="feature"><h3>Organise them</h3>Each task is part of a list, which you can filter even further using priorities, deadlines and labels.</div>
+<div id="feature"><h3>Feel productive</h3>Keep your tasks in sync across all devices. Tasky automatically syncs everything with your tent provider.</div>
 </div>
 
 
