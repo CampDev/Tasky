@@ -37,10 +37,23 @@ require_once('functions.php');
 			curl_close($ch_current);
 			$current_task = json_decode($current_task_json, true);
 			?>
+            <div id="new-task">
+            <h2>Edit your task</h2>
 			<form align="center" method="post" action="task_handler.php?type=update&id=<?php echo $current_task['post']['id']; ?>&parent=<?php echo $current_task['post']['version']['id']; ?>">
-				<p><b>Title:</b> <input type="text" name="title" value="<?php echo $current_task['post']['content']['title']; ?>" /></p>
-				<p><b>Status:</b>  <select name="status"><option SELECTED value="todo">To Do</option><option value="done">Done</option></select></p> <!-- TODO: Make this dependant on the current status -->
-					<p>Priority: <select name="priority" size="1">
+				<p> <input type="text" name="title" value="<?php echo $current_task['post']['content']['title']; ?>" class="text" placeholder="Your awesome task" /></p>
+				<select name="status" class="select"><option SELECTED value="todo">To Do</option><option value="done">Done</option></select> <!-- TODO: Make this dependant on the current status -->
+
+                    <select name="list" class="select"> <!-- TODO: Make this work -->
+						<?php
+						foreach ($lists['posts'] as $list) {
+							if(!is_null($list['content']['name'])) {
+								echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
+							}
+						}
+						?>
+					</select>
+
+					<select name="priority" size="1" class="select">
 						<?php
 							switch ($current_task['post']['content']['priority']) {
 								case '0':
@@ -79,14 +92,17 @@ require_once('functions.php');
 									break;
 							}
 						?>
-					</select></p>
+					</select>
 					<?php $_SESSION['list'] = $current_task['post']['content']['list']; //Setting the list to the one that is currently active. TODO: Make this changeable ?>
 					<?php $_SESSION['duedate'] = $current_task['post']['content']['duedate']; ?>
-					<p>Notes:</p>
-					<p><textarea name="notes" class="message"><?php if(!is_null($current_task['post']['content']['notes'])) {echo $current_task['post']['content']['notes'];} ?></textarea></p>
+					<input type="date" name="duedate" class="select"> <!-- TODO: Make this work as well -->
+					<p><textarea name="notes" class="note"><?php if(!is_null($current_task['post']['content']['notes'])) {echo $current_task['post']['content']['notes'];} ?></textarea></p>
 					<p>You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text</p>
 					<p><input type="submit"></p>
 			</form>
+            </div>
 		</div>
+<?php include('footer.php') ?>
+
 <?php }
 ?>
