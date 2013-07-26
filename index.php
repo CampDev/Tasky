@@ -60,11 +60,7 @@ require_once('tent-markdown.php');
                 	<b>People</b><hr>Sort tasks by those who are involved<br>
                 	<br>
                 	<b>Labels</b><hr>Sort tasks by labels<br></br>
-					<form align="center" method="post" action="task_handler.php?type=list">
-						<input type="text" name="list_name" placeholder="Add new list" class="text"/>
-						<input type="submit" class="text">
-					</form>
-                </div>
+                		</div>
 
 				<div class='task-list'>
 
