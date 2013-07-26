@@ -39,12 +39,11 @@ padding: 10px;
                             echo "<option value='index.php?list=".$list['id']."'>".$list['content']['name']."</option>";
                         }
                     } ?>
-                    <option value="list.php">Manage your lists...</option>
                 </select>
 
-                <a href="new_post_page.php"><img src="img/createpost.png" style="margin-left: 240px;"></a>
+                <a href="new_post_page.php"><img src="img/createpost.png" style="margin-left: 240px; width: 28px;" alt="New post"></a>
+                <a href="list.php"><img src="img/list.png" style="margin-left: 20px; width: 28px;" alt="List management"></a>
                     <img src="" style="width: 40px; height: 40px; margin-top: -5px; float: right;">
-                <a href="logout.php" style="float: right;">Logout</a>
                 <?php } ?>
             </div>
         </div>
