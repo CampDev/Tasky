@@ -179,9 +179,11 @@ div.filters {
 }
 
 #new-task {
-    max-width: 400px; 
+    width: 500px; 
     margin: auto; 
-    padding: 10px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
     }
 
 #footer {
@@ -219,6 +221,17 @@ input.select {
     padding: 3px;
     font-family: inherit;
     width: 136px;
+}
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
 }
 
 /* Desktop */
