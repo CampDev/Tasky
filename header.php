@@ -22,21 +22,31 @@
                 <a href="index.php">
                 </a>
                 <select style="height: 50px;
-width: 220px;
-margin-left: -10px;
-position: absolute;
-top: 0px;
-background: #386194;
-border: none;
-color: white;
-padding: 10px;
--webkit-appearance: none;
-" onchange="location = this.options[this.selectedIndex].value;">
+                    width: 220px;
+                    margin-left: -10px;
+                    position: absolute;
+                    top: 0px;
+                    background: #386194;
+                    border: none;
+                    color: white;
+                    padding: 10px;
+                    -webkit-appearance: none;" 
+                    onchange="location = this.options[this.selectedIndex].value;">
                     <option SELECTED value="">Choose a list</option>
                     <option value="index.php">All Lists</option>
                     <?php foreach ($lists['posts'] as $list) {
-                        if(!is_null($list['content']['name'])) {
-                            echo "<option value='index.php?list=".$list['id']."'>".$list['content']['name']."</option>";
+                        if (isset($_GET['list'])) {
+                            if ($list['id'] == $_GET['list']) {
+                                echo "<option SELECTED value='index.php?list=".$list['id']."'>".$list['content']['name']."</option>";
+                            }
+                            else {
+                                echo "<option value='index.php?list=".$list['id']."'>".$list['content']['name']."</option>";
+                            }
+                        }
+                        else {
+                            if(!is_null($list['content']['name'])) {
+                                echo "<option value='index.php?list=".$list['id']."'>".$list['content']['name']."</option>";
+                            }
                         }
                     } ?>
                 </select>
