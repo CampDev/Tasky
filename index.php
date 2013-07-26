@@ -11,6 +11,16 @@ require_once('tent-markdown.php');
 		<title>Tasky</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="jquery.leanModal.min.js"></script>
+<script>
+
+			$(function() {
+    			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });		
+			});
+		
+</script>
 	</head>
 
 	<body>
@@ -201,5 +211,9 @@ require_once('tent-markdown.php');
 				?>
         </div>
 		<?php include('footer.php') ?>
+
+<div id="new_post" style="display: none;"><?php include('new_post_page.php') ?></div>
+<div id="list_management" style="display: none;"><?php include('list.php') ?></div>
+
 	</body>
 </html>
