@@ -30,7 +30,8 @@
                     border: none;
                     color: white;
                     padding: 10px;
-                    -webkit-appearance: none;" 
+                    -webkit-appearance: none;
+                    font-size: 16px;" 
                     onchange="location = this.options[this.selectedIndex].value;">
                     <option SELECTED value="">Choose a list</option>
                     <option value="index.php">All Lists</option>
