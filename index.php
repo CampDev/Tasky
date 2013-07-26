@@ -187,8 +187,5 @@ require_once('tent-markdown.php');
         </div>
 		<?php include('footer.php') ?>
 
-<div id="new_post" style="display: none;"><?php include('new_post_page.php') ?></div>
-<div id="list_management" style="display: none;"><?php include('list.php') ?></div>
-
 	</body>
 </html>
