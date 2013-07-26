@@ -163,8 +163,6 @@
 						),
 					);
 					$updated_post = json_encode($updated_post_raw);
-					unset($_SESSION['duedate']);
-					unset($_SESSION['list']);
 					$mac = generate_mac('hawk.1.header', time(), $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
