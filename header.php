@@ -20,9 +20,18 @@
         <div class="container">
             <div id="header-inner">
                 <a href="index.php">
-                    <img src="" style="width: 40px; height: 40px; margin-top: -5px;">
                 </a>
-                <select style="height: 30px; width: 150px;border: 1px solid white;margin-left: 20px;position: absolute;top: 10px;" onchange="location = this.options[this.selectedIndex].value;">
+                <select style="height: 50px;
+width: 220px;
+margin-left: -10px;
+position: absolute;
+top: 0px;
+background: #386194;
+border: none;
+color: white;
+padding: 10px;
+-webkit-appearance: none;
+" onchange="location = this.options[this.selectedIndex].value;">
                     <option SELECTED value="">Choose a list</option>
                     <option value="index.php">All Lists</option>
                     <?php foreach ($lists['posts'] as $list) {
@@ -33,7 +42,8 @@
                     <option value="list.php">Manage your lists...</option>
                 </select>
 
-                <a href="new_post_page.php"><img src="img/createpost.png" style="float: right;"></a>
+                <a href="new_post_page.php"><img src="img/createpost.png" style="margin-left: 240px;"></a>
+                    <img src="" style="width: 40px; height: 40px; margin-top: -5px; float: right;">
                 <a href="logout.php" style="float: right;">Logout</a>
                 <?php } ?>
             </div>
