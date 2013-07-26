@@ -61,7 +61,7 @@ require_once('tent-markdown.php');
 					echo "<table>";
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
-						echo "<tr>";
+						echo "<tr class='".$content['status']."'>";
 
                     	if (isset($content['priority'])) {
                     		echo "<td style='width: 10px;'><div class='prio_".$content['priority']."'></div></td>";
@@ -134,7 +134,7 @@ require_once('tent-markdown.php');
 						echo "<table>";
 						foreach ($posts['posts'] as $task) {
 							$content = $task['content'];
-							echo "<tr>";
+							echo "<tr class='".$content['status']."'>";
 
                     		if (isset($content['priority'])) {
                     			echo "<td style='width: 10px;'><div class='prio_".$content['priority']."'></div></td>";
