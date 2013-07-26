@@ -18,22 +18,15 @@
 		<?php include_once('header.php'); ?>
 			<div class="container">
 
-			    <div class="sidebar">
-                <b>Lists</b><hr>
 
-				<?php 
-					foreach ($lists['posts'] as $list) {
-						echo "<p><a href='list.php?list=".$list['id']."'>".$list['content']['name']."</a></p>";
-					}
-				?>
+
+				<div id='new-task'>
+				<h2>List management</h2>
 
 					<form align="center" method="post" action="task_handler.php?type=list">
-						<input type="text" name="list_name" placeholder="Add new list" class="text"/>
-						<input type="submit" class="text">
+						<input type="text" name="list_name" placeholder="Add new list" class="text" style="width: 70%"/>
+						<input type="submit" class="text" style="width: 20%;">
 					</form>
-                </div>
-
-				<div class='task-list'>
 				<?php 
 				if ($lists['posts'] == '' OR $lists['posts'] == array()) {
 					echo "No lists, create one!"; ?>
