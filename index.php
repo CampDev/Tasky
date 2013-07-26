@@ -130,53 +130,58 @@ require_once('tent-markdown.php');
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
-					echo "<table>";
-					foreach ($posts['posts'] as $task) {
-						$content = $task['content'];
-						echo "<tr>";
+					if ($posts['posts'] != array()) {
+						echo "<table>";
+						foreach ($posts['posts'] as $task) {
+							$content = $task['content'];
+							echo "<tr>";
 
-                    	if (isset($content['priority'])) {
-                    		echo "<td style='width: 10px;'><div class='prio_".$content['priority']."'></div></td>";
-                    	}
-                  		else {
-                  			echo "<td></td>";
-                  		}
+                    		if (isset($content['priority'])) {
+                    			echo "<td style='width: 10px;'><div class='prio_".$content['priority']."'></div></td>";
+                    		}
+                  			else {
+                  				echo "<td></td>";
+                  			}
 
-						echo "<td><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
+							echo "<td><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
 
-						if ($content['notes'] != '' AND !is_null($content['notes'])) {
-							echo "<br><i><div style='font-size: 11px;'>".Tent_Markdown($content['notes'])."</div></i></a></td>";
-						}
-						else {
-							echo "</td>";
-						}
-
-						if (isset($content['duedate']) AND $content['duedate'] != '') {
-							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
-								echo "<td style='color: cd0d00;'>Today</td>";
+							if ($content['notes'] != '' AND !is_null($content['notes'])) {
+								echo "<br><i><div style='font-size: 11px;'>".Tent_Markdown($content['notes'])."</div></i></a></td>";
 							}
 							else {
-								echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
+								echo "</td>";
 							}
-						}
-						else {
-							echo "<td></td>";
-						}
 
-						if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
-							echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
-						}
-						elseif (isset($content['status']) AND $content['status'] == 'Done') {
-							echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></td>";	
-						}
-						else {
-							echo "<td></td>";
-						}
+							if (isset($content['duedate']) AND $content['duedate'] != '') {
+								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
+									echo "<td style='color: cd0d00;'>Today</td>";
+								}
+								else {
+									echo "<td>".date('d/M/Y', $content['duedate'])."</td>";
+								}
+							}
+							else {
+								echo "<td></td>";
+							}
 
-						echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png'></a></td>";
-						echo "</tr>";
+							if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
+								echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
+							}
+							elseif (isset($content['status']) AND $content['status'] == 'Done') {
+								echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></td>";	
+							}
+							else {
+								echo "<td></td>";
+							}
+
+							echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png'></a></td>";
+							echo "</tr>";
+						}
+						echo "</table>";
 					}
-					echo "</table>";
+					else {
+						echo "<h2>No tasks in \" ".$current_list['post']['content']['name']."\"</h2>";
+					}
 				}
 				?>
         </div>
