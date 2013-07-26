@@ -41,10 +41,11 @@ padding: 10px;
                     } ?>
                 </select>
 
-                <a href="new_post_page.php"><img src="img/createpost.png" style="margin-left: 240px; width: 28px;" alt="New post"></a>
-                <a href="list.php"><img src="img/list.png" style="margin-left: 20px; width: 28px;" alt="List management"></a>
-                    <img src="" style="width: 40px; height: 40px; margin-top: -5px; float: right;">
+                <a rel="leanModal" href="#new_post"><img src="img/createpost.png" style="margin-left: 240px; width: 28px;" alt="New post"></a>
+                <a rel="leanModal" href="#list_management"><img src="img/list.png" style="margin-left: 20px; width: 28px;" alt="List management"></a>
+<img src="" style="width: 40px; height: 40px; margin-top: -5px; float: right;">
                 <?php } ?>
+
             </div>
         </div>
         </div>
