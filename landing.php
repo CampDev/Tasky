@@ -9,7 +9,6 @@
 	</head>
 
 	<body>
-	<?php include_once('header.php'); ?> <!-- @Kevin: Remove or keep? -->
 	<div id="landing-banner" style="background: #3D6AA2; height: 180px; width: 100%; color: white; padding-top: 60px; text-align: center;">
 		<h2>Clear your mind and become productive!</h2>
 		<?php if(!isset($_SESSION['entity'])) { ?>
