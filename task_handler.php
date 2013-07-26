@@ -61,7 +61,6 @@
 					$complete_task = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($complete_task['error'])) {
-						$_SESSION['completed_task'] = $current_task['post']['content']['title'];
 						header('Location: index.php');
 					}
 					break;
@@ -122,7 +121,6 @@
 					$uncomplete_task = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($uncomplete_task['error'])) {
-						$_SESSION['uncompleted_task'] = $current_task['post']['content']['title'];
 						header('Location: index.php');
 					}
 					break;
@@ -177,7 +175,6 @@
 					$update_task = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($update_task['error'])) {
-						$_SESSION['updated'] = $_POST['title'];
 						header('Location: index.php');
 					}
 					break;
@@ -195,7 +192,6 @@
 					$delete = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($delete['error'])) {
-						$_SESSION['deleted'] = true;
 						header('Location: index.php');
 					}
 					break;
@@ -247,7 +243,6 @@
 					$delete = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($delete['error'])) {
-						$_SESSION['deleted'] = true;
 						header('Location: index.php');
 					}
 					break;
@@ -287,7 +282,6 @@
 					$new_task = json_decode(curl_exec($ch), true);
 					curl_close($ch);
 					if (!isset($new_task['error'])) {
-						$_SESSION['new_task'] = $_POST['title'];
 						header('Location: index.php');
 					}					
 					break;
@@ -316,7 +310,6 @@
 					$new_list = json_decode(curl_exec($ch), true);
 					curl_close($ch);
 					if (!isset($new_list['error'])) {
-						$_SESSION['new_list'] = $_POST['list_name'];
 						header('Location: index.php');
 					}
 					break;

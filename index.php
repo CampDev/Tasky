@@ -25,37 +25,7 @@ require_once('tent-markdown.php');
 
 	<body>
 
-	<?php include('header.php'); 
-		if (isset($_SESSION['loggedin']) AND $_SESSION['loggedin'] == true) {
-			echo "<h2 class='loggedin'>Logged in successfully!</h2>";
-			unset($_SESSION['loggedin']);
-		}
-
-		if (isset($_SESSION['new_list'])) {
-			echo "<h2 class='loggedin'>Created list \" ".$_SESSION['new_list']."\"</h2>";
-			unset($_SESSION['new_list']);
-		}
-
-		if (isset($_SESSION['new_task'])) {
-			echo "<h2 class='loggedin'>Created new task \" ".$_SESSION['new_task']."\"</h2>";
-			unset($_SESSION['new_task']);
-		}
-
-		if (isset($_SESSION['completed_task'])) {
-			echo "<h2 class='loggedin'>Completed task \"".$_SESSION['completed_task']."\"</h2>";
-			unset($_SESSION['completed_task']);
-		}
-
-		if (isset($_SESSION['updated'])) {
-			echo "<h2 class='loggedin'>Updated task \"".$_SESSION['updated']."\"</h2>";
-			unset($_SESSION['updated']);
-		}
-
-		if (isset($_SESSION['deleted'])) {
-			echo "<h2 class='error'>Deleted successfully</h2>";
-			unset($_SESSION['deleted']);
-		}
-	?>
+	<?php include('header.php'); ?>
 
 			<div class="container">
 				<div class="sidebar">
