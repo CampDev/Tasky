@@ -50,22 +50,26 @@ require_once('tent-markdown.php');
 			<div class="container">
 				<div class="sidebar">
 
-                	<b>Views</b>
-                	<li>All tasks</li>
-                	<li>Due today</li>
-                	<li>Upcoming</li>
-                	<li>Calendar</li>
+                	<b>Quick views</b><hr>
+                	All tasks<br>
+                    Inbox<br>
+                	Due today<br>
+                	Upcoming<br>
+                	Calendar<br>
                 	<br>
-                	<b>Labels</b>
+                	<b>People</b><hr>Sort tasks by those who are involved<br>
+                	<br>
+                	<b>Labels</b><hr>Sort tasks by labels<br></br>
 					<form align="center" method="post" action="task_handler.php?type=list">
-						<input type="text" name="list_name" placeholder="Add new list" />
-						<input type="submit">
+						<input type="text" name="list_name" placeholder="Add new list" class="text"/>
+						<input type="submit" class="text">
 					</form>
                 </div>
 
 				<div class='task-list'>
 
-				<div class="filters">Priority / title / deadline / status</div>
+				<div class="filters">Priority / title / deadline / status
+</div>
 
 				<?php
 				if (!isset($_GET['list'])) {
