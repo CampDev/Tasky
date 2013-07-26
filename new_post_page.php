@@ -13,7 +13,6 @@ require_once('functions.php');
 	<body>
 
 
-<?php include('header.php'); ?>
 
 <div class="container">
 
@@ -91,6 +90,5 @@ require_once('functions.php');
 
 </div>
 
-<?php include('footer.php') ?>
 	</body>
 </html>
