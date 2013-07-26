@@ -14,7 +14,7 @@
 		<?php if(!isset($_SESSION['entity'])) { ?>
 			<p><form align="center" action="auth.php" method="get" style="margin: 35px;"> 
 				<input type="url" name="entity" placeholder="https://name.tent-provider.com" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 200px;"/> 
-				<input type="submit" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #ddd;" />
+				<input type="submit" value="Sign in with Tent!" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #ddd;" />
 			</form></p>
 		<?php } ?>
 	</div>
