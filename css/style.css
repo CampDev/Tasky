@@ -95,7 +95,7 @@ tr.todo, tr.to do {
 }
 
 tr.done, tr.done a {
-    color: #ADADAD !important;
+    opacity: 0.75;
 }
 
 td  {
