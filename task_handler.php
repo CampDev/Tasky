@@ -144,7 +144,7 @@
 							'priority' => $_POST['priority'],
 							'list' => $_POST['list'],
 							'assignee' => '',
-							'duedate' => $_SESSION['duedate'],
+							'duedate' => strtotime($_POST['duedate']),
 							'notes' => $_POST['notes'],
 						),
 						'version' => array(

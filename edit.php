@@ -99,8 +99,7 @@ require_once('functions.php');
 							}
 						?>
 					</select>
-					<?php $_SESSION['duedate'] = $current_task['post']['content']['duedate']; ?>
-					<input type="date" name="duedate" class="select"> <!-- TODO: Make this work as well -->
+					<input type="date" name="duedate" min="<?php echo date('Y-m-d', time()); ?>" value="<?php echo date('Y-m-d', $current_task['post']['content']['duedate']); ?>" class="select"> <!-- TODO: Make this work as well -->
 					<p><textarea name="notes" class="note"><?php if(!is_null($current_task['post']['content']['notes'])) {echo $current_task['post']['content']['notes'];} ?></textarea></p>
 					<p>You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text</p>
 					<p><input type="submit"></p>
