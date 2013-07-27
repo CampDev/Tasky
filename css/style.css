@@ -122,7 +122,6 @@ div.sidebar {
 
 
 #features {
-    width: 100%;
     text-align: center;
     clear: both;
     padding-top: 25px;
@@ -155,7 +154,6 @@ div.header {
 }
 
 #header-inner {
-    padding: 10px;
 }
 
 #header-inner a:hover {
@@ -163,7 +161,30 @@ div.header {
     text-decoration: underline;
 }
 
+select.header-dropdown {
+    height: 50px;
+    width: 220px;
+    background: #386194;
+    border: none;
+    color: white;
+    padding: 10px;
+    -webkit-appearance: none;
+    font-size: 16px;
+    float: left;
+}
+
+div.header-navigation {
+    padding: 10px;
+}
+
 div.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+div.padded-container {
+    padding: 2%;
+    width: 96%;
     max-width: 1000px;
     margin: auto;
 }
@@ -178,7 +199,8 @@ li {
     font-size: 12px;
 }
 div.filters {
-    width: 753px;
+    width: 100%;
+    max-width: 753px;
     background: rgb(245, 245, 245);
     height: 15px;
     border-bottom: 1px solid #ddd;
@@ -244,14 +266,53 @@ input.select {
     display: none;
 }
 
+img.landing-image {
+text-align: center; margin-top: 30px; box-shadow: 0px 0px 40px gray; border-radius: 5px; max-width: 500px; width: 90%; margin: auto 5%;
+}
+
+div#landing-banner {
+background: #3D6AA2; height: auto; width: 100%; color: white; text-align: center;
+}
+
+input.sign-in {
+padding: 10px; border: 1px solid #27ae60; border-radius: 5px; background: #27ae60; cursor: pointer; color: white;
+}
+
+input.sign-in:hover {
+padding: 10px; border: 1px solid lime; border-radius: 5px; background: #27ae60; cursor: pointer; color: white;
+}
+
+
+
 /* Desktop */
 @media screen and (min-width: 771px) {
 
 }
 
 
+/* */
+@media screen and (max-width: 1000px) {
+    div.sidebar {
+        width: 19.75%;
+        padding: 1%;
+        padding-top: 20px;
+    }
+    div.task-list {
+        width: 78%;
+    }
+    div.filters {
+        width: 95%;
+        padding: 2.5%;
+    }
+    table {
+        width: 94%;
+        margin: 3%;
+    }
+}
+
+
 /* Mobile */
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 600px) {
 
     #feature {
         width: 96%;
@@ -263,15 +324,24 @@ input.select {
         border: 0px;
         padding: 0px;
         padding-top: 20px;
+	display: none;
     }
+    div.task-list {
+	width: 100%;
+}
+    select.header-dropdown {
+	width: 50%;
+}
 
 }
 
-/* Mobile */
-@media screen and (max-width: 1300px) {
+
+/* Mobile
+@media screen and (max-width: 1360px) {
 
     div.container {
     max-width: 100%;
     }
 
 }
+*/
