@@ -12,6 +12,7 @@ require_once('functions.php');
 		<title>Tasky</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<meta charset="utf-8">
 		<script type="text/javascript" src="live.js"></script>
 	</head>
 
@@ -120,7 +121,7 @@ require_once('functions.php');
 				$current_list = curl_exec($ch_current);
 				curl_close($ch_current);
 				$current_list = json_decode($current_list, true);
-				var_export($current_list); ?>
+				?>
 				<form align="center" method="post" action="task_handler.php?type=update_list&id=<?php echo $current_list['post']['id']; ?>&parent=<?php echo $current_list['post']['version']['id']; ?>">
 					<p><input name="name" type="text" value="<?php echo $current_list['post']['content']['name']; ?>" /></p>
 					<p><textarea name="description" class="notes"><?php echo $current_list['post']['content']['description']; ?></textarea></p>
