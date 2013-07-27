@@ -19,19 +19,7 @@
         <div class="header">
         <div class="container">
             <div id="header-inner">
-                <a href="index.php">
-                </a>
-                <select style="height: 50px;
-                    width: 220px;
-                    margin-left: -10px;
-                    position: absolute;
-                    top: 0px;
-                    background: #386194;
-                    border: none;
-                    color: white;
-                    padding: 10px;
-                    -webkit-appearance: none;
-                    font-size: 16px;" 
+                <select class="header-dropdown"
                     onchange="location = this.options[this.selectedIndex].value;">
                     <option SELECTED value="">Choose a list</option>
                     <option value="index.php">All Lists</option>
@@ -51,11 +39,12 @@
                         }
                     } ?>
                 </select>
-
-                <a rel="leanModal" href="#new_post"><img src="img/createpost.png" style="margin-left: 240px; width: 28px;" alt="New post"></a>
+<div class="header-navigation">
+                <a rel="leanModal" href="#new_post"><img src="img/createpost.png" style="margin-left: 20px; width: 28px;" alt="New post"></a>
                 <a rel="leanModal" href="#list_management"><img src="img/list.png" style="margin-left: 20px; width: 28px;" alt="List management"></a>
 <img src="" style="width: 40px; height: 40px; margin-top: -5px; float: right;">
                 <?php } ?>
+</div>
 
             </div>
         </div>
