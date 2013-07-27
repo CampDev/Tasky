@@ -2,9 +2,9 @@
 //Session Stuff #1
 session_start();
 require_once('functions.php');
-	if (!isset($_GET['entity'])) {
+	if (!isset($_GET['entity']) OR $_GET['entity'] == '') {
 		$error = 'Please enter an entity and try again';
-		header('Location: index.php?error='.$error);
+		header('Location: landing.php?error='.$error);
 	}
 	else {
 		//Check if entity already ends with /, if not adds /

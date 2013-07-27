@@ -12,7 +12,10 @@
 	<div id="landing-banner">
 	<div class="padded-container">
 		<h2>Clear your mind and become productive!</h2>
-		<?php if(!isset($_SESSION['entity'])) { ?>
+		<?php if (isset($_GET['error'])) {
+			echo "<h2 class='error'>".urldecode($_GET['error'])."</h2>";
+		}
+		if(!isset($_SESSION['entity'])) { ?>
 			<p><form align="center" action="auth.php" method="get" style="margin-top: 35px;"> 
 				<input type="url" name="entity" placeholder="https://name.tent-provider.com" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 200px;"/> 
 				<input type="submit" class="sign-in" value="Sign in with Tent" />
