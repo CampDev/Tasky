@@ -4,6 +4,13 @@
 		require_once('functions.php');
 		$entity_sub = substr_replace($_SESSION['entity'] ,"",-1);
 		$nonce = uniqid('Tasky_', true);
+		if (isset($_SESSION['redirect_list'])) {
+			$redirect_url = 'index.php?list='.$_SESSION['redirect_list'];
+			unset($_SESSION['redirect_list']);
+		}
+		else {
+			$redirect_url = 'index.php';
+		}
 		switch ($_GET['type']) {
 				case 'complete': //Post completed
 					//Getting the current version of the post
@@ -61,7 +68,7 @@
 					$complete_task = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($complete_task['error'])) {
-						header('Location: index.php');
+						header('Location: '.$redirect_url);
 					}
 					break;
 
@@ -121,16 +128,13 @@
 					$uncomplete_task = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($uncomplete_task['error'])) {
-						header('Location: index.php');
+						header('Location: '.$redirect_url);
 					}
 					break;
 
 				case 'update': //Updated post sent
 					$id = $_GET['id'];
 					$parent = $_GET['parent'];
-					if (is_null($_SESSION['duedate'])) {
-						$_SESSION['duedate'] = '';
-					}
 					if (is_null($_POST['notes'])) {
 						$_POST['notes'] = '';
 					}
@@ -173,7 +177,7 @@
 					$update_task = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($update_task['error'])) {
-						header('Location: index.php');
+						header('Location: '.$redirect_url);
 					}
 					break;
 
@@ -241,7 +245,7 @@
 					$delete = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($delete['error'])) {
-						header('Location: index.php');
+						header('Location: '.$redirect_url);
 					}
 					break;
 
@@ -280,7 +284,7 @@
 					$new_task = json_decode(curl_exec($ch), true);
 					curl_close($ch);
 					if (!isset($new_task['error'])) {
-						header('Location: index.php');
+						header('Location: '.$redirect_url);
 					}					
 					break;
 
@@ -308,7 +312,7 @@
 					$new_list = json_decode(curl_exec($ch), true);
 					curl_close($ch);
 					if (!isset($new_list['error'])) {
-						header('Location: index.php');
+						header('Location: '.$redirect_url);
 					}
 					break;
 				

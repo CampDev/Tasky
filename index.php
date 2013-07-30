@@ -47,6 +47,7 @@ require_once('tent-markdown.php');
 
 				<?php
 				if (!isset($_GET['list'])) {
+					unset($_SESSION['redirect_list']);
 					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$init = curl_init();
 					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1');
@@ -105,6 +106,7 @@ require_once('tent-markdown.php');
 					echo "</table></div>";
 				}
 				elseif (isset($_GET['list'])) {
+					$_SESSION['redirect_list'] = $_GET['list'];
 					$id = $_GET['list'];
 					$entity_sub_list = substr_replace($_SESSION['entity'] ,"",-1);
 					$current_url = str_replace("{entity}", urlencode($entity_sub_list), $_SESSION['single_post_endpoint']);
