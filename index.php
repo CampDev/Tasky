@@ -93,7 +93,7 @@ require_once('tent-markdown.php');
 						if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
 							echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
 						}
-						elseif (isset($content['status']) AND $content['status'] == 'Done') {
+						elseif (isset($content['status']) AND $content['status'] == 'Done' OR $content['status'] == 'done') {
 							echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></td>";	
 						}
 						else {
