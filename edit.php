@@ -43,9 +43,20 @@ require_once('functions.php');
             <h2>Edit your task</h2>
 			<form align="center" method="post" action="task_handler.php?type=update&id=<?php echo $current_task['post']['id']; ?>&parent=<?php echo $current_task['post']['version']['id']; ?>">
 				<p> <input type="text" name="title" value="<?php echo $current_task['post']['content']['title']; ?>" class="text" placeholder="Your awesome task" /></p>
-				<select name="status" class="select"><option SELECTED value="todo">To Do</option><option value="done">Done</option></select> <!-- TODO: Make this dependant on the current status -->
+				<select name="status" class="select">
+					<?php
+						if ($current_task['post']['content']['status'] == 'todo') {
+							echo "<option SELECTED value='todo'>To Do</option>";
+							echo "<option value='done'>Done</option>";
+						}
+						else {
+							echo "<option value='todo'>To Do</option>";
+							echo "<option SELECTED value='done'>Done</option>";
+						} 
+						?>
+				</select>
 
-                    <select name="list" class="select"> <!-- TODO: Make this work -->
+                    <select name="list" class="select">
 						<?php
 						foreach ($lists['posts'] as $list) {
 							if(!is_null($list['content']['name'])) {
