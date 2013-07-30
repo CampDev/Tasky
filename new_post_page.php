@@ -28,7 +28,17 @@ $entity_sub = $_SESSION['entity_sub'];
 						<?php
 						foreach ($lists['posts'] as $list) {
 							if(!is_null($list['content']['name'])) {
-								echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
+								if (isset($_GET['list'])) {
+									if ($list['id'] == $_GET['list']) {
+										echo "<option SELECTED value='".$list['id']."'>".$list['content']['name']."</option>";
+									}
+									else {
+										echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
+									}
+								}
+								else {
+									echo "<option value='".$list['id']."'>".$list['content']['name']."</option>";
+								}
 							}
 						}
 						?>
