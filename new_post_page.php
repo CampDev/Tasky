@@ -19,7 +19,7 @@ $entity_sub = $_SESSION['entity_sub'];
 
 
 <div class="container">
-
+ <?php include_once('header.php') ?>
 <div id="new-task">
 				<h2>Create a new task</h2>
 				<form align="center" action="task_handler.php?type=task" method="post">
