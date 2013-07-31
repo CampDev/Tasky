@@ -40,8 +40,10 @@
                     } ?>
                 </select>
 <div class="header-navigation">
-                <a rel="leanModal" href="#new_post"><img src="img/createpost.png" style="margin-left: 20px; width: 28px;" alt="New post"></a>
-                <a rel="leanModal" href="#list_management"><img src="img/list.png" style="margin-left: 20px; width: 28px;" alt="List management"></a>
+                <a class="javascript-nav" rel="leanModal" href="#new_post"><img src="img/createpost.png" style="margin-left: 20px; width: 28px;" alt="New post"></a>
+                <a class="javascript-nav" rel="leanModal" href="#list_management"><img src="img/list.png" style="margin-left: 20px; width: 28px;" alt="List management"></a>
+                <a class="javaless-nav" href="new_post_page.php"><img src="img/createpost.png" style="margin-left: 20px; width: 28px;" alt="New post"></a>
+                <a class="javaless-nav" href="list.php"><img src="img/list.png" style="margin-left: 20px; width: 28px;" alt="List management"></a>
 <img src="" style="width: 40px; height: 40px; margin-top: -5px; float: right;">
                 <?php } ?>
 </div>
