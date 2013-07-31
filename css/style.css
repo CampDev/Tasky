@@ -37,7 +37,7 @@ h2.page_heading {
 }
 
 h2.error {
-    color: #DB4848;
+    color: #cd0d00;
 }
 
 h2.loggedin {
@@ -282,7 +282,9 @@ input.sign-in:hover {
 padding: 10px; border: 1px solid lime; border-radius: 5px; background: #27ae60; cursor: pointer; color: white;
 }
 
-
+    a.javaless-nav {
+    display: none;
+}
 
 /* Desktop */
 @media screen and (min-width: 771px) {
@@ -332,7 +334,9 @@ padding: 10px; border: 1px solid lime; border-radius: 5px; background: #27ae60; 
     select.header-dropdown {
 	width: 50%;
 }
-
+    a.javascript-nav {
+    display: none;
+}
 }
 
 
