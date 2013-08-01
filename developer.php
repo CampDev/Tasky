@@ -1,9 +1,10 @@
 <html>
 	<head>
 		<title>Developer Ressources - Tasky</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="ccs/style.css">
 	</head>
 	<body>
+   		<div class="container">
 		<?php
 			require_once('markdown.php');
 			$markdown = '#Tasky Post Type Documentation
@@ -44,5 +45,6 @@ Tasky uses two custom post types to store tasks and lists in your Tent account. 
 			$html = Markdown($markdown);
 			echo $html;
 		?>
+		</div>
 	</body>
 </html>
