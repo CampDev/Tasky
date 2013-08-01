@@ -32,10 +32,6 @@
 				<?php 
 				if ($lists['posts'] == '' OR $lists['posts'] == array()) {
 					echo "No lists, create one!"; ?>
-					<form align="center" method="post" action="task_handler.php?type=list">
-						<input type="text" name="list_name" placeholder="Add new list" class="text"/>
-						<input type="submit" class="text">
-					</form>
 				<?php
 				}
 				elseif (isset($posts['error'])) {
