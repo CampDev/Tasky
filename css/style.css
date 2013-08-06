@@ -228,6 +228,7 @@ input.text {
     padding: 5px; 
     border: 1px solid #ccc; 
     border-radius: 5px;
+    -webkit-appearance: none;
 }
 
 textarea.note {
@@ -237,6 +238,7 @@ textarea.note {
     border-radius: 5px;
     min-height: 100px;
     font-family: inherit;
+    -webkit-appearance: none;
 }
 
 select.select {
@@ -244,6 +246,7 @@ select.select {
     background: none;
     border-radius: 5px;
     padding: 3px;
+    -webkit-appearance: none;
 }
 
 input.select {
@@ -253,6 +256,7 @@ input.select {
     padding: 3px;
     font-family: inherit;
     width: 136px;
+    -webkit-appearance: none;
 }
 
 #lean_overlay {
@@ -267,19 +271,41 @@ input.select {
 }
 
 img.landing-image {
-text-align: center; margin-top: 30px; box-shadow: 0px 0px 40px gray; border-radius: 5px; max-width: 500px; width: 90%; margin: auto 5%;
+    text-align: center;
+    margin-top: 30px;
+    box-shadow: 0px 0px 40px gray;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 90%;
+    margin: auto 5%;
 }
 
 div#landing-banner {
-background: #3D6AA2; height: auto; width: 100%; color: white; text-align: center;
+    background: #3D6AA2;
+    height: auto;
+    width: 100%;
+    color: white; 
+    text-align: center;
 }
 
 input.sign-in {
-padding: 10px; border: 1px solid #27ae60; border-radius: 5px; background: #27ae60; cursor: pointer; color: white;
+    padding: 11px;
+    border: none;
+    border-radius: 5px;
+    background: #27ae60;
+    cursor: pointer;
+    color: white;
+    -webkit-appearance: none;
 }
 
 input.sign-in:hover {
-padding: 10px; border: 1px solid lime; border-radius: 5px; background: #27ae60; cursor: pointer; color: white;
+    padding: 11px;
+    border: none;
+    border-radius: 5px; 
+    background: #1B9750; 
+    cursor: pointer; 
+    color: white;
+    -webkit-appearance: none;
 }
 
     a.javaless-nav {
