@@ -175,6 +175,7 @@ select.header-dropdown {
 
 div.header-navigation {
     padding: 10px;
+    float: right;
 }
 
 div.container {
