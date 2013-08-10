@@ -146,7 +146,7 @@ div.sidebar {
 }
 
 div.header {
-    background: #5179CA;
+    background: #3D6AA2;
     width: 100%;
     height: 50px;
     color: white;
@@ -164,7 +164,7 @@ div.header {
 select.header-dropdown {
     height: 50px;
     width: 220px;
-    background: #4870C0;
+    background: #386194;
     border: none;
     color: white;
     padding: 10px;
