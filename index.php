@@ -60,7 +60,7 @@ require_once('tent-markdown.php');
 					echo "<div>";
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
-						echo "<div id='single-task' class='".$content['status']."'>";
+						echo "<div id='single-task'>";
 
                     	if (isset($content['priority'])) {
                     		echo "<div style='float: right;' class='prio_".$content['priority']."'></div>";
@@ -68,7 +68,7 @@ require_once('tent-markdown.php');
                   		else {
                   			echo "";
                   		}
-                        echo "<div id='single-task-inner'>";
+                        echo "<div id='single-task-inner' class='".$content['status']."'>";
 
 
 						if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
