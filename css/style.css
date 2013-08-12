@@ -104,12 +104,12 @@ footer {
     font-weight: 400;
 }
 
-tr.todo, tr.to do {
+div.todo, div.to do {
     color: black !important;
 }
 
-tr.done, tr.done a {
-    opacity: 0.75;
+div.done, div.done a {
+    opacity: 0.65;
 }
 
 td  {
@@ -132,6 +132,8 @@ div#single-task{
 }
 div.task-body{
     height: 40px;
+    vertical-align: middle;
+    display: table-cell;
 }
 
 div#single-task-inner{
@@ -222,7 +224,7 @@ div.padded-container {
 
 div.task-list {
     float: left;
-    max-width: 750px;
+    max-width: 779px;
     width: 100%;
 }
 
@@ -230,12 +232,11 @@ li {
     font-size: 12px;
 }
 div.filters {
-    width: 100%;
-    max-width: 753px;
+    width: 96%;
     background: rgb(245, 245, 245);
     height: 15px;
     border-bottom: 1px solid #ddd;
-    padding: 13px;
+    padding: 2%;
     text-align: right;
     font-size: 12px;
 }
