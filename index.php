@@ -57,61 +57,63 @@ require_once('tent-markdown.php');
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
-					echo "<table>";
+					echo "<div>";
 					foreach ($posts['posts'] as $task) {
 						$content = $task['content'];
-						echo "<tr class='".$content['status']."'>";
-/*
+						echo "<div id='single-task' class='".$content['status']."'>";
+
                     	if (isset($content['priority'])) {
-                    		echo "<td style='width: 10px;'><div class='prio_".$content['priority']."'></div></td>";
+                    		echo "<div style='float: right;' class='prio_".$content['priority']."'></div>";
                     	}
                   		else {
-                  			echo "<td></td>";
+                  			echo "";
                   		}
-*/
+                        echo "<div id='single-task-inner'>";
+
 
 						if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
-							echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
+							echo "<span style='color: #219807; float: left; margin-top: 12px; height: 28px;  margin-right: 20px;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></span>";	
 						}
 						elseif (isset($content['status']) AND $content['status'] == 'Done' OR $content['status'] == 'done') {
-							echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></td>";	
+							echo "<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></span>";	
 						}
 						else {
-							echo "<td></td>";
+							echo "";
 						}
 
 
-						echo "<td><div class='title'><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
+						echo "<div class='task-body'><div class='title'><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
                         echo "</div>";
 
 						if ($content['notes'] != '' AND !is_null($content['notes'])) {
-							echo "<i><div class='note'>".Tent_Markdown($content['notes'])."</div></i></a></td>";
+							echo "<i><div class='note'>".Tent_Markdown($content['notes'])."</div></i></a></div>";
 						}
 						else {
-							echo "</td>";
+							echo "</div>";
 						}
-/*
+
 						if (isset($content['duedate']) AND $content['duedate'] != '') {
 							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
-								echo "<td style='color: cd0d00;'>Today</td>";
+								echo "<span style='color: cd0d00;'>Today</span>";
 							}
 							else {
-								echo "<td><div class='date'>".date('d/M/Y', $content['duedate'])."</div></td>";
+								echo "<div class='date'>".date('d/M/Y', $content['duedate'])."</div>";
 							}
 						}
 						else {
-							echo "<td></td>";
+							echo "";
 						}
-*/
 
 
-/*
-						echo "<td style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png'></a></td>";
-						echo "</tr>";
-*/
+
+
+						echo "<span style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png' class='delete' style='float: right; margin-top: -28px; margin-right: 10px;'></a></span>";
+
+						echo "</div></div>";
+
 					}
 
-					echo "</table></div>";
+					echo "</div></div></div>";
 				}
 				elseif (isset($_GET['list'])) {
 					$_SESSION['redirect_list'] = $_GET['list'];

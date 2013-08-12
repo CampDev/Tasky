@@ -60,27 +60,23 @@ a.delete, a.edit {
 
 .prio_0 {
     width: 7px;
-    height: 7px;
-    background-color: rgb(0, 226, 0);
-    border-radius: 5px;
+    height: 61px;
+    border-right: 3px solid rgb(0, 226, 0);
 }
 .prio_1 {
     width: 7px;
-    height: 7px;
-    background-color: rgb(204, 132, 0);
-    border-radius: 5px;
+    height: 61px;
+    border-right: 3px solid rgb(204, 132, 0);
 }
 .prio_2 {
     width: 7px;
-    height: 7px;
-    background-color: red;
-    border-radius: 5px;
+    height: 61px;
+    border-right: 3px solid red;
 }
 .prio_3 {
     width: 7px;
-    height: 7px;
-    background-color: black;
-    border-radius: 5px;
+    height: 61px;
+    border-right: 3px solid black;
 }
 
 footer {
@@ -127,6 +123,23 @@ table {
     margin-top: 15px;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+div#single-task{
+    height: auto;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+}
+div.task-body{
+    height: 40px;
+}
+
+div#single-task-inner{
+    height: 40px;
+    width: 98%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 2%;
 }
 
 div.sidebar {
@@ -391,7 +404,6 @@ input.sign-in:hover {
     div.header{
     height: 60px;
     box-shadow: 0px 1px 3px rgb(180, 180, 180);
-    margin-bottom: 10px;
     }
     div.header-navigation{
     padding: 15px;
@@ -405,6 +417,27 @@ input.sign-in:hover {
     div.note{
     font-size: 14px;
     }
+
+.prio_0 {
+    border-right: 5px solid rgb(0, 226, 0);
+}
+.prio_1 {
+    border-right: 5px solid rgb(204, 132, 0);
+}
+.prio_2 {
+    border-right: 5px solid red;
+}
+.prio_3 {
+    border-right: 5px solid black;
+}
+div#single-task-inner{
+    width: 95%;
+    padding-left: 5%;
+}
+img.delete{
+    display: none;
+}
+
 
 }
 
