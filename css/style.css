@@ -58,25 +58,21 @@ a.delete, a.edit {
     color: black;
 }
 
-.prio_0 {
-    width: 7px;
+.priority {
     height: 61px;
-    border-right: 3px solid rgb(0, 226, 0);
+    float: right;
+}
+.prio_0 {
+    border-right: 2px solid rgb(0, 226, 0);
 }
 .prio_1 {
-    width: 7px;
-    height: 61px;
-    border-right: 3px solid rgb(204, 132, 0);
+    border-right: 2px solid rgb(204, 132, 0);
 }
 .prio_2 {
-    width: 7px;
-    height: 61px;
-    border-right: 3px solid red;
+    border-right: 2px solid red;
 }
 .prio_3 {
-    width: 7px;
-    height: 61px;
-    border-right: 3px solid black;
+    border-right: 2px solid black;
 }
 
 footer {
@@ -151,6 +147,8 @@ div.sidebar {
     height: 100%;
     border-right: 1px solid #ddd;
     float: left;
+    font-family: 'Source sans pro', sans-serif;
+    font-size: 14px;
 }
 
 
@@ -203,6 +201,7 @@ select.header-dropdown {
     -webkit-appearance: none;
     font-size: 16px;
     float: left;
+    font-family: 'Source sans pro', sans-serif;
 }
 
 div.header-navigation {
@@ -238,7 +237,8 @@ div.filters {
     border-bottom: 1px solid #ddd;
     padding: 2%;
     text-align: right;
-    font-size: 12px;
+    font-size: 13px;
+    font-family: 'Source sans pro', sans-serif;
 }
 
 #new-task {
@@ -421,16 +421,16 @@ input.sign-in:hover {
     }
 
 .prio_0 {
-    border-right: 5px solid rgb(0, 226, 0);
+    border-right: 0px solid rgb(0, 226, 0);
 }
 .prio_1 {
-    border-right: 5px solid rgb(204, 132, 0);
+    border-right: 0px solid rgb(204, 132, 0);
 }
 .prio_2 {
-    border-right: 5px solid red;
+    border-right: 0px solid red;
 }
 .prio_3 {
-    border-right: 5px solid black;
+    border-right: 0px solid black;
 }
 div#single-task-inner{
     width: 95%;

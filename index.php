@@ -63,7 +63,7 @@ require_once('tent-markdown.php');
 						echo "<div id='single-task'>";
 
                     	if (isset($content['priority'])) {
-                    		echo "<div style='float: right;' class='prio_".$content['priority']."'></div>";
+                    		echo "<div class='priority prio_".$content['priority']."'></div>";
                     	}
                   		else {
                   			echo "";
@@ -107,7 +107,7 @@ require_once('tent-markdown.php');
 
 
 
-						echo "<span style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png' class='delete' style='float: right; margin-top: -28px; margin-right: 10px;'></a></span>";
+						echo "<span style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png' class='delete' style='float: right; margin-top: -28px; margin-right: 15px;'></a></span>";
 
 						echo "</div></div>";
 
