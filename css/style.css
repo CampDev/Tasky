@@ -172,19 +172,24 @@ div.sidebar {
     margin-bottom: 40px;
 }
 
+div.header {
+    width: 100%;
+    height: 50px;
+    color: white;
+    background: url('../img/logobg.png') #5179CA;;
+    background-position: center;
+}
+
+div#header-inner {
+    padding-right: 20px;
+}
+
 #header-inner a:link,
 #header-inner a:visited,
 #header-inner a:active {
     color: white;
     font-size: 15px;
     margin-top: 5px;
-}
-
-div.header {
-    width: 100%;
-    height: 50px;
-    color: white;
-    background: #5179CA;
 }
 
 #header-inner a:hover {
@@ -392,12 +397,11 @@ a.javaless-nav {
 
     div.task-list {
 	    width: 100%;
-        margin-top: 60px;
+        margin-top: 50px;
     }
 
     select.header-dropdown {
 	    width: 50%;
-        height: 60px;
         padding: 15px;
     }
 
@@ -410,7 +414,6 @@ a.javaless-nav {
     }
 
     div.header{
-        height: 60px;
         box-shadow: 0px 1px 3px rgb(180, 180, 180);
         position: fixed;
     }
@@ -455,20 +458,5 @@ a.javaless-nav {
     img.delete{
         display: none;
     }
-
-}
-
-/* Mobile style */
-
-@media screen and (min-width: 1024px) {
-    div.header{
-    background: url('../img/logobg.png');
-    background-position: center;
-    }
-
-    div#header-inner{
-    padding-left: 90px;    
-    }
-
 
 }

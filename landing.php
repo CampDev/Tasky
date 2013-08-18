@@ -15,14 +15,18 @@
         <div class="header">
         <div class="container">
             <div id="header-inner">
-            <a href="http://dev.campnews.org/tasky" style="float: left; font-size: 32px; margin-top: 5px; font-family: 'Raleway', sans-serif; font-weight: 300;">Tasky</a>
-            <a href="#" style="float: right; font-size: 16px; margin-top: 14px;">About</a>
+                <span style="font-size: 12px;margin-left: 5px;">α</span>
+                <a href="http://dev.campnews.org/tasky" style="float: left; font-size: 32px; margin-top: 5px; font-family: 'Raleway', sans-serif; font-weight: 300;">
+                <img src="img/logo-small.png" style="float: left; margin-top: -5px;">
+                Tasky
+                </a>
+                <a href="#" style="float: right; font-size: 16px; margin-top: 14px;">About</a>
             </div>
         </div>
         </div>
 
 
-	<div class="padded-container" style="margin-top: 50px;">
+	<div class="padded-container" style="padding-top: 100px;">
 		<h2>Clear your mind and become productive!</h2>
 		<?php if (isset($_GET['error'])) {
 			echo "<h2 class='error'>".urldecode($_GET['error'])."</h2>";
