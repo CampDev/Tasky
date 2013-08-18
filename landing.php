@@ -10,8 +10,19 @@
 	</head>
 
 	<body>
-	<div id="landing-banner">
-	<div class="padded-container">
+
+
+        <div class="header">
+        <div class="container">
+            <div id="header-inner">
+            <a href="http://dev.campnews.org/tasky" style="float: left; font-size: 32px; margin-top: 5px; font-family: 'Raleway', sans-serif; font-weight: 300;">Tasky</a>
+            <a href="#" style="float: right; font-size: 16px; margin-top: 14px;">About</a>
+            </div>
+        </div>
+        </div>
+
+
+	<div class="padded-container" style="margin-top: 50px;">
 		<h2>Clear your mind and become productive!</h2>
 		<?php if (isset($_GET['error'])) {
 			echo "<h2 class='error'>".urldecode($_GET['error'])."</h2>";
@@ -23,11 +34,11 @@
 			</form></p>
 		<?php } ?>
 	</div>
-	</div>
 
 	<div id="features" class="padded-container">
+		<img src="img/tasks.png" class="landing-image" style="margin-bottom: 100px;">
 		<h2>Tasky is a free <b>Task Managment</b> App...</h2>
-		<img src="img/tasks.png" class="landing-image"><div style="clear: both;">
+        <div style="clear: both;">
 		<div id="feature"><h3>Create tasks</h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
 		<div id="feature"><h3>Organise them</h3>Tasky provides you with all the features you need to stay organised, no matter your workload.</div>
 		<div id="feature"><h3>Be productive</h3>Thanks to tent syncing and our optimised website, your tasks are available anywhere at any time.</div>
