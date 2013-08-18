@@ -55,9 +55,9 @@
 	<div id="features" style="background: #27ae60;">
 		<div class="padded-container">
 		<h2 style="color: white;">... made for everyone with a <b>life</b>...</h2>
-		<div id="feature"><h3 style="color: white;">Personal</h3>Use Tasky for your personal ToDo's, such as groceries, chores around the house and birthday presents. Share them with your partner in life.</div>
-		<div id="feature"><h3 style="color: white;">Projects</h3>Weddings, school projects, birthday parties or even holiday preparations; if it involves many tasks and multiple people, you need Tasky.</div>
-		<div id="feature"><h3 style="color: white;">Business</h3>Tell your collegue to call his customer back and keep an eye on his progress in doing so. Tasky is rock solid and business-proof.</div>
+		<div id="feature"><img src="img/personal.svg" style="width: 150px;"><h3 style="color: white;">Personal</h3>Use Tasky for your personal ToDo's, such as groceries, chores around the house and birthday presents. Share them with your partner in life.</div>
+		<div id="feature"><img src="img/project.svg" style="width: 200px;"><h3 style="color: white; margin-top: -30px;">Projects</h3>Weddings, school projects, birthday parties or even holiday preparations; if it involves many tasks and many people, you need Tasky.</div>
+		<div id="feature"><img src="img/business.svg" style="width: 150px;"><h3 style="color: white;">Business</h3>Tell your collegue to call his customer back and keep an eye on his progress in doing so. Tasky is rock solid and business-proof.</div>
         <div style="clear: both;"></div>	
     </div>
     </div>
@@ -92,3 +92,5 @@
 
 	</div>
 </div>
+
+<footer>Tasky is an open source project by CampDev. Graphics courtesy to iconmonstr.com.</footer>
