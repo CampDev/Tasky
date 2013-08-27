@@ -71,6 +71,9 @@ require_once('functions.php');
 		$_SESSION['hawk_key'] = $access_token_array['post']['content']['hawk_key'];
 		curl_close($token_init);
 
-		header('Location: '.$oauth_endpoint.'?client_id='.$body['post']['id']);
+		$state = uniqid('Staty_', true);
+		$_SESSION['auth_state'] = $state;
+
+		header('Location: '.$oauth_endpoint.'?client_id='.$body['post']['id'].'&state='.$state);
 	}
 ?>
