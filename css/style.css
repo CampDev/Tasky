@@ -316,9 +316,10 @@ input.select {
 img.landing-image {
     text-align: center;
     margin-top: 30px;
-    box-shadow: 0px 0px 40px gray;
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 40px rgb(197, 197, 197);
     border-radius: 5px;
-    max-width: 500px;
+    max-width: 600px;
     width: 90%;
     margin: auto 5%;
 }
@@ -355,6 +356,52 @@ a.javaless-nav {
     display: none;
 }
 
+#fadeinfast {
+    animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
+}
+#fadeinslow {
+    animation: fadein 2s;
+    animation-delay: 5s;
+    -webkit-animation-delay: 5s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}​
 
 
 /* Tablet style */

@@ -26,7 +26,7 @@
         </div>
 
 
-	<div class="padded-container" style="padding-top: 100px;">
+	<div id="fadeinfast" class="padded-container" style="padding-top: 75px; padding-bottom: 75px;">
 		<h2>Clear your mind and become productive!</h2>
 		<?php if (isset($_GET['error'])) {
 			echo "<h2 class='error'>".urldecode($_GET['error'])."</h2>";
@@ -39,13 +39,15 @@
 		<?php } ?>
 	</div>
 
-	<div id="features" class="padded-container">
-		<img src="img/tasks.png" class="landing-image" style="margin-bottom: 100px;">
+	<div id="features" style="background: #F7F7F7; border-top: 1px solid #ddd;">
+        <div class="padded-container" id="fadeinslow"> 
 		<h2>Tasky is a free <b>Task Managment</b> App...</h2>
+		<img src="img/tasks.png" class="landing-image">
         <div style="clear: both;">
 		<div id="feature"><h3>Create tasks</h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
 		<div id="feature"><h3>Organise them</h3>Tasky provides you with all the features you need to stay organised, no matter your workload.</div>
 		<div id="feature"><h3>Be productive</h3>Thanks to tent syncing and our optimised website, your tasks are available anywhere at any time.</div>
+        </div>
 	</div></div>
 
 	<div id="features" class="padded-container">
