@@ -25,12 +25,20 @@ if (!function_exists('http_parse_headers')) {
 function discover_link($entity_uri, $debug){
         $entity_sub = substr($entity_uri, 0, strlen($entity_uri)-1);
         $header_result = get_headers($entity_uri);
-        $discovery_link = str_replace("<", "", $header_result[2]);
+        /*foreach ($header_result as $header_value) {
+            if (preg_match("\\\"Link:(.*)/", $header_value)) {
+                $link = $header_value;
+            }
+        }
+        This function needs some more testing...
+        */
+        // This needs a more flexible solution because the place where the link is located may vary
+        $discovery_link = str_replace("<", "", $header_result[4]);
 		$discovery_link = str_replace(">", "", $discovery_link);
         $discovery_link = str_replace("Link: ", "", $discovery_link);
 		$discovery_link = str_replace('; rel="https://tent.io/rels/meta-post"', "", $discovery_link);
        	$ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $entity_sub.$discovery_link);
+        curl_setopt($ch, CURLOPT_URL, $discovery_link);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	    $meta = json_decode(curl_exec($ch), true);
 	    curl_close($ch);

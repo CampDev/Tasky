@@ -16,11 +16,11 @@ require_once('functions.php');
 		}
 
 		$_SESSION['entity_old'] = $entity;
-
         $meta = discover_link($entity, false); //Using discover_entity-function from discovery.php with entity from get and no debugging features
         $_SESSION['new_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['new_post'];
         $_SESSION['posts_feed_endpoint'] = $meta['post']['content']['servers'][0]['urls']['posts_feed'];
         $_SESSION['single_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['post'];
+        $oauth_endpoint = $meta['post']['content']['servers'][0]['urls']['oauth_auth'];
 
         //Creating App Information JSON
         $app_json = array(
@@ -71,6 +71,6 @@ require_once('functions.php');
 		$_SESSION['hawk_key'] = $access_token_array['post']['content']['hawk_key'];
 		curl_close($token_init);
 
-		header('Location: '.$entity.'oauth?client_id='.$body['post']['id']);
+		header('Location: '.$oauth_endpoint.'?client_id='.$body['post']['id']);
 	}
 ?>
