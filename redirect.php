@@ -5,7 +5,7 @@ require_once('functions.php');
 			$error = 'Couldn\'t register app, please try again';
 			header('Location: index.php?error='.$error);
 		}
-		elseif (isset($_GET['code']) AND $_GET['state'] == $_SESSION['state']) {
+		elseif (isset($_GET['code']) AND $_GET['state'] == $_SESSION['auth_state']) {
 		//If there is a code and the state is equal to the one from the session
 			unset($_SESSION['state']);
 			$entity = $_SESSION['entity_old'];
@@ -53,7 +53,7 @@ require_once('functions.php');
 				header('Location: index.php');
 			}
 		}
-		elseif ($_SESSION['state'] != $_GET['state']) {
+		elseif ($_SESSION['auth_state'] != $_GET['state']) {
 			// If the state from GET is not equal to the state from SESSION...
 			$error = 'Corrupt state. Please try again!';
 			header('Location: index.php?error='.$error);
