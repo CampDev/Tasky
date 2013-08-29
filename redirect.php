@@ -16,9 +16,9 @@ require_once('functions.php');
 			$_SESSION['entity_sub'] = $entity_sub; //Setting the sub entity (no http(s) and / at the end) as a Session variable
 			$time = time();
 
-			$oauth_url = $entity."oauth/authorization";
+			$oauth_url = $_SESSION['oauth_endpoint'];
 			$nonce = uniqid('Tasky_', true); //Generating the nonce TODO: Use a PHP library to do that more secure
-			$mac = generate_mac('hawk.1.header', $time, $nonce, 'POST', '/oauth/authorization', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+			$mac = generate_mac('hawk.1.header', $time, $nonce, 'POST', str_replace($entity, "", $oauth_url), $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 
 			//Building the post data
 			$access_code_raw = array(

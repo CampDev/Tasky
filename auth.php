@@ -70,6 +70,7 @@ require_once('functions.php');
 		$access_token_array = json_decode($access_token_raw, true);
 		$_SESSION['hawk_key'] = $access_token_array['post']['content']['hawk_key'];
 		curl_close($token_init);
+		$_SESSION['oauth_endpoint'] = $oauth_endpoint;
 
 		if ($access_token_array['post']['mentions'][0]['post'] == $body['post']['id']) {
 			$state = uniqid('Staty_', true);
