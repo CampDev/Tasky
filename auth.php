@@ -14,6 +14,7 @@ require_once('functions.php');
 		else {
 			$entity = urldecode($_GET['entity'])."/";
 		}
+		$entity_sub = substr($entity, 0, strlen($entity)-1);
 
 		$_SESSION['entity_old'] = $entity;
         $meta = discover_link($entity, false); //Using discover_entity-function from discovery.php with entity from get and no debugging features
