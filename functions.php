@@ -60,10 +60,12 @@ function discover_link($entity_uri, $debug){
 function generate_mac($header_type, $ts, $nonce, $method, $request_uri, $host, $port, $app, $hawk_key, $debug) {
     //TODO: Implement that everywhere
     $mac_data = $header_type."\n".$ts."\n".$nonce."\n".$method."\n".$request_uri."\n".$host."\n".$port."\n\n\n".$app."\n\n";
+    $mac_n = $header_type.'\n'.$ts.'\n'.$nonce.'\n'.$method.'\n'.$request_uri.'\n'.$host.'\n'.$port.'\n\n\n'.$app.'\n\n';
     $mac_sha256 = hash_hmac('sha256', $mac_data, $hawk_key, true);
     $mac = base64_encode($mac_sha256);
     if ($debug == true) {
         echo "<p><b>Mac Data:</b> ".$mac_data."</p>";
+        echo "<p><b>Mac N:</b> ".$mac_n."</p>";
         echo "<p><b>Mac-SHA256:</b> ".$mac_sha256."</p>";
         echo "<p><b>Mac:</b> ".$mac."</p>";
     }

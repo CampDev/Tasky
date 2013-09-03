@@ -2,6 +2,7 @@
         require_once('functions.php');
         if(isset($_SESSION['entity'])) {
             //Getting all the lists 
+            $log = fopen('request.txt', 'w');
             $entity = $_SESSION['entity'];
             $entity_sub = $_SESSION['entity_sub'];
             $nonce = uniqid('Tasky_', true);
@@ -11,9 +12,11 @@
             curl_setopt($init_lists, CURLOPT_HTTPGET, 1);
             curl_setopt($init_lists, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($init_lists, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_lists.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"')); //Setting the HTTP header
+            curl_setopt($init_lists, CURLOPT_VERBOSE, $log);
             $lists = curl_exec($init_lists);
             curl_close($init_lists);
-            $lists = json_decode($lists, true);     
+            fclose($log);
+            $lists = json_decode($lists, true);   
 ?>
 
         <div class="header">

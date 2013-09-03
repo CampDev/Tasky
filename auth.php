@@ -72,6 +72,7 @@ require_once('functions.php');
 		$_SESSION['hawk_id'] = $access_token_array['post']['id'];
 		curl_close($token_init);
 		$_SESSION['oauth_endpoint'] = $oauth_endpoint;
+		$_SESSION['oauth_token_endpoint'] = $meta['post']['content']['servers'][0]['urls']['oauth_token'];
 		$_SESSION['entity_old'] = $entity;
 
 		/*var_export($access_token_array);
