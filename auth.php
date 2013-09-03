@@ -60,7 +60,6 @@ require_once('functions.php');
 		$header_link = str_replace('; rel="https://tent.io/rels/credentials"', "", $header_link);
 
 		$_SESSION['client_id'] = $body['post']['id']; //Making the client id available to other instances of tasky using PHP Session
-		$_SESSION['hawk_id'] = $body['post']['mentions'][0]['post'];
 
 		//Next CURL request, GET this time to get the Access Token
 		$token_init = curl_init();
@@ -70,15 +69,26 @@ require_once('functions.php');
 		$access_token_raw = curl_exec($token_init);
 		$access_token_array = json_decode($access_token_raw, true);
 		$_SESSION['hawk_key'] = $access_token_array['post']['content']['hawk_key'];
+		$_SESSION['hawk_id'] = $access_token_array['post']['id'];
 		curl_close($token_init);
 		$_SESSION['oauth_endpoint'] = $oauth_endpoint;
+		$_SESSION['entity_old'] = $entity;
 
-		if ($access_token_array['post']['mentions'][0]['post'] == $body['post']['id']) {
-			$state = uniqid('Staty_', true);
+		/*var_export($access_token_array);
+		echo "<hr/>";
+		echo "<p>".$access_token_array['post']['id']."</p>";*/
+
+		$state = uniqid('Staty_', true);
 			$_SESSION['auth_state'] = $state;	
 			header('Location: '.$oauth_endpoint.'?client_id='.$access_token_array['post']['mentions'][0]['post'].'&state='.$state);
+
+		if ($access_token_array['post']['mentions'][0]['post'] == $body['post']['id']) {
+			/* $state = uniqid('Staty_', true);
+			$_SESSION['auth_state'] = $state;	
+			header('Location: '.$oauth_endpoint.'?client_id='.$access_token_array['post']['mentions'][0]['post'].'&state='.$state); */
 		}
 		else {
+			unset($_SESSION);
 			$error = 'Problem with authentication. Please try again!';
 			header('Location: landing.php?error='.$error);
 		}
