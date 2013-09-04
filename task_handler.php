@@ -181,23 +181,6 @@
 					}
 					break;
 
-				case 'delete':
-					$id = $_GET['id'];
-					$mac = generate_mac('hawk.1.header', time(), $nonce, "DELETE", '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
-
-					$ch = curl_init();
-					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
-					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-					curl_setopt($ch, CURLOPT_VERBOSE, 1);
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json;'));
-					$delete = curl_exec($ch);
-					curl_close($ch);
-					if (!isset($delete['error'])) {
-						header('Location: index.php');
-					}
-					break;
-
 				case 'update_list': //Updated post sent
 					$id = $_GET['id'];
 					$parent = $_GET['parent'];
@@ -234,10 +217,14 @@
 
 				case 'delete':
 					$id = $_GET['id'];
-					$mac = generate_mac('hawk.1.header', time(), $nonce, "DELETE", '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$url = $_SESSION['single_post_endpoint'];
+					$url = str_replace("{entity}", urlencode($entity_sub), $url);
+					$url = str_replace("{post}", $id, $url);
+
+					$mac = generate_mac('hawk.1.header', time(), $nonce, "DELETE", str_replace($_SESSION['entity'], "/", $url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 
 					$ch = curl_init();
-					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
+					curl_setopt($ch, CURLOPT_URL, $url);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
 					curl_setopt($ch, CURLOPT_VERBOSE, 1);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -247,6 +234,9 @@
 					if (!isset($delete['error'])) {
 						header('Location: '.$redirect_url);
 					}
+					else { ?>
+						<p><b>Auth-Error: </b><?php echo $delete['error']; ?> </p>
+					<?php }	
 					break;
 
 				case 'task':
