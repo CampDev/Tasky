@@ -141,7 +141,7 @@ div.task-body{
 }
 
 div#single-task-inner{
-    height: 40px;
+    height: auto;
     width: 98%;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -236,6 +236,7 @@ div.task-list {
     max-width: 779px;
     width: 77.5%;
     border-right: 1px solid #ddd;
+    margin-top: -2px;
 }
 
 li {
@@ -448,12 +449,14 @@ a.javaless-nav {
 
     div.task-list {
 	    width: 100%;
-        margin-top: 50px;
+        margin-top: 70px;
+        border: none;
     }
 
     select.header-dropdown {
 	    width: 50%;
         padding: 15px;
+        height: 60px;
     }
 
     a.javascript-nav {
@@ -465,12 +468,13 @@ a.javaless-nav {
     }
 
     div.header{
-        box-shadow: 0px 1px 3px rgb(180, 180, 180);
         position: fixed;
+        height: 60px;
     }
 
     div.header-navigation{
-        padding: 15px;
+        padding-top: 15px;
+        padding-right: 0px;
     }
 
     div.filters{
@@ -478,7 +482,7 @@ a.javaless-nav {
     }
 
     div.title{
-        font-size: 16px;
+        font-size: 14px;
     }
 
     div.note{
@@ -499,11 +503,6 @@ a.javaless-nav {
 
     .prio_3 {
        border-right: 0px solid black;
-    }
-
-    div#single-task-inner{
-        width: 95%;
-        padding-left: 5%;
     }
 
     img.delete{
