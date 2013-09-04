@@ -6,6 +6,7 @@ if (!isset($_SESSION['entity'])) {
 require_once('functions.php');
 require_once('tent-markdown.php');
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Tasky</title>

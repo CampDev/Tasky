@@ -6,7 +6,7 @@
             $entity = $_SESSION['entity'];
             $entity_sub = $_SESSION['entity_sub'];
             $nonce = uniqid('Tasky_', true);
-            $mac_lists = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+            $mac_lists = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/'.str_replace($_SESSION['entity'], "", $_SESSION['posts_feed_endpoint']).'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1', $entity_sub, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
             $init_lists = curl_init();
             curl_setopt($init_lists, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1');
             curl_setopt($init_lists, CURLOPT_HTTPGET, 1);
@@ -16,7 +16,7 @@
             $lists = curl_exec($init_lists);
             curl_close($init_lists);
             fclose($log);
-            $lists = json_decode($lists, true);   
+            $lists = json_decode($lists, true);
 ?>
 
         <div class="header">
