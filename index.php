@@ -49,7 +49,7 @@ require_once('tent-markdown.php');
 				<?php
 				if (!isset($_GET['list'])) {
 					unset($_SESSION['redirect_list']);
-					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1', $entity_sub, '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/'.str_replace($_SESSION['entity'], "", $_SESSION['posts_feed_endpoint']).'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1', $entity_sub, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$init = curl_init();
 					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1');
 					curl_setopt($init, CURLOPT_HTTPGET, 1);
@@ -59,59 +59,60 @@ require_once('tent-markdown.php');
 					curl_close($init);
 					$posts = json_decode($posts, true);
 					echo "<div>";
-					foreach ($posts['posts'] as $task) {
-						$content = $task['content'];
-						echo "<div id='single-task'>";
+					if ($posts['posts'] == array()) { ?>
+						<h2>No tasks. <a href="new_post_page.php">Add one!</a></h2>
+					<?php }
+					else {
+						foreach ($posts['posts'] as $task) {
+							$content = $task['content'];
+							echo "<div id='single-task'>";
 
-                    	if (isset($content['priority'])) {
-                    		echo "<div class='priority prio_".$content['priority']."'></div>";
-                    	}
-                  		else {
-                  			echo "";
-                  		}
-                        echo "<div id='single-task-inner' class='".$content['status']."'>";
-
-
-						if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
-							echo "<span style='color: #219807; float: left; margin-top: 12px; height: 28px;  margin-right: 20px;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></span>";	
-						}
-						elseif (isset($content['status']) AND $content['status'] == 'Done' OR $content['status'] == 'done') {
-							echo "<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></span>";	
-						}
-						else {
-							echo "";
-						}
+                    		if (isset($content['priority'])) {
+                    			echo "<div class='priority prio_".$content['priority']."'></div>";
+                    		}
+                  			else {
+                  				echo "";
+                  			}
+                        	echo "<div id='single-task-inner' class='".$content['status']."'>";
 
 
-						echo "<div class='task-body'><div class='title'><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
-                        echo "</div>";
-
-						if ($content['notes'] != '' AND !is_null($content['notes'])) {
-							echo "<i><div class='note'>".Tent_Markdown($content['notes'])."</div></i></a></div>";
-						}
-						else {
-							echo "</div>";
-						}
-
-						if (isset($content['duedate']) AND $content['duedate'] != '') {
-							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
-								echo "<span style='color: cd0d00;'>Today</span>";
+							if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
+								echo "<span style='color: #219807; float: left; margin-top: 12px; height: 28px;  margin-right: 20px;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></span>";	
+							}
+							elseif (isset($content['status']) AND $content['status'] == 'Done' OR $content['status'] == 'done') {
+								echo "<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></span>";	
 							}
 							else {
-								echo "<div class='date'>".date('d/M/Y', $content['duedate'])."</div>";
+								echo "";
 							}
+
+
+							echo "<div class='task-body'><div class='title'><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
+                        	echo "</div>";
+
+							if ($content['notes'] != '' AND !is_null($content['notes'])) {
+								echo "<i><div class='note'>".Tent_Markdown($content['notes'])."</div></i></a></div>";
+							}
+							else {
+								echo "</div>";
+							}
+
+							if (isset($content['duedate']) AND $content['duedate'] != '') {
+								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
+									echo "<span style='color: cd0d00;'>Today</span>";
+								}
+								else {
+									echo "<div class='date'>".date('d/M/Y', $content['duedate'])."</div>";
+								}
+							}
+							else {
+								echo "";
+							}
+							echo "<span style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png' class='delete' style='float: right; margin-top: -28px; margin-right: 15px;'></a></span>";
+
+							echo "</div></div>";
+
 						}
-						else {
-							echo "";
-						}
-
-
-
-
-						echo "<span style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png' class='delete' style='float: right; margin-top: -28px; margin-right: 15px;'></a></span>";
-
-						echo "</div></div>";
-
 					}
 
 					echo "</div></div></div>";
@@ -190,9 +191,9 @@ require_once('tent-markdown.php');
 						}
 						echo "</table>";
 					}
-					else {
-						echo "<h2>No tasks in \"".$current_list['post']['content']['name']."\"</h2>";
-					}
+					else { ?>
+						<h2>No tasks in <?php echo $current_list['post']['content']['name']; ?>. <a href="new_post_page.php">Add one!</h2>
+					<?php }
 				}
 				?>
         </div>
