@@ -43,8 +43,7 @@ require_once('tent-markdown.php');
 
 				<div class='task-list'>
 
-				<div class="filters">Priority / title / deadline / status
-</div>
+				<div class="filters" style="text-align: left; font-size: 18px;">Tasks</div>
 
 				<?php
 				if (!isset($_GET['list'])) {
@@ -66,21 +65,29 @@ require_once('tent-markdown.php');
 						foreach ($posts['posts'] as $task) {
 							$content = $task['content'];
 							echo "<div id='single-task'>";
-
-                    		if (isset($content['priority'])) {
-                    			echo "<div class='priority prio_".$content['priority']."'></div>";
-                    		}
-                  			else {
-                  				echo "";
-                  			}
                         	echo "<div id='single-task-inner' class='".$content['status']."'>";
 
 
 							if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
-								echo "<span style='color: #219807; float: left; margin-top: 12px; height: 28px;  margin-right: 20px;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></span>";	
+								echo "<span style='color: #219807; float: left; margin-top: 12px; height: 28px;  margin-right: 20px;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'>
+
+<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <path style='fill: gray;' id='checkbox-11-icon' d='M256,111c38.73,0,75.144,15.083,102.53,42.47S401,217.27,401,256s-15.083,75.144-42.47,102.53
+	S294.73,401,256,401s-75.144-15.083-102.53-42.47S111,294.73,111,256s15.083-75.144,42.47-102.53S217.27,111,256,111z M256,71
+	C153.827,71,71,153.828,71,256s82.827,185,185,185c102.172,0,185-82.828,185-185S358.172,71,256,71z'></path> </svg>
+
+                            </a></span>";	
 							}
 							elseif (isset($content['status']) AND $content['status'] == 'Done' OR $content['status'] == 'done') {
-								echo "<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></span>";	
+								echo "<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'>
+
+<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <path style='fill: gray;' id='checkbox-11-icon' d='M457.861,145.415L251.546,351.744L137.86,238.028l48.407-48.415l65.276,65.295l157.89-157.89
+L457.861,145.415z M384.02,261.689c-1.402,36.596-16.309,70.8-42.35,96.841C314.283,385.917,277.869,401,239.139,401
+s-75.144-15.083-102.53-42.47s-42.47-63.8-42.47-102.53s15.083-75.144,42.47-102.53s63.8-42.47,102.53-42.47
+c31.297,0,61.076,9.853,85.805,28.082l28.529-28.528C322.002,85.78,282.297,71,239.139,71c-102.173,0-185,82.828-185,185
+s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.714L384.02,261.689z'></path> </svg>
+
+                            </a></span>";
+
 							}
 							else {
 								echo "";
@@ -97,7 +104,7 @@ require_once('tent-markdown.php');
 								echo "</div>";
 							}
 
-							if (isset($content['duedate']) AND $content['duedate'] != '') {
+						/*	if (isset($content['duedate']) AND $content['duedate'] != '') {
 								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
 									echo "<span style='color: cd0d00;'>Today</span>";
 								}
@@ -107,7 +114,7 @@ require_once('tent-markdown.php');
 							}
 							else {
 								echo "";
-							}
+							}               */
 							echo "<span style='color: #cd0d00;'><a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'><img src='img/delete.png' class='delete' style='float: right; margin-top: -28px; margin-right: 15px;'></a></span>";
 
 							echo "</div></div>";
@@ -115,7 +122,7 @@ require_once('tent-markdown.php');
 						}
 					}
 
-					echo "</div></div></div>";
+					echo "</div></div>";
 				}
 				elseif (isset($_GET['list'])) {
 					$_SESSION['redirect_list'] = $_GET['list'];
@@ -177,10 +184,24 @@ require_once('tent-markdown.php');
 							}
 
 							if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
-								echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/unchecked.png'></a></td>";	
+								echo "<td style='color: #219807;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'>
+
+<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <path style='fill: gray;' id='checkbox-11-icon' d='M256,111c38.73,0,75.144,15.083,102.53,42.47S401,217.27,401,256s-15.083,75.144-42.47,102.53
+	S294.73,401,256,401s-75.144-15.083-102.53-42.47S111,294.73,111,256s15.083-75.144,42.47-102.53S217.27,111,256,111z M256,71
+	C153.827,71,71,153.828,71,256s82.827,185,185,185c102.172,0,185-82.828,185-185S358.172,71,256,71z'></path> </svg>
+
+                            </a></td>";	
 							}
 							elseif (isset($content['status']) AND $content['status'] == 'Done') {
-								echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'><img src='img/checked.png'></a></td>";	
+								echo "<td style='color: #aaa;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'>
+
+<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <path style='fill: gray;' id='checkbox-11-icon' d='M457.861,145.415L251.546,351.744L137.86,238.028l48.407-48.415l65.276,65.295l157.89-157.89
+L457.861,145.415z M384.02,261.689c-1.402,36.596-16.309,70.8-42.35,96.841C314.283,385.917,277.869,401,239.139,401
+s-75.144-15.083-102.53-42.47s-42.47-63.8-42.47-102.53s15.083-75.144,42.47-102.53s63.8-42.47,102.53-42.47
+c31.297,0,61.076,9.853,85.805,28.082l28.529-28.528C322.002,85.78,282.297,71,239.139,71c-102.173,0-185,82.828-185,185
+s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.714L384.02,261.689z'></path> </svg>
+
+                            </a></td>";	
 							}
 							else {
 								echo "<td></td>";

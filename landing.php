@@ -12,7 +12,7 @@
 	<body>
 
 
-        <div class="header">
+        <div class="header" style="background: url('../img/logobg.png'); background-position: center;">
         <div class="container">
             <div id="header-inner">
                 <span style="font-size: 12px;margin-left: 5px;">α</span>
@@ -39,15 +39,16 @@
 		<?php } ?>
 	</div>
 
-	<div id="features" style="background: #F7F7F7; border-top: 1px solid #ddd;">
+	<div id="features" style="background: #F7F7F7; border-top: 1px solid #ddd; padding-top: 0px;">
         <div class="padded-container" id="fadeinslow"> 
-		<h2>Tasky is a free <b>Task Managment</b> App...</h2>
+		<h2 style="margin-bottom: 50px;">Tasky is a free <b>Task Managment</b> App...</h2>
 		<img src="img/tasks.png" class="landing-image">
         <div style="clear: both;">
 		<div id="feature"><h3>Create tasks</h3>They can be anything! From dentist appointments to groceries, from serious business to feeding your kitten.</div>
 		<div id="feature"><h3>Organise them</h3>Tasky provides you with all the features you need to stay organised, no matter your workload.</div>
 		<div id="feature"><h3>Be productive</h3>Thanks to tent syncing and our optimised website, your tasks are available anywhere at any time.</div>
         </div>
+        <div  style="clear: both; height: 1px;"></div>
 	</div></div>
 
 	<div id="features" class="padded-container">
