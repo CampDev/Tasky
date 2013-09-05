@@ -26,8 +26,6 @@ require_once('functions.php');
 				'token_type' => 'https://tent.io/oauth/hawk-token',
 			);
 			$access_code = json_encode($access_code_raw); //Encoding the post data to JSON
-
-			$log = fopen('redirect_request.txt', 'w');
 			//cURL request to get the access_token
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $_SESSION['oauth_token_endpoint']); //Setting the request url
@@ -35,11 +33,8 @@ require_once('functions.php');
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['hawk_id'], $mac, $time, $nonce, $_SESSION['client_id']))); //Setting the HTTP header
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $access_code); //Setting the post data
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_VERBOSE, 1);
-			curl_setopt($ch, CURLOPT_STDERR, $log);
 			$result_json = curl_exec($ch); //Getting and decoding (next line) the result
 			$result = json_decode($result_json, true);
-			fclose($log);
 			if(curl_exec($ch) === false) //Handling errors
 			{
     			echo '<b>Curl-Error</b>: ' . curl_error($ch); //Curl-Errors go here
