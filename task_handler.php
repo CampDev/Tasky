@@ -28,13 +28,6 @@
 					curl_close($ch_current);
 					$current_task = json_decode($current_task_json, true);
 					$parent_version = $_GET['parent'];
-					
-					if ($current_task['post']['content']['duedate'] == false) {
-						$duedate = '';
-					}
-					else {
-						$duedate = $current_task['post']['content']['duedate'];
-					}
 
 					//Building the new task
 					$completed_post_raw = array(
@@ -47,7 +40,7 @@
 							'priority' => $current_task['post']['content']['priority'],
 							'list' => $current_task['post']['content']['list'],
 							'assignee' => '',
-							'duedate' => $duedate,
+							'duedate' => $current_task['post']['content']['duedate'],
 							'notes' => $current_task['post']['content']['notes'],
 						),
 						'version' => array(
@@ -93,11 +86,11 @@
 					$nonce = uniqid('Tasky_', true);
 					$current_url = str_replace("{entity}", urlencode($entity_sub), $_SESSION['single_post_endpoint']);
 					$current_url = str_replace("{post}", $id, $current_url);
-					$mac_current = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac_current = generate_mac('hawk.1.header', $time, $nonce, 'GET', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch_current = curl_init();
 					curl_setopt($ch_current, CURLOPT_URL, $current_url);
 					curl_setopt($ch_current, CURLOPT_RETURNTRANSFER, 1);
-					curl_setopt($ch_current, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac_current, time(), $nonce, $_SESSION['client_id'])));
+					curl_setopt($ch_current, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac_current, $time, $nonce, $_SESSION['client_id'])));
 					$current_task_json = curl_exec($ch_current);
 					curl_close($ch_current);
 					$current_task = json_decode($current_task_json, true);
@@ -133,13 +126,13 @@
 						),
 					);
 					$uncompleted_post = json_encode($uncompleted_post_raw);
-					$mac = generate_mac('hawk.1.header', time(), $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac = generate_mac('hawk.1.header', $time, $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT"); 
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $uncompleted_post);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#todo"'));
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, $time, $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#todo"'));
 					$uncomplete_task = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($uncomplete_task['error'])) {
@@ -182,13 +175,13 @@
 						),
 					);
 					$updated_post = json_encode($updated_post_raw);
-					$mac = generate_mac('hawk.1.header', time(), $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac = generate_mac('hawk.1.header', $time, $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT"); 
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $updated_post);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#'.$_POST['status'].'"'));
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, $time, $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#'.$_POST['status'].'"'));
 					$update_task = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($update_task['error'])) {
@@ -214,13 +207,13 @@
 					$updated_list = json_encode($updated_list);
 					var_export($updated_list);
 					echo "<hr />";
-					$mac = generate_mac('hawk.1.header', time(), $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac = generate_mac('hawk.1.header', $time, $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT"); 
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $updated_list);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/list/v0.1#'));
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, $time, $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/list/v0.1#'));
 					$update_list = curl_exec($ch);
 					curl_close($ch);
 					var_export($update_list);
@@ -236,14 +229,14 @@
 					$url = str_replace("{entity}", urlencode($entity_sub), $url);
 					$url = str_replace("{post}", $id, $url);
 
-					$mac = generate_mac('hawk.1.header', time(), $nonce, "DELETE", str_replace($_SESSION['entity'], "/", $url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac = generate_mac('hawk.1.header', $time, $nonce, "DELETE", str_replace($_SESSION['entity'], "/", $url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $url);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
 					curl_setopt($ch, CURLOPT_VERBOSE, 1);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json;'));
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, $time, $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json;'));
 					$delete = curl_exec($ch);
 					curl_close($ch);
 					if (!isset($delete['error'])) {
@@ -279,10 +272,10 @@
 					$post_json = json_encode($post_raw);
 					$entity = $_SESSION['entity'];
 					$entity_sub_task = $_SESSION['entity_sub'];
-					$mac_send = generate_mac('hawk.1.header', time(), $nonce, 'POST', str_replace($entity, "/", $_SESSION['new_post_endpoint']), $entity_sub_task, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac_send = generate_mac('hawk.1.header', $time, $nonce, 'POST', str_replace($entity, "/", $_SESSION['new_post_endpoint']), $entity_sub_task, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#todo"')); //Setting the HTTP header
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#todo"')); //Setting the HTTP header
 					curl_setopt($ch, CURLOPT_POST, 1);
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $post_json);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -310,10 +303,10 @@
 					$post_json = json_encode($post_raw);
 					$entity = $_SESSION['entity'];
 					$entity_sub_list = $_SESSION['entity_sub'];
-					$mac_send = generate_mac('hawk.1.header', time(), $nonce, 'POST', str_replace($entity, "/", $_SESSION['new_post_endpoint']), $entity_sub_list, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac_send = generate_mac('hawk.1.header', $time, $nonce, 'POST', str_replace($entity, "/", $_SESSION['new_post_endpoint']), $entity_sub_list, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.time().'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/list/v0.1#"')); //Setting the HTTP header
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Hawk id="'.$_SESSION['access_token'].'", mac="'.$mac_send.'", ts="'.$time.'", nonce="'.$nonce.'", app="'.$_SESSION['client_id'].'"'."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/list/v0.1#"')); //Setting the HTTP header
 					curl_setopt($ch, CURLOPT_POST, 1);
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $post_json);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
