@@ -154,7 +154,7 @@
 					}
 					$updated_post_raw = array(
 						'id' => $id,
-						'entity' => substr($_SESSION['entity'], 0, strlen($_SESSION['entity']) -1),
+						// 'entity' => substr($_SESSION['entity'], 0, strlen($_SESSION['entity']) -1),
 						'type' => 'http://cacauu.de/tasky/task/v0.1#'.$_POST['status'],
 						'content' => array(
 							'title' => $_POST['title'],
@@ -174,25 +174,31 @@
 						),
 						'mentions' => array(
 							array(
-								'entity' => $_SESSION['entity_sub'],
+								'entity' => $entity_sub,
 								'post' => $_POST['list'],
 								'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 							),
 						),
 					);
 					$updated_post = json_encode($updated_post_raw);
-					$mac = generate_mac('hawk.1.header', $time, $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$url = $_SESSION['single_post_endpoint'];
+					$url = str_replace("{entity}", urlencode($entity_sub), $url);
+					$url = str_replace("{post}", $id, $url);
+					$mac = generate_mac('hawk.1.header', $time, $nonce, 'PUT', str_replace($_SESSION['entity'], "/", $url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch = curl_init();
-					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
+					curl_setopt($ch, CURLOPT_URL, $url);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT"); 
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $updated_post);
 					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, $time, $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/task/v0.1#'.$_POST['status'].'"'));
-					$update_task = curl_exec($ch);
+					$update_task = json_decode(curl_exec($ch), true);
 					curl_close($ch);
 					if (!isset($update_task['error'])) {
 						header('Location: '.$redirect_url);
 					}
+					else { ?>
+						<p><b>Error: </b><?php echo $complete_task['error']; ?> </p>
+					<?php }
 					break;
 
 				case 'update_list': //Updated post sent
@@ -269,7 +275,7 @@
 						),
 						'mentions' => array(
 							array(
-								'entity' => $_SESSION['entity_sub'],
+								'entity' => $_SESSION['entity'],
 								'post' => $_POST['list'],
 								'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 							),

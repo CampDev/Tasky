@@ -1,5 +1,6 @@
 <?php
 session_start();
+$time = time();
 if (!isset($_SESSION['entity'])) {
 	$error = "You're not logged in!";
 		header('Location: index.php?error='.urlencode($error));
@@ -22,22 +23,24 @@ require_once('functions.php');
 
 		<div id="body_wrap">
 			<?php
-			if (isset($_GET['id'])) {
-			$id = $_GET['id'];
-			$nonce = uniqid('Tasky_', true);
 			$entity_sub = substr_replace($_SESSION['entity'] ,"",-1);
-
-			//Getting the current version of the post
-			$current_url = str_replace("{entity}", urlencode($entity_sub), $_SESSION['single_post_endpoint']);
-			$current_url = str_replace("{post}", $id, $current_url);
-			$mac_current = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
-			$ch_current = curl_init();
-			curl_setopt($ch_current, CURLOPT_URL, $current_url);
-			curl_setopt($ch_current, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch_current, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac_current, time(), $nonce, $_SESSION['client_id'])));
-			$current_task_json = curl_exec($ch_current);
-			curl_close($ch_current);
-			$current_task = json_decode($current_task_json, true);
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+				$nonce = uniqid('Tasky_', true);
+				$current_url = str_replace("{entity}", urlencode($entity_sub), $_SESSION['single_post_endpoint']);
+				$current_url = str_replace("{post}", $id, $current_url);
+				$mac_current = generate_mac('hawk.1.header', $time, $nonce, 'GET', str_replace($_SESSION['entity'], "/", $current_url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+				$log = fopen('update_request.txt', 'w');
+				$ch_current = curl_init();
+				curl_setopt($ch_current, CURLOPT_URL, $current_url);
+				curl_setopt($ch_current, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch_current, CURLOPT_VERBOSE, 1);
+				curl_setopt($ch_current, CURLOPT_STDERR, $log);
+				curl_setopt($ch_current, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac_current, $time, $nonce, $_SESSION['client_id'])));
+				$current_task_json = curl_exec($ch_current);
+				curl_close($ch_current);
+				fclose($log);
+				$current_task = json_decode($current_task_json, true);
 			?>
             <div id="new-task">
             <h2>Edit your task</h2>
