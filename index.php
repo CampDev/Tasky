@@ -117,7 +117,7 @@ s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.
 					$entity_sub_list = substr_replace($_SESSION['entity'] ,"",-1);
 					$current_url = str_replace("{entity}", urlencode($entity_sub_list), $_SESSION['single_post_endpoint']);
 					$current_url = str_replace("{post}", $id, $current_url);
-					$mac_current = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts/'.urlencode($entity_sub_list)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac_current = generate_mac('hawk.1.header', time(), $nonce, 'GET', str_replace($_SESSION['entity'], "/", $current_url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch_current = curl_init();
 					curl_setopt($ch_current, CURLOPT_URL, $current_url);
 					curl_setopt($ch_current, CURLOPT_RETURNTRANSFER, 1);
