@@ -86,7 +86,7 @@
 					$nonce = uniqid('Tasky_', true);
 					$current_url = str_replace("{entity}", urlencode($entity_sub), $_SESSION['single_post_endpoint']);
 					$current_url = str_replace("{post}", $id, $current_url);
-					$mac_current = generate_mac('hawk.1.header', $time, $nonce, 'GET', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$mac_current = generate_mac('hawk.1.header', $time, $nonce, 'GET', str_replace($_SESSION['entity'], "/", $current_url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch_current = curl_init();
 					curl_setopt($ch_current, CURLOPT_URL, $current_url);
 					curl_setopt($ch_current, CURLOPT_RETURNTRANSFER, 1);
@@ -119,14 +119,17 @@
 						),
 						'mentions' => array(
 							array(
-								'entity' => $_SESSION['entity_sub'],
+								'entity' => $_SESSION['entity'],
 								'post' => $current_task['post']['content']['list'],
 								'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 							),
 						),
 					);
 					$uncompleted_post = json_encode($uncompleted_post_raw);
-					$mac = generate_mac('hawk.1.header', $time, $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$url = $_SESSION['single_post_endpoint'];
+					$url = str_replace("{entity}", urlencode($entity_sub), $url);
+					$url = str_replace("{post}", $id, $url);
+					$mac = generate_mac('hawk.1.header', $time, $nonce, 'PUT', str_replace($_SESSION['entity'], "/", $url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -138,6 +141,9 @@
 					if (!isset($uncomplete_task['error'])) {
 						header('Location: '.$redirect_url);
 					}
+					else { ?>
+						<p><b>Error: </b><?php echo $complete_task['error']; ?> </p>
+					<?php }
 					break;
 
 				case 'update': //Updated post sent
