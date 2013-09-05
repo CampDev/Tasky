@@ -59,7 +59,7 @@ require_once('tent-markdown.php');
 						foreach ($posts['posts'] as $task) {
 							$content = $task['content'];
 							echo "<div id='single-task'>";
-                        	echo "<div id='single-task-inner' class='".$content['status']."'>";
+                        	echo "<div id='single-task-inner' class='".strtolower($content['status'])."'>";
 
 
 							if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
