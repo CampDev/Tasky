@@ -24,7 +24,8 @@
             <div id="header-inner">
                 <select class="header-dropdown"
                     onchange="location = this.options[this.selectedIndex].value;">
-                    <option SELECTED value="index.php">All Lists</option>
+                    <option SELECTED value="">Choose a list</option>
+                    <option value="index.php">All Lists</option>
                     <?php foreach ($lists['posts'] as $list) {
                         if (isset($_GET['list'])) {
                             if ($list['id'] == $_GET['list']) {

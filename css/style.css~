@@ -84,8 +84,8 @@ a.delete, a.edit {
 
 footer {
     height: auto;
-    width: 96%;
-    padding: 2%;
+    width: 98%;
+    padding: 1%;
     margin: auto;
     clear: both;
 }
@@ -150,12 +150,14 @@ div#single-task-inner{
 
 div.sidebar {
     width: 19%;
-    background: rgb(245, 245, 245);
+    background: rgb(240, 240, 240);
     padding: 1.5%;
     height: 100%;
+    border-right: 1px solid #ddd;
     float: left;
     font-family: 'Source sans pro', sans-serif;
-    font-size: 18px;
+    font-size: 14px;
+    border-left: 1px solid #ddd;
 }
 
 #features {
@@ -231,11 +233,10 @@ div.padded-container {
 
 div.task-list {
     float: left;
-    width: 77.8%;
+    max-width: 779px;
+    width: 77.5%;
+    border-right: 1px solid #ddd;
     margin-top: -2px;
-    background: white;
-    min-height: 500px;
-    border-left: 1px solid #ddd;
 }
 
 li {
@@ -254,10 +255,10 @@ div.filters {
 }
 
 #new-task {
-    width: 100%;
+    width: 94%;
     max-width: 500px; 
     margin: auto; 
-    padding: 5%;
+    padding: 3%;
     background: white;
     border-radius: 10px;
 }
@@ -268,16 +269,16 @@ div.filters {
 
 
 input.text {
-    width: 98%;
-    padding: 1%;
+    width: 100%;
+    padding: 5px; 
     border: 1px solid #ccc; 
     border-radius: 5px;
     -webkit-appearance: none;
 }
 
 textarea.note {
-    width: 98%;
-    padding: 1%; 
+    width: 100%;
+    padding: 5px; 
     border: 1px solid #ccc; 
     border-radius: 5px;
     min-height: 100px;
@@ -448,8 +449,7 @@ a.javaless-nav {
 
     div.task-list {
 	    width: 100%;
-        margin-top: 60px;
-        padding-top: 10px;
+        margin-top: 70px;
         border: none;
     }
 
