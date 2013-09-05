@@ -57,46 +57,38 @@ require_once('tent-markdown.php');
 					<?php }
 					else {
 						foreach ($posts['posts'] as $task) {
-							$content = $task['content'];
-							echo "<div id='single-task'>";
-                        	echo "<div id='single-task-inner' class='".strtolower($content['status'])."'>";
+							$content = $task['content']; ?>
+							<div id='single-task'>
+                        	<div id='single-task-inner' class='<?php echo strtolower($content['status']); ?>'>
 
 
-							if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') {
-								echo "<span style='color: #219807; float: left; margin-top: 12px; height: 28px;  margin-right: 20px;'><a href='task_handler.php?type=complete&id=".$task['id']."&parent=".$task['version']['id']."'>
-
-<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <path style='fill: gray;' id='checkbox-11-icon' d='M256,111c38.73,0,75.144,15.083,102.53,42.47S401,217.27,401,256s-15.083,75.144-42.47,102.53
+							<?php if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') { ?>
+								<span style='color: #219807; float: left; margin-top: 12px; height: 28px;  margin-right: 20px;'><a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <path style='fill: gray;' id='checkbox-11-icon' d='M256,111c38.73,0,75.144,15.083,102.53,42.47S401,217.27,401,256s-15.083,75.144-42.47,102.53
 	S294.73,401,256,401s-75.144-15.083-102.53-42.47S111,294.73,111,256s15.083-75.144,42.47-102.53S217.27,111,256,111z M256,71
-	C153.827,71,71,153.828,71,256s82.827,185,185,185c102.172,0,185-82.828,185-185S358.172,71,256,71z'></path> </svg>
-
-                            </a></span>";	
-							}
-							elseif (isset($content['status']) AND $content['status'] == 'Done' OR $content['status'] == 'done') {
-								echo "<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=uncomplete&id=".$task['id']."&parent=".$task['version']['id']."'>
-
-<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <path style='fill: gray;' id='checkbox-11-icon' d='M457.861,145.415L251.546,351.744L137.86,238.028l48.407-48.415l65.276,65.295l157.89-157.89
+	C153.827,71,71,153.828,71,256s82.827,185,185,185c102.172,0,185-82.828,185-185S358.172,71,256,71z'></path> </svg></a></span>	
+							<?php }
+							elseif (isset($content['status']) AND $content['status'] == 'Done' OR $content['status'] == 'done') { ?>
+								<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=uncomplete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <path style='fill: gray;' id='checkbox-11-icon' d='M457.861,145.415L251.546,351.744L137.86,238.028l48.407-48.415l65.276,65.295l157.89-157.89
 L457.861,145.415z M384.02,261.689c-1.402,36.596-16.309,70.8-42.35,96.841C314.283,385.917,277.869,401,239.139,401
 s-75.144-15.083-102.53-42.47s-42.47-63.8-42.47-102.53s15.083-75.144,42.47-102.53s63.8-42.47,102.53-42.47
 c31.297,0,61.076,9.853,85.805,28.082l28.529-28.528C322.002,85.78,282.297,71,239.139,71c-102.173,0-185,82.828-185,185
-s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.714L384.02,261.689z'></path> </svg>
+s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.714L384.02,261.689z'></path> </svg></a></span>
 
-                            </a></span>";
-
-							}
+							<?php }
 							else {
 								echo "";
-							}
+							} ?>
 
+							<div class='task-body'>
+								<div class='title'><a class='edit' href='edit.php?type=update&id=<?php echo $task['id']; ?>'><?php echo $content['title']; ?>
+                        	</div>
 
-							echo "<div class='task-body'><div class='title'><a class='edit' href='edit.php?type=update&id=".$task['id']."'>".$content['title'];
-                        	echo "</div>";
-
-							if ($content['notes'] != '' AND !is_null($content['notes'])) {
-								echo "<i><div class='note'>".Tent_Markdown($content['notes'])."</div></i></a></div>";
-							}
-							else {
-								echo "</div>";
-							}
+							<?php if ($content['notes'] != '' AND !is_null($content['notes'])) { ?>
+								<i><div class='note'><?php echo Tent_Markdown($content['notes']); ?></div></i></a></div>
+							<?php }
+							else { ?>
+								</div>
+							<?php }
 
 						/*	if (isset($content['duedate']) AND $content['duedate'] != '') {
 								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
@@ -108,21 +100,17 @@ s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.
 							}
 							else {
 								echo "";
-							}               */
-							echo "<a class='delete' href='task_handler.php?type=delete&id=".$task['id']."'>
-
-<svg style='float: right; margin-top: -26px; margin-right: 10px;' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='16px' height='16px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <polygon style='fill: rgb(82, 82, 82);' id='x-mark-icon' points='438.393,374.595 319.757,255.977 438.378,137.348 374.595,73.607 255.995,192.225 137.375,73.622
-73.607,137.352 192.246,255.983 73.622,374.625 137.352,438.393 256.002,319.734 374.652,438.378 '></polygon> </svg>
-
-                            </a>";
-
-							echo "</div></div>";
-
-						}
-					}
-
-					echo "</div></div><div style='clear: both;'></div>";
-				}
+							}               */ ?>
+							<a class='delete' href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><svg style='float: right; margin-top: -26px; margin-right: 10px;' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='16px' height='16px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <polygon style='fill: rgb(82, 82, 82);' id='x-mark-icon' points='438.393,374.595 319.757,255.977 438.378,137.348 374.595,73.607 255.995,192.225 137.375,73.622
+73.607,137.352 192.246,255.983 73.622,374.625 137.352,438.393 256.002,319.734 374.652,438.378 '></polygon> </svg></a>
+							</div>
+						</div>
+						<?php }
+					} ?>
+					</div>
+				</div>
+				<div style='clear: both;'></div>
+				<?php }
 				elseif (isset($_GET['list'])) {
 					$_SESSION['redirect_list'] = $_GET['list'];
 					$id = $_GET['list'];
