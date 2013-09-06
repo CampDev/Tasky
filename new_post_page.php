@@ -51,8 +51,9 @@ $entity_sub = $_SESSION['entity_sub'];
 					</select>
 					<input type="date" min="<?php echo date('Y-m-d', time()); ?>" name="duedate" class="select">
                     </p>
-					<p><textarea name="notes" placeholder="Add a description" class="note"></textarea> </p>
-					<p>You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text</p>					<p><input type="submit"></p>
+					<p><textarea name="notes" placeholder="Add a description (optional)" class="note"></textarea> </p>
+                    <input type="submit" value="Add task" class="select" style="border: 1px solid #5179CA">
+					<p>You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text</p>					
 				</form>
 </div>
 
