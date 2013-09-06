@@ -53,7 +53,13 @@ require_once('tent-markdown.php');
 					$posts = json_decode($posts, true);
 					echo "<div>";
 					if ($posts['posts'] == array()) { ?>
-						<h2>No tasks. <a href="new_post_page.php">Add one!</a></h2>
+						<h2>Welcome to Tasky</h2>
+                        <div style="text-align: center;">
+                        <p>Follow these three simple steps to get started with Tasky:</p>
+						<p>1. <a href="list.php">Create a list.</a></p>
+						<p>2. <a href="new_post_page.php">Start adding tasks.</a></p>
+						<p>3. Click on "All lists" to filter by list.</p>
+                        </div>
 					<?php }
 					else {
 						foreach ($posts['posts'] as $task) {
@@ -89,9 +95,9 @@ s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.
 								</div>
 							<?php }
 
-						/*	if (isset($content['duedate']) AND $content['duedate'] != '') {
+							if (isset($content['duedate']) AND $content['duedate'] != '') {
 								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
-									echo "<span style='color: cd0d00;'>Today</span>";
+									echo "<div class='date'>Today</div>";
 								}
 								else {
 									echo "<div class='date'>".date('d/M/Y', $content['duedate'])."</div>";
@@ -99,7 +105,7 @@ s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.
 							}
 							else {
 								echo "";
-							}               */ ?>
+							}                ?>
 							<a class='delete' href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><svg style='float: right; margin-top: -26px; margin-right: 10px;' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='16px' height='16px' viewBox='0 0 512 512' enable-background='new 0 0 512 512' xml:space='preserve'> <polygon style='fill: rgb(82, 82, 82);' id='x-mark-icon' points='438.393,374.595 319.757,255.977 438.378,137.348 374.595,73.607 255.995,192.225 137.375,73.622
 73.607,137.352 192.246,255.983 73.622,374.625 137.352,438.393 256.002,319.734 374.652,438.378 '></polygon> </svg></a>
 							</div>
@@ -176,9 +182,9 @@ s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.
 								</div>
 							<?php }
 
-						/*	if (isset($content['duedate']) AND $content['duedate'] != '') {
+							if (isset($content['duedate']) AND $content['duedate'] != '') {
 								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
-									echo "<span style='color: cd0d00;'>Today</span>";
+									echo "<div class='date'>Today</div>";
 								}
 								else {
 									echo "<div class='date'>".date('d/M/Y', $content['duedate'])."</div>";
@@ -186,7 +192,7 @@ s82.827,185,185,185c102.172,0,185-82.828,185-185c0-10.814-0.938-21.409-2.719-31.
 							}
 							else {
 								echo "";
-							}               */ ?>
+							}                ?>
 
 
 

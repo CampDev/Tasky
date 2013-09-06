@@ -6,6 +6,7 @@ if (!isset($_SESSION['entity'])) {
 }
 require_once('functions.php');
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>New Post - Tasky</title>

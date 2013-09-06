@@ -8,6 +8,7 @@ if (!isset($_SESSION['entity'])) {
 else {
 require_once('functions.php');
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Tasky</title>
@@ -117,7 +118,7 @@ require_once('functions.php');
 					<input type="date" name="duedate" min="<?php echo date('Y-m-d', time()); ?>" <?php if(!is_null($current_task['post']['content']['duedate']) AND isset($current_task['post']['content']['duedate']) AND $current_task['post']['content']['duedate'] != '') {echo 'value="'.date('Y-m-d', $current_task['post']['content']['duedate']).'"';} ?>" class="select"> 
 					<p><textarea name="notes" class="note"><?php if(!is_null($current_task['post']['content']['notes'])) {echo $current_task['post']['content']['notes'];} ?></textarea></p>
 					<p>You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text</p>
-					<p><input type="submit" value="Save changes"></p>
+					<p><input type="submit" class="submit" value="Save changes"></p>
 			</form>
             </div>
             <?php
@@ -136,14 +137,17 @@ require_once('functions.php');
 				curl_close($ch_current);
 				$current_list = json_decode($current_list, true);
 				?>
+            <div id="new-task">
+            <h2>Edit your list</h2>
 				<form align="center" method="post" action="task_handler.php?type=update_list&id=<?php echo $current_list['post']['id']; ?>&parent=<?php echo $current_list['post']['version']['id']; ?>">
 					<p><input name="name" type="text" value="<?php echo $current_list['post']['content']['name']; ?>" /></p>
 					<p><textarea name="description" class="notes"><?php echo $current_list['post']['content']['description']; ?></textarea></p>
-					<p><input type="submit" value="Save changes" /></p>
+					<p><input type="submit" class="submit" value="Save changes" /></p>
 				</form>
         	<?php
         	}
             ?>
+            </div>
 		</div>
 <?php include('footer.php') ?>
 

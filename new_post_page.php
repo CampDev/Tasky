@@ -6,6 +6,7 @@ require_once('functions.php');
 $entity = $_SESSION['entity'];
 $entity_sub = $_SESSION['entity_sub'];
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Tasky</title>
@@ -24,7 +25,7 @@ $entity_sub = $_SESSION['entity_sub'];
 				<h2>Create a new task</h2>
 				<form align="center" action="task_handler.php?type=task" method="post">
 					<p><input type="text" name="title" placeholder="Your awesome task" class="text" /></p>
-					<p><select name="list" class="select">
+					<p><select name="list" label="list" class="select">
 						<?php
 						foreach ($lists['posts'] as $list) {
 							if(!is_null($list['content']['name'])) {
@@ -52,8 +53,8 @@ $entity_sub = $_SESSION['entity_sub'];
 					<input type="date" min="<?php echo date('Y-m-d', time()); ?>" name="duedate" class="select">
                     </p>
 					<p><textarea name="notes" placeholder="Add a description (optional)" class="note"></textarea> </p>
-                    <input type="submit" value="Add task" class="select" style="border: 1px solid #5179CA">
-					<p>You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text</p>					
+					<p style="clear: both;">You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text.</p>	
+                    <p style="clear: both; height: 15px;"><input type="submit" value="Add task" class="submit"></p>
 				</form>
 </div>
 

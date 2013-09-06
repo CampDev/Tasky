@@ -106,6 +106,11 @@ div.title{
     font-size: 12px;
     font-family: "Source Sans Pro", sans-serif;
     font-weight: 400;
+    display: table-cell;
+    vertical-align: middle;
+    float: right;
+    margin-right: 15%;
+    margin-top: -27px;
 }
 
 div.todo, div.to do {
@@ -201,7 +206,7 @@ div.header {
 
 select.header-dropdown {
     height: 50px;
-    width: 220px;
+    width: auto;
     background: #5179CA;
     border: none;
     color: white;
@@ -214,7 +219,7 @@ select.header-dropdown {
 }
 
 div.header-navigation {
-    padding: 10px;
+    padding: 5px;
     float: right;
 }
 
@@ -233,7 +238,6 @@ div.padded-container {
 div.task-list {
     float: left;
     width: 77.8%;
-    margin-top: -2px;
     background: white;
     min-height: 500px;
     border-left: 1px solid #ddd;
@@ -303,6 +307,31 @@ input.select {
     font-family: inherit;
     width: 136px;
     -webkit-appearance: none;
+}
+
+.submit {
+    background-color: hsl(208, 79%, 43%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#56a5eb", endColorstr="#1773c4");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#56a5eb), to(#1773c4));
+    background-image: -moz-linear-gradient(top, #56a5eb, #1773c4);
+    background-image: -ms-linear-gradient(top, #56a5eb, #1773c4);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #56a5eb), color-stop(100%, #1773c4));
+    background-image: -webkit-linear-gradient(top, #56a5eb, #1773c4);
+    background-image: -o-linear-gradient(top, #56a5eb, #1773c4);
+    background-image: linear-gradient(#56a5eb, #1773c4);
+    border-color: #1773c4 #1773c4 hsl(208, 79%, 38%);
+    color: white !important;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
+    -webkit-font-smoothing: antialiased;
+    border: 1px solid #0070FF;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 4px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    float: right;
 }
 
 #lean_overlay {
@@ -460,9 +489,9 @@ a.javaless-nav {
     }
 
     select.header-dropdown {
-	    width: 50%;
         padding: 15px;
         height: 60px;
+        max-width: 250px;
     }
 
     a.javascript-nav {
@@ -519,4 +548,18 @@ a.javaless-nav {
     height: 60px;
     }
 
+    #new-task{
+    padding-top: 60px;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    select.header-dropdown {
+        max-width: 58%;
+        padding: 5px;
+    }    
+    .logo {
+        display: none;
+    }
 }
