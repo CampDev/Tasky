@@ -82,7 +82,8 @@ require_once('tent-markdown.php');
 							} ?>
 
 							<div class='task-body'>
-								<div class='title'><a class='edit' href='edit.php?type=update&id=<?php echo $task['id']; ?>'><?php echo $content['title']; ?></div>
+									<div class='title'>
+								<a class='edit' href='edit.php?type=update&id=<?php echo $task['id']; ?>'><?php echo $content['title']; ?></div>
 
 							<?php if ($content['notes'] != '' AND !is_null($content['notes'])) { ?>
 								<i><div class='note'><?php echo Tent_Markdown($content['notes']); ?></div></i></a></div>
@@ -92,12 +93,15 @@ require_once('tent-markdown.php');
 							<?php }
 
 							if (isset($content['duedate']) AND $content['duedate'] != '') {
-								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
-									echo "<div class='date'>Today</div>";
-								}
-								else {
-									echo "<div class='date'>".date('d/M/Y', $content['duedate'])."</div>";
-								}
+								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) { ?>
+									<div class='date'>Today</div>
+								<?php }
+								elseif ($content['duedate'] < time() and strtolower($content['status']) != 'done') { ?>
+									<div class='date' style='color: red;'><?php echo date('d/M/Y', $content['duedate']); ?></div>
+								<?php }
+								else { ?>
+									<div class='date'><?php echo date('d/M/Y', $content['duedate']); ?></div>
+								<?php }
 							}
 							else {
 								echo "";
@@ -161,18 +165,20 @@ require_once('tent-markdown.php');
 							else { ?>
 								</div>
 							<?php }
-
-							if (isset($content['duedate']) AND $content['duedate'] != '') {
-								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) {
-									echo "<div class='date'>Today</div>";
-								}
-								else {
-									echo "<div class='date'>".date('d/M/Y', $content['duedate'])."</div>";
-								}
+								if (isset($content['duedate']) AND $content['duedate'] != '') {
+								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) { ?>
+									<div class='date'>Today</div>
+								<?php }
+								elseif ($content['duedate'] < time() and strtolower($content['status']) != 'done') { ?>
+									<div class='date' style='color: red;'><?php echo date('d/M/Y', $content['duedate']); ?></div>
+								<?php }
+								else { ?>
+									<div class='date'><?php echo date('d/M/Y', $content['duedate']); ?></div>
+								<?php }
 							}
 							else {
 								echo "";
-							}?>
+							} ?>
 
 							<a href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a>
 
