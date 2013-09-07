@@ -6,6 +6,7 @@ if (!isset($_SESSION['entity'])) {
 require_once('functions.php');
 require_once('tent-markdown.php');
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,23 +22,22 @@ require_once('tent-markdown.php');
 			});
 		</script>
 	</head>
-
 	<body>
 
 	<?php include('header.php'); ?>
 
-			<div class="container" style="background: rgb(245, 245, 245); border-left: 1px solid #ddd; border-right: 1px solid #ddd;">
+			<div class="container main">
+
 				<div class="sidebar">
                 	All tasks<br><br>
                     Inbox<br><br>
                 	Due today<br><br>
                 	Upcoming<br><br>
                 	Calendar
-                		</div>
+                </div>
 
 				<div class='task-list'>
-
-				<div class="filters" style="text-align: left; font-size: 18px;">Tasks</div>
+				    <div class="filters">Tasks</div>
 
 				<?php
 				if (!isset($_GET['list'])) {
@@ -51,7 +51,9 @@ require_once('tent-markdown.php');
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
-					echo "<div>";
+
+                    /* Welcome page */
+
 					if ($posts['posts'] == array()) { ?>
 						<h2>Welcome to Tasky</h2>
                         <div style="text-align: center;">
@@ -59,20 +61,21 @@ require_once('tent-markdown.php');
 						<p>1. <a href="list.php">Create a list.</a></p>
 						<p>2. <a href="new_post_page.php">Start adding tasks.</a></p>
 						<p>3. Click on "All lists" to filter by list.</p>
-                        </div>
-					<?php }
+                        </div><?php }
+
+                    /* Tasks from all lists */
+
 					else {
 						foreach ($posts['posts'] as $task) {
 							$content = $task['content']; ?>
-							<div id='single-task'>
-                        	<div id='single-task-inner' class='<?php echo strtolower($content['status']); ?>'>
+							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
 
 							<?php if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') { ?>
-								<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img width="25px" height="25px" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a></span>	
+								<a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a>
 							<?php }
 							elseif (isset($content['status']) AND strtolower($content['status']) == 'done') { ?>
-								<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=uncomplete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img width="25px" height="25px" src="img/checkbox_done.svg"></a></span>
+								<a href='task_handler.php?type=uncomplete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_done.svg"></a>
 							<?php }
 							else {
 								echo "";
@@ -99,15 +102,15 @@ require_once('tent-markdown.php');
 							else {
 								echo "";
 							}                ?>
-							<span><a class='delete' style='float: right; margin-top: -26px; margin-right: 10px;' href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img width="20px" height="20px" src="img/delete.svg"></a></span>
-							</div>
+							<a href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a>
 						</div>
 						<?php }
 					} ?>
 					</div>
-				</div>
-				<div style='clear: both;'></div>
-				<?php }
+				<div class='clear'></div><?php }
+
+                    /* Tasks from chosen list */
+
 				elseif (isset($_GET['list'])) {
 					$_SESSION['redirect_list'] = $_GET['list'];
 					$id = $_GET['list'];
@@ -134,24 +137,15 @@ require_once('tent-markdown.php');
 					curl_close($init);
 					$posts = json_decode($posts, true);
 					if ($posts['posts'] != array()) {
-						echo "<div>";
 						foreach ($posts['posts'] as $task) {
 							$content = $task['content'];?>
-							<div id='single-task'>
-                        	<div id='single-task-inner' class='<?php echo strtolower($content['status']); ?>'>
-
-                    		<?php if (isset($content['priority'])) {
-                    			echo "<div style='width: 10px;'><div class='prio_".$content['priority']."'></div></div>";
-                    		}
-                  			else {
-                  				echo "<div></div>";
-							} ?>
+							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
 							<?php if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') { ?>
-								<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img width="25px" height="25px" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a></span>
+								<a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a>
 							<?php }
 							elseif (isset($content['status']) AND $content['status'] == 'Done' OR $content['status'] == 'done') { ?>
-								<span style='color: #aaa; float: left; margin-top: 12px; height: 28px; margin-right: 20px;'><a href='task_handler.php?type=uncomplete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img width="25px" height="25px" src="img/checkbox_done.svg"></a></span>
+								<a href='task_handler.php?type=uncomplete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_done.svg"></a>
 
 							<?php }
 							else {
@@ -178,23 +172,23 @@ require_once('tent-markdown.php');
 							}
 							else {
 								echo "";
-							}                ?>
+							}?>
 
+							<a href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a>
 
-
-									<span><a class='delete' style='float: right; margin-top: -26px; margin-right: 10px;' href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img width="20px" height="20px" src="img/delete.svg"></a></span>
-							<?php echo "</tr></div></div>";
+							<?php echo "</div>";
 						}
 						echo "</div>";
 					}
 					else { ?>
-						<h2>No tasks in <?php echo $current_list['post']['content']['name']; ?>. <a href="new_post_page.php">Add one!</h2>
+						<h2>No tasks in <?php echo $current_list['post']['content']['name']; ?>. <a href="new_post_page.php">Add one!</a></h2>
 					<?php }
 				}
 				?>
-                </div>
-                <div style='clear: both;'></div>
+                <div class='clear'></div>
+
 		<?php include('footer.php') ?>
+
         </div>
 
 	</body>

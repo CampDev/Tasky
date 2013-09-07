@@ -11,41 +11,23 @@ body {
     font-size: 12px
 }
 
-h1, h2, h3, h4 {
-    text-align: center;
-}
-
 h2 {
     font-size: 28px;
     font-family: 'Raleway', sans-serif;
     font-weight: 200;
+    text-align: center;
 }
 
 h3 {
     font-size: 22px;
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
+    text-align: center;
 }
 
 h4 {
     font-size: 20px;
-}
-
-h1.page_heading {
-    color: #4A66D9;
-    font-size: 75px;
-}
-
-h2.page_heading {
-    color: #4A66D9;
-}
-
-h2.error {
-    color: #cd0d00;
-}
-
-h2.loggedin {
-    color: #219807;
+    text-align: center;
 }
 
 a, a:hover {
@@ -53,12 +35,16 @@ a, a:hover {
     color: #3F8AEB;
 }
 
-a.complete {
-    color: #219807;
-}
-
 a.edit {
     color: black;
+}
+
+.delete {
+    float: right;
+    margin-top: -26px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
 }
 
 footer {
@@ -81,7 +67,7 @@ div.title{
     font-weight: 400;
 }
 
-    div.date{
+div.date{
     font-size: 12px;
     font-family: "Source Sans Pro", sans-serif;
     font-weight: 400;
@@ -100,36 +86,20 @@ div.done, div.done a {
     opacity: 0.65;
 }
 
-td  {
-    padding: 5px;
-    font-size: 14px;
-    height: 40px;
-}
-
-table {
-    width: 95%;
-    margin-top: 15px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
 div#single-task{
     height: auto;
     width: 100%;
     border-bottom: 1px solid #eee;
-}
-div.task-body{
-    height: 40px;
-    vertical-align: middle;
-    display: table-cell;
-}
-
-div#single-task-inner{
     height: auto;
     width: 98%;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 2%;
+}
+div.task-body{
+    height: 40px;
+    vertical-align: middle;
+    display: table-cell;
 }
 
 div.sidebar {
@@ -140,6 +110,10 @@ div.sidebar {
     float: left;
     font-family: 'Source sans pro', sans-serif;
     font-size: 18px;
+}
+
+.clear {
+    clear: both;
 }
 
 #features {
@@ -214,6 +188,12 @@ div.padded-container {
     margin: auto;
 }
 
+div.main {
+    background: rgb(245, 245, 245);
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
 div.task-list {
     float: left;
     width: 77.8%;
@@ -222,8 +202,13 @@ div.task-list {
     border-left: 1px solid #ddd;
 }
 
-li {
-    font-size: 12px;
+.priority {
+    color: #aaa;
+    float: left;
+    margin-top: 10px;
+    margin-right: 20px;
+    width: 25px;
+    height: 25px;
 }
 
 div.filters {
@@ -232,9 +217,9 @@ div.filters {
     height: 15px;
     border-bottom: 1px solid #ddd;
     padding: 2%;
-    text-align: right;
-    font-size: 13px;
     font-family: 'Source sans pro', sans-serif;
+    text-align: left;
+    font-size: 18px;
 }
 
 #new-task {
@@ -430,13 +415,8 @@ a.javaless-nav {
         width: 95%;
         padding: 2.5%;
     }
-    table {
-        width: 94%;
-        margin: 3%;
-    }
-
     #header-inner {
-    padding-right: 20px;
+        padding-right: 20px;
     }
 
 }
@@ -501,22 +481,6 @@ a.javaless-nav {
 
     div.note{
         font-size: 14px;
-    }
-
-    .prio_0 {
-     border-right: 0px solid rgb(0, 226, 0);
-    }
-
-    .prio_1 {
-        border-right: 0px solid rgb(204, 132, 0);
-    }
-
-    .prio_2 {
-        border-right: 0px solid red;
-    }
-
-    .prio_3 {
-       border-right: 0px solid black;
     }
 
     #header-inner {
