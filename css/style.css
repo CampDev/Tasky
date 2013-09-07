@@ -57,29 +57,8 @@ a.complete {
     color: #219807;
 }
 
-a.delete, a.edit {
+a.edit {
     color: black;
-}
-
-.priority {
-    height: 61px;
-    float: right;
-}
-
-.prio_0 {
-    border-right: 2px solid rgb(0, 226, 0);
-}
-
-.prio_1 {
-    border-right: 2px solid rgb(204, 132, 0);
-}
-
-.prio_2 {
-    border-right: 2px solid red;
-}
-
-.prio_3 {
-    border-right: 2px solid black;
 }
 
 footer {

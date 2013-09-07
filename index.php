@@ -99,7 +99,7 @@ require_once('tent-markdown.php');
 							else {
 								echo "";
 							}                ?>
-							<span><a class='delete' href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img width="20px" height="20px" src="img/delete.svg"></a></span>
+							<span><a class='delete' style='float: right; margin-top: -26px; margin-right: 10px;' href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img width="20px" height="20px" src="img/delete.svg"></a></span>
 							</div>
 						</div>
 						<?php }
@@ -182,7 +182,7 @@ require_once('tent-markdown.php');
 
 
 
-							<span><a class='delete' href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img width="20px" height="20px" src="img/delete.svg"></a></span>
+									<span><a class='delete' style='float: right; margin-top: -26px; margin-right: 10px;' href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img width="20px" height="20px" src="img/delete.svg"></a></span>
 							<?php echo "</tr></div></div>";
 						}
 						echo "</div>";
