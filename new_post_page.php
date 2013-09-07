@@ -55,7 +55,8 @@ $entity_sub = $_SESSION['entity_sub'];
 						</select>
 					</label>
 					<label>Due date: 
-						<input type="date" min="<?php echo date('Y-m-d', time()); ?>" name="duedate" class="select">
+						<!-- <input type="date" min="<?php echo date('Y-m-d', time()); ?>" name="duedate" class="select"> -->
+						<input type="date" name="duedate" class="select">
 					</label>
                     </p>
 					<p><textarea name="notes" placeholder="Add a description (optional)" class="note"></textarea> </p>
