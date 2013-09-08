@@ -46,11 +46,20 @@ require_once('functions.php');
 			}
 			else //No error goes here
 			{
+				// Writing the credentials file
+				$credentials_file = array('hawk_key' => $result['hawk_key'], 'access_token' => $result['access_token'], 'client_id' => $_SESSION['client_id']);
+				$credentials_file = json_encode($credentials_file,JSON_UNESCAPED_UNICODE);
+				$file = fopen('logins/'.urlencode($entity).'.json', 'w') or die("Error opening output file");
+				fwrite($file, $credentials_file);
+				fclose($file);
 
+				// Setting SESSION variables
                 $_SESSION['access_token'] = $result['access_token'];
                 $_SESSION['hawk_key'] = $result['hawk_key'];
 				$_SESSION['entity'] = $entity;
 				$_SESSION['loggedin'] = true;
+
+				// Redirecting to index.php
 				header('Location: index.php');
 			}
 		}

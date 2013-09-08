@@ -16,6 +16,23 @@ require_once('functions.php');
 		}
 		$entity_sub = substr($entity, 0, strlen($entity)-1);
 
+		if (file_exists('logins/'.urlencode($entity).'.json')) {
+			$credentials = json_decode(file_get_contents('logins/'.urlencode($entity).'.json'), true);
+			$state = uniqid('Staty_', true);
+			$_SESSION['entity'] = $entity;
+			$_SESSION['entity_sub'] = $entity_sub;
+			$_SESSION['hawk_key'] = $credentials['hawk_key'];
+			$_SESSION['hawk_id'] = $credentials['access_token'];
+			$_SESSION['access_token'] = $credentials['access_token'];
+			$_SESSION['client_id'] = $credentials['client_id'];
+			$meta = discover_link($entity, false); //Using discover_entity-function from discovery.php with entity from get and no debugging features
+        	$_SESSION['new_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['new_post'];
+        	$_SESSION['posts_feed_endpoint'] = $meta['post']['content']['servers'][0]['urls']['posts_feed'];
+        	$_SESSION['single_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['post'];
+        	$oauth_endpoint = $meta['post']['content']['servers'][0]['urls']['oauth_auth'];
+        	header('Location: '.$oauth_endpoint.'?client_id='.$credentials['client_id'].'&state='.$state);
+		}
+		else {
 		$_SESSION['entity_old'] = $entity;
         $meta = discover_link($entity, false); //Using discover_entity-function from discovery.php with entity from get and no debugging features
         $_SESSION['new_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['new_post'];
@@ -30,7 +47,7 @@ require_once('functions.php');
 				'name' => 'Tasky',
 				'url' => 'http://cacauu.de/tasky/',
 				'types' => array(
-					'write' => array('https://tent.io/types/status/v0', 'http://cacauu.de/tasky/task/v0.1', 'http://cacauu.de/tasky/list/v0.1'),
+					'write' => array('http://cacauu.de/tasky/task/v0.1', 'http://cacauu.de/tasky/list/v0.1'),
 					),
 				'redirect_uri' => 'http://localhost:8888/tasky_git/redirect.php',
 				),
@@ -75,23 +92,16 @@ require_once('functions.php');
 		$_SESSION['oauth_token_endpoint'] = $meta['post']['content']['servers'][0]['urls']['oauth_token'];
 		$_SESSION['entity_old'] = $entity;
 
-		/*var_export($access_token_array);
-		echo "<hr/>";
-		echo "<p>".$access_token_array['post']['id']."</p>";*/
-
-		$state = uniqid('Staty_', true);
+		if ($access_token_array['post']['mentions'][0]['post'] == $body['post']['id']) {
+			$state = uniqid('Staty_', true);
 			$_SESSION['auth_state'] = $state;	
 			header('Location: '.$oauth_endpoint.'?client_id='.$access_token_array['post']['mentions'][0]['post'].'&state='.$state);
-
-		if ($access_token_array['post']['mentions'][0]['post'] == $body['post']['id']) {
-			/* $state = uniqid('Staty_', true);
-			$_SESSION['auth_state'] = $state;	
-			header('Location: '.$oauth_endpoint.'?client_id='.$access_token_array['post']['mentions'][0]['post'].'&state='.$state); */
 		}
 		else {
 			unset($_SESSION);
 			$error = 'Problem with authentication. Please try again!';
 			header('Location: landing.php?error='.$error);
 		}
+	}
 	}
 ?>

@@ -4,7 +4,10 @@
             //Getting all the lists 
             $log = fopen('request.txt', 'w');
             $entity = $_SESSION['entity'];
-            $entity_sub = $_SESSION['entity_sub'];
+            $entity_sub = str_replace("http://", "", $entity);
+            $entity_sub = str_replace("https://", "", $entity_sub);
+            $entity_sub = substr($entity_sub, 0, strlen($entity_sub)-1);
+            $_SESSION['entity_sub'] = $entity_sub;
             $nonce = uniqid('Tasky_', true);
             $mac_lists = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/'.str_replace($_SESSION['entity'], "", $_SESSION['posts_feed_endpoint']).'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Flist%2Fv0.1', $entity_sub, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
             $init_lists = curl_init();
