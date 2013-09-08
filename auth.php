@@ -30,6 +30,7 @@ require_once('functions.php');
         	$_SESSION['posts_feed_endpoint'] = $meta['post']['content']['servers'][0]['urls']['posts_feed'];
         	$_SESSION['single_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['post'];
         	$oauth_endpoint = $meta['post']['content']['servers'][0]['urls']['oauth_auth'];
+        	$_SESSION['auth_state'] = $state;
         	header('Location: '.$oauth_endpoint.'?client_id='.$credentials['client_id'].'&state='.$state);
 		}
 		else {
