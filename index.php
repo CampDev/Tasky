@@ -65,56 +65,6 @@ require_once('tent-markdown.php');
 
                     /* Tasks from all lists */
 
-                    elseif (isset($_GET['view']) AND $_GET['view'] == 'upcoming') { ?>
-                    	<div class="filters">Upcoming Tasks</div>
-                    <?php
-                    foreach ($posts['posts'] as $task) {
-                    	$content = $task['content'];
-                    	if ($task['content']['duedate'] > time()) { ?>
-							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
-
-
-							<?php if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') { ?>
-								<a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a>
-							<?php }
-							elseif (isset($content['status']) AND strtolower($content['status']) == 'done') { ?>
-								<a href='task_handler.php?type=uncomplete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_done.svg"></a>
-							<?php }
-							else {
-								echo "";
-							} ?>
-
-							<div class='task-body'>
-									<div class='title'>
-								<a class='edit' href='edit.php?type=update&id=<?php echo $task['id']; ?>'><?php echo $content['title']; ?></div>
-
-							<?php if ($content['notes'] != '' AND !is_null($content['notes'])) { ?>
-								<i><div class='note'><?php echo Tent_Markdown($content['notes']); ?></div></i></a></div>
-							<?php }
-							else { ?>
-								</div>
-							<?php }
-
-							if (isset($content['duedate']) AND $content['duedate'] != '') {
-								if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time())) { ?>
-									<div class='date'>Today</div>
-								<?php }
-								elseif ($content['duedate'] < time() and strtolower($content['status']) != 'done') { ?>
-									<div class='date' style='color: red;'><?php echo date('d/M/Y', $content['duedate']); ?></div>
-								<?php }
-								else { ?>
-									<div class='date'><?php echo date('d/M/Y', $content['duedate']); ?></div>
-								<?php }
-							}
-							else {
-								echo "";
-							}                ?>
-							<a href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a>
-						</div>
-						<?php }
-						}
-                }
-
 					else { ?>
 							<div class="filters">Tasks</div>
 						<?php foreach ($posts['posts'] as $task) {
