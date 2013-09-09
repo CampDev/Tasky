@@ -22,6 +22,20 @@
             $lists = json_decode($lists, true);
 ?>
 
+<head>
+        <script type="text/javascript">
+        <!--
+        function toggle_visibility(id) {
+            var e = document.getElementById(id);
+            if(e.style.display == 'block')
+                e.style.display = 'none';
+            else
+                e.style.display = 'block';
+        }
+        //-->
+        </script>
+</head>
+
         <div class="header">
         <div class="container">
             <div id="header-inner">
@@ -89,3 +103,8 @@
             </div>
         </div>
         </div>
+
+
+				<div id="mobile-menu">
+                    <?php include('sidebar.php'); ?>
+                </div>

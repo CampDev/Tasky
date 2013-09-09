@@ -41,10 +41,6 @@ require_once('tent-markdown.php');
 
 			<div class="container main">
 
-				<div id="mobile-menu">
-                    <?php include('sidebar.php'); ?>
-                </div>
-
 				<div class="sidebar">
                     <?php include('sidebar.php'); ?>
                 </div>
