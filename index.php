@@ -30,11 +30,11 @@ require_once('tent-markdown.php');
 
 				<div class="sidebar">
                 	<a href="index.php">All Tasks</a><br><br>
-                    Inbox<br><br>
+                    <!-- Inbox<br><br> -->
                 	<a href="today.php">Due Today</a><br><br>
                 	<a href="tomorrow.php">Due Tomorrow</a><br><br>
                 	<a href="upcoming.php">Upcoming</a><br><br>
-                	Calendar
+                	<!-- Calendar -->
                 </div>
 
 				<div class='task-list'>
