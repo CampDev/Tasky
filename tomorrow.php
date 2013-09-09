@@ -67,10 +67,13 @@ require_once('tent-markdown.php');
                     /* Tasks from all lists */
 
 					else { ?>
-							<div class="filters">Upcoming Tasks</div>
-						<?php foreach ($posts['posts'] as $task) {
+							<div class="filters">Tasks Due Tomorrow</div>
+						<?php 
+						$tomorrow = new DateTime('tomorrow');
+						$tomorrow = date_timestamp_get($tomorrow);
+						foreach ($posts['posts'] as $task) {
 							$content = $task['content']; 
-							if ($content['duedate'] > time()) { ?>
+							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', $tomorrow) AND $content['status'] == 'todo' OR date('d/M/Y', $content['duedate']) == date('d/M/Y', $tomorrow) AND $content['status'] == 'To Do') { ?>
 							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
 
