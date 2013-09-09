@@ -112,6 +112,20 @@ div.sidebar {
     font-size: 18px;
 }
 
+div#mobile-menu {
+    display: none;
+    text-align: center;
+    padding-top: 80px;
+}
+
+    .menu-button {
+        display: none;
+    }
+    
+div.extended-menu {
+    display: none;
+}
+
 .clear {
     clear: both;
 }
@@ -223,7 +237,7 @@ div.filters {
 }
 
 #new-task {
-    width: 100%;
+    width: 90%;
     max-width: 500px;
     min-width: 400px;
     margin: auto; 
@@ -432,12 +446,13 @@ a.javaless-nav {
     }
 
     div.sidebar {
-        width: 100%;
-        text-align: center;
-        border: 0px;
-        padding: 0px;
-        padding-top: 20px;
 	    display: none;
+    }
+
+    .menu-button {
+        display: block;
+        float: right;
+        width: 36px;
     }
 
     div.task-list {
@@ -493,6 +508,7 @@ a.javaless-nav {
 
     #new-task{
     padding-top: 60px;
+    min-width: 0px;
     }
 
 }
@@ -504,5 +520,13 @@ a.javaless-nav {
     }    
     .logo {
         display: none;
+    }
+
+    a.javaless-nav {
+        display: none;
+    }
+
+    div.extended-menu {
+        display: block;
     }
 }

@@ -21,6 +21,19 @@ require_once('tent-markdown.php');
     			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });		
 			});
 		</script>
+
+        <script type="text/javascript">
+        <!--
+        function toggle_visibility(id) {
+            var e = document.getElementById(id);
+            if(e.style.display == 'block')
+                e.style.display = 'none';
+            else
+                e.style.display = 'block';
+        }
+        //-->
+        </script>
+
 	</head>
 	<body>
 
@@ -28,13 +41,12 @@ require_once('tent-markdown.php');
 
 			<div class="container main">
 
+				<div id="mobile-menu">
+                    <?php include('sidebar.php'); ?>
+                </div>
+
 				<div class="sidebar">
-                	<a href="index.php">All Tasks</a><br><br>
-                    <!-- Inbox<br><br> -->
-                	<a href="today.php">Due Today</a><br><br>
-                	<a href="tomorrow.php">Due Tomorrow</a><br><br>
-                	<a href="upcoming.php">Upcoming</a><br><br>
-                	<!-- Calendar -->
+                    <?php include('sidebar.php'); ?>
                 </div>
 
 				<div class='task-list'>
