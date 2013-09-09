@@ -69,7 +69,7 @@ require_once('tent-markdown.php');
 							<div class="filters">Tasks Due Today</div>
 						<?php foreach ($posts['posts'] as $task) {
 							$content = $task['content']; 
-							if ($content['duedate'] > time()) { ?>
+							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', time()) AND $content['status'] == 'todo' OR date('d/M/Y', $content['duedate']) == date('d/M/Y', time()) AND $content['status'] == 'To Do') { ?>
 							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
 
