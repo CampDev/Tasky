@@ -41,9 +41,21 @@ require_once('tent-markdown.php');
 				<?php
 				if (!isset($_GET['list'])) {
 					unset($_SESSION['redirect_list']);
-					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/'.str_replace($_SESSION['entity'], "", $_SESSION['posts_feed_endpoint']).'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1', $entity_sub, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					if (!isset($_GET['filter'])) {
+						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1';	
+					}
+					elseif ($_GET['filter'] == 'todo') {
+						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23todo';
+					}
+					elseif ($_GET['filter'] == 'done') {
+						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23done';
+					}
+					elseif ($_GET['filter'] == 'test') {
+						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23test';
+					}
+					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', str_replace($entity, "/", $url), $entity_sub, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$init = curl_init();
-					curl_setopt($init, CURLOPT_URL, $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1');
+					curl_setopt($init, CURLOPT_URL, $url);
 					curl_setopt($init, CURLOPT_HTTPGET, 1);
 					curl_setopt($init, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($init, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, time(), $nonce, $_SESSION['client_id']))); //Setting the HTTP header
@@ -53,7 +65,7 @@ require_once('tent-markdown.php');
 
                     /* Welcome page */
 
-					if ($posts['posts'] == array()) { ?>
+					if (!isset($_GET['filter']) AND $posts['posts'] == array()) { ?>
 					<div class="filters">Tasks</div>
 						<h2>Welcome to Tasky</h2>
                         <div style="text-align: center;">
@@ -61,12 +73,12 @@ require_once('tent-markdown.php');
 						<p>1. <a href="list.php">Create a list.</a></p>
 						<p>2. <a href="new_post_page.php">Start adding tasks.</a></p>
 						<p>3. Click on "All lists" to filter by list.</p>
-                        </div><?php }
+                    </div><?php }
 
                     /* Tasks from all lists */
 
 					else { ?>
-							<div class="filters">Tasks</div>
+							<div class="filters">Tasks - <a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></div>
 						<?php foreach ($posts['posts'] as $task) {
 							$content = $task['content']; ?>
 							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
