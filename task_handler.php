@@ -174,7 +174,7 @@
 						),
 						'mentions' => array(
 							array(
-								'entity' => $entity_sub,
+								'entity' => $_SESSION['entity'],
 								'post' => $_POST['list'],
 								'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 							),
