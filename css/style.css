@@ -103,7 +103,7 @@ div.task-body{
 }
 
 div.sidebar {
-    width: 19%;
+    width: 17%;
     background: rgb(245, 245, 245);
     padding: 1.5%;
     height: 100%;
@@ -191,14 +191,14 @@ div.header-navigation {
 }
 
 div.container {
-    max-width: 1024px;
+    max-width: 1170px;
     margin: auto;
 }
 
 div.padded-container {
     padding: 2%;
     width: 96%;
-    max-width: 1024px;
+    max-width: 1170px;
     margin: auto;
 }
 
@@ -210,7 +210,7 @@ div.main {
 
 div.task-list {
     float: left;
-    width: 77.8%;
+    width: 79.8%;
     background: white;
     min-height: 500px;
     border-left: 1px solid #ddd;
@@ -465,7 +465,7 @@ a.javaless-nav {
     select.header-dropdown {
         padding: 15px;
         height: 60px;
-        max-width: 250px;
+        max-width: 220px;
     }
 
     a.javascript-nav {
