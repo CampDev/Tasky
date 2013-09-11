@@ -31,9 +31,15 @@ require_once('functions.php');
         	$_SESSION['single_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['post'];
         	$oauth_endpoint = $meta['post']['content']['servers'][0]['urls']['oauth_auth'];
         	$_SESSION['auth_state'] = $state;
+        	$_SESSION['oauth_token_endpoint'] = $meta['post']['content']['servers'][0]['urls']['oauth_token'];
+        	$_SESSION['entity_old'] = $entity;
         	header('Location: '.$oauth_endpoint.'?client_id='.$credentials['client_id'].'&state='.$state);
 		}
+
 		else {
+			/*$file = fopen('logins/'.urlencode($entity).'.json', 'w');
+			fwrite($file, json_encode(array('authenticating' => true)));
+			fclose($file);*/
 		$_SESSION['entity_old'] = $entity;
         $meta = discover_link($entity, false); //Using discover_entity-function from discovery.php with entity from get and no debugging features
         $_SESSION['new_post_endpoint'] = $meta['post']['content']['servers'][0]['urls']['new_post'];
