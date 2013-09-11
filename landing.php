@@ -13,7 +13,7 @@
 	<body>
 
 
-        <div class="header" style="background: url('../img/logobg.png'); background-position: center;">
+        <div class="header" style="background: url('img/logobg.png'); background-position: center;">
         <div class="container">
             <div id="header-inner">
                 <span style="font-size: 12px;margin-left: 5px;">α</span>
