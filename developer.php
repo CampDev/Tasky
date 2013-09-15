@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Developer Ressources - Tasky</title>
+        <link rel="icon" type="image/ico" href="favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body>

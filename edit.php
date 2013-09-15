@@ -12,6 +12,7 @@ require_once('functions.php');
 <html>
 	<head>
 		<title>Tasky</title>
+        <link rel="icon" type="image/ico" href="favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<meta charset="utf-8">
