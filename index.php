@@ -108,10 +108,10 @@ require_once('tent-markdown.php');
 
 
 							<?php if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') { ?>
-								<a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a>
+								<a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" title="To do - <?php echo $content['priority']; ?> priority" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a>
 							<?php }
 							elseif (isset($content['status']) AND strtolower($content['status']) == 'done') { ?>
-								<a href='task_handler.php?type=uncomplete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_done.svg"></a>
+								<a href='task_handler.php?type=uncomplete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" title="Done - <?php echo $content['priority']; ?> priority" src="img/checkbox_done.svg"></a>
 							<?php }
 							else {
 								echo "";
