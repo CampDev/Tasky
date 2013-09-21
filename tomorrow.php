@@ -69,7 +69,9 @@ require_once('tent-markdown.php');
 						$tomorrow = date_timestamp_get($tomorrow);
 						foreach ($posts['posts'] as $task) {
 							$content = $task['content']; 
-							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', $tomorrow) AND $content['status'] == 'todo' OR date('d/M/Y', $content['duedate']) == date('d/M/Y', $tomorrow) AND $content['status'] == 'To Do') { ?>
+							if (date('d/M/Y', $content['duedate']) == date('d/M/Y', $tomorrow) AND $content['status'] == 'todo' OR date('d/M/Y', $content['duedate']) == date('d/M/Y', $tomorrow) AND $content['status'] == 'To Do') { 
+								$didDisplay = true;
+								?>
 							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
 
@@ -112,6 +114,10 @@ require_once('tent-markdown.php');
 						</div>
 						<?php }
 					}
+					if (!isset($didDisplay)) { ?>
+							<h2>Nothing due tomorrow!</h2>
+							<h3><a href="new_post_page.php">Create a new task!</a></h3>
+						<?php }
 					} ?>
 					</div>
 				<div class='clear'></div><?php }

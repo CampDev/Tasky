@@ -66,7 +66,9 @@ require_once('tent-markdown.php');
 							<div class="filters">Upcoming Tasks</div>
 						<?php foreach ($posts['posts'] as $task) {
 							$content = $task['content']; 
-							if ($content['duedate'] > time()) { ?>
+							if ($content['duedate'] > time()) { 
+								$didDisplay = true;
+								?>
 							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
 
@@ -109,6 +111,10 @@ require_once('tent-markdown.php');
 						</div>
 						<?php }
 					}
+					if (!isset($didDisplay)) { ?>
+							<h2>No upcoming tasks</h2>
+							<h3><a href="new_post_page.php">Create a new task!</a></h3>
+						<?php }
 					} ?>
 					</div>
 				<div class='clear'></div><?php }
