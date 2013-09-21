@@ -63,8 +63,9 @@
                 </select>
 <div class="header-navigation">
     <a href="#" onclick="toggle_visibility('mobile-menu');"><img class="menu-button" src="img/menu.svg"></a>
-    <a class="javascript-nav" title="New task" rel="leanModal" href="#new_post"><img class="nav-icon" src="img/create-task.svg"></a>
-    <a class="javascript-nav" title="List management" rel="leanModal" href="#list_management"><img class="nav-icon" src="img/lists.svg"></a>
+    <a class="javascript-nav" title="Create new task" rel="leanModal" href="#new_post"><img class="nav-icon" src="img/create-task.svg"></a>
+    <a class="javascript-nav" title="Manage lists" rel="leanModal" href="#list_management"><img class="nav-icon" src="img/lists.svg"></a>
+    <a class="javascript-nav" title="Settings" rel="leanModal" href="#settings"><img class="nav-icon" src="img/menu.svg"></a>
     <a class="javaless-nav" href="new_post_page.php"><img class="nav-icon" src="img/create-task.svg"></a>
     <a class="javaless-nav" href="list.php"><img class="nav-icon" src="img/lists.svg"></a>
                 <?php } ?>

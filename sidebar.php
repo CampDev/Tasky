@@ -12,3 +12,9 @@
                 	<a href="tomorrow.php">Due Tomorrow</a><br><br>
                 	<a href="upcoming.php">Upcoming</a><br><br>
                 	<!-- Calendar -->
+
+                    <div class="extended-menu">
+                    ***<br><br>
+                    <b>Settings</b><br><br>
+                	<a href="logout.php">Log out</a><br><br>
+                    </div>

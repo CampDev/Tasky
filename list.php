@@ -25,7 +25,7 @@
 
 
 				<div id='new-task'>
-				<h2>List management</h2>
+				<h2>Manage lists</h2>
 				<?php 
 				if ($lists['posts'] == '' OR $lists['posts'] == array()) {
 					echo "No lists, create one!"; ?>

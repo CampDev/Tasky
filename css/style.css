@@ -115,7 +115,9 @@ div.sidebar {
 div#mobile-menu {
     display: none;
     text-align: center;
-    padding-top: 80px;
+    padding-top: 20px;
+    background: white;
+    border-bottom: 3px solid #5197ca;
 }
 
     .menu-button {
@@ -448,6 +450,10 @@ a.javaless-nav {
 
 @media screen and (max-width: 750px) {
 
+body {
+    padding-top: 60px;
+}
+
     #feature {
         width: 96%;
     }
@@ -464,7 +470,6 @@ a.javaless-nav {
 
     div.task-list {
 	    width: 100%;
-        margin-top: 60px;
         padding-top: 10px;
         border: none;
     }
@@ -486,6 +491,7 @@ a.javaless-nav {
     div.header{
         position: fixed;
         height: 60px;
+        margin-top: -60px;
     }
 
     div.header-navigation{
