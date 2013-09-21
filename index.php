@@ -22,20 +22,6 @@ require_once('tent-markdown.php');
 			});
 		</script>
 
-		<script type="text/javascript">
-			function confirm_delete(task_id) {
-				var promt = confirm("Do you really want to delete this task? This can not be undone!");
-				if (promt === true) {
-					console.log("Delete");
-					console.log(task_id);
-				}
-				else {
-					console.log("DON'T!");
-					console.log(task_id);
-				}
-			}
-		</script>
-
         <script type="text/javascript">
         <!--
         function toggle_visibility(id) {
@@ -146,8 +132,7 @@ require_once('tent-markdown.php');
 							else {
 								echo "";
 							}                ?>
-							<a onclinck="confirm_detele(<?php echo $task['id']; ?>);" href='#'><img class='delete' src="img/delete.svg"></a>
-							<!-- <a onclinck="confirm_detele(<?php echo $task['id']; ?>)" href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a> -->
+							<a onclinck="confirm_detele(<?php echo $task['id']; ?>)" href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a>
 						</div>
 						<?php }
 					} ?>
