@@ -53,10 +53,10 @@ require_once('tent-markdown.php');
 					if (isset($_GET['list'])) {
 						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&mentions='.urlencode($_SESSION['entity']).'+'.$_GET['list'].'&limit=1000';	
 					}
-					elseif ($_GET['filter'] == 'todo') {
+					elseif (isset($_GET['filter']) AND $_GET['filter'] == 'todo') {
 						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23todo&limit=1000';
 					}
-					elseif ($_GET['filter'] == 'done') {
+					elseif (isset($_GET['filter']) AND $_GET['filter'] == 'done') {
 						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23done&limit=1000';
 					}
 					else {
@@ -71,6 +71,8 @@ require_once('tent-markdown.php');
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
+					var_export($posts);
+					echo "<p>URL: ".$url."</p>";
                     /* Welcome page */
 
 					if (!isset($_GET['filter']) AND !isset($_GET['list']) AND $posts['posts'] == array()) { ?>
