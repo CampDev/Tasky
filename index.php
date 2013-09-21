@@ -22,6 +22,20 @@ require_once('tent-markdown.php');
 			});
 		</script>
 
+		<script type="text/javascript">
+			function confirm_delete(task_id) {
+				var promt = confirm("Do you really want to delete this task? This can not be undone!");
+				if (promt === true) {
+					console.log("Delete");
+					console.log(task_id);
+				}
+				else {
+					console.log("DON'T!");
+					console.log(task_id);
+				}
+			}
+		</script>
+
         <script type="text/javascript">
         <!--
         function toggle_visibility(id) {
@@ -50,20 +64,17 @@ require_once('tent-markdown.php');
 				<?php
 				if (!isset($_GET['list'])) {
 					unset($_SESSION['redirect_list']);
-					if (isset($_GET['filter'])) {
-						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&mentions='.urlencode($_SESSION['entity']).'+'.$_GET['list'];	
+					if (isset($_GET['list'])) {
+						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&mentions='.urlencode($_SESSION['entity']).'+'.$_GET['list'].'&limit=1000';	
 					}
 					elseif ($_GET['filter'] == 'todo') {
-						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23todo';
+						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23todo&limit=1000';
 					}
 					elseif ($_GET['filter'] == 'done') {
-						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23done';
-					}
-					elseif ($_GET['filter'] == 'test') {
-						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23test';
+						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1%23done&limit=1000';
 					}
 					else {
-						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1';
+						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&limit=1000';
 					}
 					$mac = generate_mac('hawk.1.header', time(), $nonce, 'GET', str_replace($entity, "/", $url), $entity_sub, '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$init = curl_init();
@@ -97,7 +108,7 @@ require_once('tent-markdown.php');
 							<div class="filters">Tasks - <a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></div>
 						<?php foreach ($posts['posts'] as $task) {
 							$content = $task['content']; ?>
-							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
+							<div id='single-task' class='<?php echo strtolower($content['status']); ?>' class="">
 
 
 							<?php if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') { ?>
@@ -135,7 +146,8 @@ require_once('tent-markdown.php');
 							else {
 								echo "";
 							}                ?>
-							<a href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a>
+							<a onclinck="confirm_detele(<?php echo $task['id']; ?>);" href='#'><img class='delete' src="img/delete.svg"></a>
+							<!-- <a onclinck="confirm_detele(<?php echo $task['id']; ?>)" href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a> -->
 						</div>
 						<?php }
 					} ?>
