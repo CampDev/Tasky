@@ -71,7 +71,6 @@ require_once('tent-markdown.php');
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
-
                     /* Welcome page */
 
 					if (!isset($_GET['filter']) AND !isset($_GET['list']) AND $posts['posts'] == array()) { ?>
@@ -86,6 +85,14 @@ require_once('tent-markdown.php');
 
                     elseif (isset($_GET['list']) AND $posts['posts'] == array()) { ?>
                     	<h2>No tasks in <?php echo $current_list['post']['content']['name']; ?>. <a href="new_post_page.php">Add one!</a></h2>
+                    <?php }
+                    elseif (isset($_GET['filter']) AND $_GET['filter'] == 'todo' AND $posts['posts'] == array()) { ?>
+                    	<div class="filters">Tasks - <a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></div>
+                    	<h2>Nothing to do! <a href="new_post_page.php">Add a new task</a></h2>
+                    <?php }
+                    elseif (isset($_GET['filter']) AND $_GET['filter'] == 'done' AND $posts['posts'] == array()) { ?>
+                    	<div class="filters">Tasks - <a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></div>
+                    	<h2>No done tasks! <a href="index.php">Go and complete one!</a></h2>
                     <?php }
 
                     /* Tasks from all lists */
