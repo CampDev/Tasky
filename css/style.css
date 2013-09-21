@@ -120,6 +120,13 @@ div#mobile-menu {
 
     .menu-button {
         display: none;
+        margin-left: 5px;
+    }
+    
+    .nav-icon {
+        width: 36px;
+        height: 36px;
+        margin-left: 5px;
     }
     
 div.extended-menu {
