@@ -48,7 +48,6 @@ require_once('tent-markdown.php');
 				<div class='task-list'>
 
 				<?php
-				if (!isset($_GET['list'])) {
 					unset($_SESSION['redirect_list']);
 					if (isset($_GET['list'])) {
 						$url = $_SESSION['posts_feed_endpoint'].'?types=http%3A%2F%2Fcacauu.de%2Ftasky%2Ftask%2Fv0.1&mentions='.urlencode($_SESSION['entity']).'+'.$_GET['list'].'&limit=1000';	
@@ -71,8 +70,6 @@ require_once('tent-markdown.php');
 					$posts = curl_exec($init);
 					curl_close($init);
 					$posts = json_decode($posts, true);
-					var_export($posts);
-					echo "<p>URL: ".$url."</p>";
                     /* Welcome page */
 
 					if (!isset($_GET['filter']) AND !isset($_GET['list']) AND $posts['posts'] == array()) { ?>
@@ -143,7 +140,7 @@ require_once('tent-markdown.php');
 							}                ?>
 							<a onclinck="confirm_detele(<?php echo $task['id']; ?>)" href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a>
 						</div>
-						<?php }
+						<?php 
 					} ?>
 					</div>
 				<div class='clear'></div><?php } ?>
