@@ -104,10 +104,10 @@ require_once('tent-markdown.php');
 							<div class="filters">Tasks - <a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></div>
 						<?php foreach ($posts['posts'] as $task) {
 							$content = $task['content']; ?>
-							<div id='single-task' class='<?php echo strtolower($content['status']); ?>' class="">
+							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
 
-							<?php if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') { ?>
+							<?php if (isset($content['status']) == 'todo') { ?>
 								<a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" title="To do - <?php echo $content['priority']; ?> priority" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a>
 							<?php }
 							elseif (isset($content['status']) AND strtolower($content['status']) == 'done') { ?>

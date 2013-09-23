@@ -20,7 +20,7 @@ Tasky uses two custom post types to store tasks and lists in your Tent account. 
 
 * **Title (required) - Title describing the task**
 
-* **Status (required) - Status of the post *(Possible: Done, To Do; see fragments.md for more detailed used of the status in tasks)***
+* **Status (required) - Status of the post *(Possible: done, todo; see fragments.md for more detailed used of the status in tasks)***
 
 * Priority (optional) - Priority of the task *(Possible in Tasky: 0 (low), 1 (average), 2 (high), 3 (urgent); Default in Tasky: 1 (average))*
 

@@ -36,7 +36,7 @@
 						'type' => 'http://cacauu.de/tasky/task/v0.1#done',
 						'content' => array(
 							'title' => $current_task['post']['content']['title'],
-							'status' => 'Done',
+							'status' => 'done',
 							'priority' => $current_task['post']['content']['priority'],
 							'list' => $current_task['post']['content']['list'],
 							'assignee' => '',
@@ -103,7 +103,7 @@
 						'type' => 'http://cacauu.de/tasky/task/v0.1#todo',
 						'content' => array(
 							'title' => $current_task['post']['content']['title'],
-							'status' => 'To Do',
+							'status' => 'todo',
 							'priority' => $current_task['post']['content']['priority'],
 							'list' => $current_task['post']['content']['list'],
 							'assignee' => '',
@@ -270,7 +270,7 @@
 							'priority' => $_POST['priority'],
 							'notes' => $_POST['notes'],
 							'list' => $_POST['list'],
-							'status' => 'To Do',
+							'status' => 'todo',
 							'duedate' => strtotime($_POST['duedate']),
 						),
 						'mentions' => array(

@@ -75,7 +75,7 @@ require_once('tent-markdown.php');
 							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
 
-							<?php if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') { ?>
+							<?php if (isset($content['status']) == 'todo') { ?>
 								<a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a>
 							<?php }
 							elseif (isset($content['status']) AND strtolower($content['status']) == 'done') { ?>
@@ -154,10 +154,10 @@ require_once('tent-markdown.php');
 							$content = $task['content'];?>
 							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
-							<?php if (isset($content['status']) AND $content['status'] == 'To Do' OR $content['status'] == 'todo') { ?>
+							<?php if (isset($content['status']) == 'todo') { ?>
 								<a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a>
 							<?php }
-							elseif (isset($content['status']) AND $content['status'] == 'Done' OR $content['status'] == 'done') { ?>
+							elseif (isset($content['status']) == 'done') { ?>
 								<a href='task_handler.php?type=uncomplete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" src="img/checkbox_done.svg"></a>
 
 							<?php }
