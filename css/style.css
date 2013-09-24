@@ -135,6 +135,10 @@ div.extended-menu {
     display: none;
 }
 
+div.extended-menu2 {
+    display: none;
+}
+
 .clear {
     clear: both;
 }
@@ -466,6 +470,10 @@ body {
         display: block;
         float: right;
         width: 36px;
+    }
+
+    div.extended-menu2 {
+        display: block;
     }
 
     div.task-list {
