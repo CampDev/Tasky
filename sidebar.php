@@ -10,9 +10,7 @@
                     </div>
                     <a href="index.php">All Tasks</a><br><br>
                     <!-- Inbox<br><br> -->
-                	<a href="today.php">Due Today</a><br><br>
-                	<a href="tomorrow.php">Due Tomorrow</a><br><br>
-                	<a href="upcoming.php">Upcoming</a><br><br>
+                	<a href="planning.php">Planning</a><br><br>
                 	<!-- Calendar -->
 
                     <div class="extended-menu2">
