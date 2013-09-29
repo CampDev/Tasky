@@ -104,7 +104,7 @@ require_once('tent-markdown.php');
 							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
 
 
-							<?php if (isset($content['status']) == 'todo') { ?>
+							<?php if (isset($content['status']) AND $content['status'] == 'todo') { ?>
 								<a href='task_handler.php?type=complete&id=<?php echo $task['id']; ?>&parent=<?php echo $task['version']['id']; ?>'><img class="priority" title="To do - <?php echo $content['priority']; ?> priority" src="img/checkbox_<?php echo $content['priority']; ?>.svg" /></a>
 							<?php }
 							elseif (isset($content['status']) AND strtolower($content['status']) == 'done') { ?>
