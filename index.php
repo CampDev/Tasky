@@ -139,7 +139,7 @@ require_once('tent-markdown.php');
 							else {
 								echo "";
 							}                ?>
-							<a onclinck="confirm_detele(<?php echo $task['id']; ?>)" href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a>
+							<a href='task_handler.php?type=delete&id=<?php echo $task['id']; ?>'><img class='delete' src="img/delete.svg"></a>
 						</div>
 						<?php 
 					} ?>
