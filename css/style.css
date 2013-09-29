@@ -9,6 +9,7 @@ body {
     font-weight: 300;
     margin: 0px;
     font-size: 14px
+    z-index: 0;
 }
 
 h2 {
@@ -45,6 +46,7 @@ a.edit {
     margin-right: 10px;
     width: 20px;
     height: 20px;
+    display: block;
 }
 
 footer {
@@ -76,6 +78,8 @@ div.date{
     float: right;
     margin-right: 15%;
     margin-top: -27px;
+    background: white;
+    height: auto;
 }
 
 div.todo, div.to do {
@@ -164,6 +168,7 @@ div.header {
     color: white;
     background: url('../img/logobg.png');
     background-position: center;
+    z-index: 999;
 }
 
 .logo {
@@ -443,6 +448,13 @@ a.javaless-nav {
     #header-inner {
         padding-right: 20px;
     }
+    img.delete {
+        display: none;
+    }
+
+    div.date {
+        margin-right: 20px;
+    }
 
 }
 
@@ -530,13 +542,21 @@ body {
     min-width: 0px;
     }
 
+    img.delete {
+        display: none;
+    }
+
+    div.date {
+        margin-right: 20px;
+
 }
 
 @media screen and (max-width: 480px) {
     select.header-dropdown {
         max-width: 58%;
         padding: 5px;
-    }    
+    }
+
     .logo {
         display: none;
     }
