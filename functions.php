@@ -74,4 +74,10 @@ function generate_auth_header($hawk_id, $mac, $ts, $nonce, $app_id) {
     $auth_header = 'Authorization: Hawk id="'.$hawk_id.'", mac="'.$mac.'", ts="'.$ts.'", nonce="'.$nonce.'", app="'.$app_id.'"';
     return $auth_header;
 }
+
+function created_date($timestamp){
+    $ts = $timestamp/1000;
+    $time = date('d.m.Y - G:i', $ts);
+    return $time;
+}
 ?>

@@ -46,6 +46,7 @@ require_once('functions.php');
 			?>
             <div id="new-task">
             <h2>Edit your task</h2>
+            <p align="center">Created at: <?php echo created_date($current_task['post']['published_at']); ?></p>
 			<form align="center" method="post" action="task_handler.php?type=update&id=<?php echo $current_task['post']['id']; ?>&parent=<?php echo $current_task['post']['version']['id']; ?>">
 				<p><input type="text" name="title" value="<?php echo $current_task['post']['content']['title']; ?>" class="text" placeholder="Your awesome task" /></p>
 				<label>Status: <select name="status" class="select">
