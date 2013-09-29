@@ -147,7 +147,7 @@ require_once('functions.php');
             <div id="new-task">
             <h2>Edit your list</h2>
 				<form align="center" method="post" action="task_handler.php?type=update_list&id=<?php echo $current_list['post']['id']; ?>&parent=<?php echo $current_list['post']['version']['id']; ?>">
-					<p><input name="name" type="text" value="<?php echo $current_list['post']['content']['name']; ?>" />
+					<p><input name="name" type="text" class="text" value="<?php echo $current_list['post']['content']['name']; ?>" />
 					<input type="submit" class="submit" value="Update list" /></p>
 				</form>
         	<?php
