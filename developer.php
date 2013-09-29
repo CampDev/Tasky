@@ -39,9 +39,8 @@ Tasky uses two custom post types to store tasks and lists in your Tent account. 
 ##Task List 
 ####URL: http://cacauu.de/tasky/list/v0.1
 
-* **Name (required) - Title of the list, brief description**
+* **Name (required) - Title of the list, brief description**';
 
-* Description (optional) - Description of the list';
 			$html = Markdown($markdown);
 			echo $html;
 
