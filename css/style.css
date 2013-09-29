@@ -440,10 +440,6 @@ a.javaless-nav {
     div.task-list {
         width: 78%;
     }
-    div.filters {
-        width: 95%;
-        padding: 2.5%;
-    }
     #header-inner {
         padding-right: 20px;
     }
@@ -480,7 +476,6 @@ body {
 
     div.task-list {
 	    width: 100%;
-        padding-top: 10px;
         border: none;
     }
 
@@ -507,10 +502,6 @@ body {
     div.header-navigation{
         padding-top: 15px;
         padding-right: 0px;
-    }
-
-    div.filters{
-        display: none;
     }
 
     div.title{

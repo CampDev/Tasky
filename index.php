@@ -87,18 +87,18 @@ require_once('tent-markdown.php');
                     	<h2>No tasks in <?php echo $current_list['post']['content']['name']; ?>. <a href="new_post_page.php">Add one!</a></h2>
                     <?php }
                     elseif (isset($_GET['filter']) AND $_GET['filter'] == 'todo' AND $posts['posts'] == array()) { ?>
-                    	<div class="filters">Tasks - <a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></div>
+                    	<div class="filters"><div class="filter-inner">Tasks <span style="float: right;"><a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></span></div></div>
                     	<h2>Nothing to do! <a href="new_post_page.php">Add a new task</a></h2>
                     <?php }
                     elseif (isset($_GET['filter']) AND $_GET['filter'] == 'done' AND $posts['posts'] == array()) { ?>
-                    	<div class="filters">Tasks - <a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></div>
+                    	<div class="filters"><div class="filter-inner">Tasks <span style="float: right;"><a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></span></div></div>
                     	<h2>No done tasks! <a href="index.php">Go and complete one!</a></h2>
                     <?php }
 
                     /* Tasks from all lists */
 
 					else { ?>
-							<div class="filters">Tasks - <a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></div>
+							<div class="filters"><div class="filter-inner">Tasks <span style="float: right;"><a href="index.php?filter=todo">To Do</a> | <a href="index.php?filter=done">Done</a></span></div></div>
 						<?php foreach ($posts['posts'] as $task) {
 							$content = $task['content']; ?>
 							<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
