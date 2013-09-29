@@ -51,7 +51,7 @@ require_once('tent-markdown.php');
                     /* Welcome page */
 
 					if ($posts['posts'] == array()) { ?>
-					<div class="filters">Tasks</div>
+					<div class="filters"><div class="filter-inner">Tasks</div></div>
 						<h2>Welcome to Tasky</h2>
                         <div style="text-align: center;">
                         <p>Follow these three simple steps to get started with Tasky:</p>
@@ -63,7 +63,6 @@ require_once('tent-markdown.php');
                     /* Tasks from all lists */
 
 					else { ?>
-							<div class="filters">Planning</div>
 						<?php 
 						$tomorrow = new DateTime('tomorrow');
 						$tomorrow = date_timestamp_get($tomorrow);
@@ -82,7 +81,8 @@ require_once('tent-markdown.php');
 						} 
 						}
 						if (isset($today_array)) { ?>
-							<h3>Due Today:</h3>
+
+					<div class="filters"><div class="filter-inner">Today</div></div>
 							<? foreach ($today_array as $today_task) {
 								$content = $today_task['content']; ?>
 								<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
@@ -129,7 +129,8 @@ require_once('tent-markdown.php');
 								<?php } } ?>	
 
 						<?php if (isset($tomorrow_array)) { ?>
-							<h3>Due Tomorrow:</h3>
+
+					<div class="filters"><div class="filter-inner">Tomorrow</div></div>
 							<? foreach ($tomorrow_array as $tomorrow_task) {
 								$content = $tomorrow_task['content']; ?>
 								<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>
@@ -176,7 +177,8 @@ require_once('tent-markdown.php');
 								<?php } } ?>
 
 						<?php if (isset($upcoming_array)) { ?>
-							<h3>Upcoming:</h3>
+
+					<div class="filters"><div class="filter-inner">Later</div></div>
 							<?php foreach ($upcoming_array as $upcoming_task) {
 								$content = $upcoming_task['content']; ?>
 								<div id='single-task' class='<?php echo strtolower($content['status']); ?>'>

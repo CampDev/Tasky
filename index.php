@@ -74,7 +74,7 @@ require_once('tent-markdown.php');
                     /* Welcome page */
 
 					if (!isset($_GET['filter']) AND !isset($_GET['list']) AND $posts['posts'] == array()) { ?>
-					<div class="filters">Tasks</div>
+					<div class="filters"><div class="filter-inner">Tasks</div></div>
 						<h2>Welcome to Tasky</h2>
                         <div style="text-align: center;">
                         <p>Follow these three simple steps to get started with Tasky:</p>

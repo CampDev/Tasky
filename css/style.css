@@ -239,14 +239,16 @@ div.task-list {
 }
 
 div.filters {
-    width: 96%;
     background: rgb(245, 245, 245);
-    height: 15px;
     border-bottom: 1px solid #ddd;
-    padding: 2%;
-    font-family: 'Source sans pro', sans-serif;
+}
+
+div.filter-inner {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
     text-align: left;
-    font-size: 18px;
+    font-size: 16px;
+    padding: 15px;
 }
 
 #new-task {
