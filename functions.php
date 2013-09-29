@@ -80,4 +80,29 @@ function created_date($timestamp){
     $time = date('d.m.Y - G:i', $ts);
     return $time;
 }
+
+function prio_match($prio) {
+    switch ($prio) {
+        case '0':
+            $string = 'Low';
+            break;
+
+        case '1':
+            $string = 'Average';
+            break;
+
+        case '2':
+            $string = 'High';
+            break;
+
+        case '3':
+            $string = 'Urgent';
+            break;
+        
+        default: //Shouldn't happen
+            $string = 'Average';
+            break;
+    }
+    return $string;
+}
 ?>
