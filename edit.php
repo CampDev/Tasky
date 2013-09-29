@@ -150,6 +150,7 @@ require_once('functions.php');
 					<p><input name="name" type="text" value="<?php echo $current_list['post']['content']['name']; ?>" />
 					<input type="submit" class="submit" value="Update list" /></p>
 				</form>
+				<p><a href="task_handler.php?type=delete&id=<?php echo $current_list['post']['id']; ?>">Delete list</a></p>
         	<?php
         	}
             ?>
