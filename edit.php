@@ -127,6 +127,7 @@ require_once('functions.php');
 					<p>You can use <a href="https://tent.io/docs/post-types#markdown">Tent-flavored Markdown</a> in your notes to add links and style to the text</p>
 					<p><input type="submit" class="submit" value="Save changes"></p>
 			</form>
+			<p><a href="task_handler.php?type=delete&id=<?php echo $current_task['post']['id']; ?>">Delete task</a></p>
             </div>
             <?php
         	}
