@@ -44,6 +44,8 @@
                 </a>
                 <select class="header-dropdown"
                     onchange="location = this.options[this.selectedIndex].value;">
+                    <?php 
+                    if ($lists['posts'] != array()) { ?>
                     <option SELECTED value="index.php">All Lists</option>
                     <?php foreach ($lists['posts'] as $list) {
                         if (isset($_GET['list'])) {
@@ -59,7 +61,12 @@
                                 echo "<option value='index.php?list=".$list['id']."'>".$list['content']['name']."</option>";
                             }
                         }
-                    } ?>
+                    } }
+                    else { ?>
+                        <option>No list yet!</option>
+                        <option value="list.php">Create one!</option>
+                    <?php }
+                    ?>
                 </select>
 <div class="header-navigation">
     <a href="#" onclick="toggle_visibility('mobile-menu');"><img class="menu-button" src="img/menu.svg"></a>
