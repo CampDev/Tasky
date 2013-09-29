@@ -8,7 +8,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     margin: 0px;
-    font-size: 12px
+    font-size: 14px
 }
 
 h2 {
@@ -32,7 +32,7 @@ h4 {
 
 a, a:hover {
     text-decoration: none;
-    color: #3F8AEB;
+    color: #2076E5;
 }
 
 a.edit {
@@ -56,15 +56,15 @@ footer {
 }
 
 div.note{
-    font-size: 13px;
+    font-size: 14px;
     font-family: "Source Sans Pro", sans-serif;
     font-weight: 300;
 }
 
 div.title{
-    font-size: 14px;
+    font-size: 15px;
     font-family: "Source Sans Pro", sans-serif;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 div.date{
@@ -108,8 +108,8 @@ div.sidebar {
     padding: 1.5%;
     height: 100%;
     float: left;
-    font-family: 'Source sans pro', sans-serif;
-    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
 }
 
 div#mobile-menu {
@@ -506,10 +506,15 @@ body {
 
     div.title{
         font-size: 18px;
+        font-weight: 300;
     }
 
     div.note{
-        font-size: 16px;
+        font-size: 14px;
+    }
+
+    div.filter-inner {
+        font-size: 20px;
     }
 
     #header-inner {
