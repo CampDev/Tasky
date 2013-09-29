@@ -39,13 +39,14 @@
                 <a href="http://dev.campnews.org/tasky" style="float: left; font-size: 32px; margin-top: 5px; font-family: 'Raleway', sans-serif; font-weight: 300;">
                 <img src="img/logo-small.png" class="logo">
                 </a>
+                <?php if(!strpos($_SERVER['SCRIPT_NAME'], 'edit.php')) { ?>
                 <select class="header-dropdown"
                     onchange="location = this.options[this.selectedIndex].value;">
                     <?php 
                     if ($lists['posts'] != array()) { ?>
                     <option SELECTED value="index.php">All Lists</option>
                     <?php foreach ($lists['posts'] as $list) {
-                        if (isset($_GET['list'])) {
+                        if (isset($_GET['list']) AND !strpos($_SERVER['SCRIPT_NAME'], 'edit.php')) {
                             if ($list['id'] == $_GET['list']) {
                                 echo "<option SELECTED value='index.php?list=".$list['id']."'>".$list['content']['name']."</option>";
                             }
@@ -58,7 +59,7 @@
                                 echo "<option value='index.php?list=".$list['id']."'>".$list['content']['name']."</option>";
                             }
                         }
-                    } }
+                    } } }
                     else { ?>
                         <option>No list yet!</option>
                         <option value="list.php">Create one!</option>
