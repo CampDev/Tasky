@@ -135,7 +135,7 @@ require_once('functions.php');
 				$entity_sub_list = substr_replace($_SESSION['entity'] ,"",-1);
 				$current_url = str_replace("{entity}", urlencode($entity_sub_list), $_SESSION['single_post_endpoint']);
 				$current_url = str_replace("{post}", $id, $current_url);
-				$mac_current = generate_mac('hawk.1.header', time(), $nonce, 'GET', '/posts/'.urlencode($entity_sub_list)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+				$mac_current = generate_mac('hawk.1.header', time(), $nonce, 'GET', str_replace($_SESSION['entity'], "/", $current_url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 				$ch_current = curl_init();
 				curl_setopt($ch_current, CURLOPT_URL, $current_url);
 				curl_setopt($ch_current, CURLOPT_RETURNTRANSFER, 1);
@@ -147,9 +147,8 @@ require_once('functions.php');
             <div id="new-task">
             <h2>Edit your list</h2>
 				<form align="center" method="post" action="task_handler.php?type=update_list&id=<?php echo $current_list['post']['id']; ?>&parent=<?php echo $current_list['post']['version']['id']; ?>">
-					<p><input name="name" type="text" value="<?php echo $current_list['post']['content']['name']; ?>" /></p>
-					<p><textarea name="description" class="notes"><?php echo $current_list['post']['content']['description']; ?></textarea></p>
-					<p><input type="submit" class="submit" value="Save changes" /></p>
+					<p><input name="name" type="text" value="<?php echo $current_list['post']['content']['name']; ?>" />
+					<input type="submit" class="submit" value="Update list" /></p>
 				</form>
         	<?php
         	}

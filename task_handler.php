@@ -205,7 +205,6 @@
 					$id = $_GET['id'];
 					$parent = $_GET['parent'];
 					$name = $_POST['name'];
-					$description = $_POST['description'];
 					$updated_list = array(
 						'type' => 'http://cacauu.de/tasky/list/v0.1#',
 						'permissions' => array(
@@ -213,26 +212,35 @@
 						),
 						'content' => array(
 							'name' => $name,
-							'description' => $description,
-						)
+						),
+						'version' => array(
+							'parents' => array(
+								array(
+									'version' => $parent,
+								),
+							),
+						),
 					);
 					$updated_list = json_encode($updated_list);
-					var_export($updated_list);
-					echo "<hr />";
-					$mac = generate_mac('hawk.1.header', $time, $nonce, 'PUT', '/posts/'.urlencode($entity_sub)."/".$id, $_SESSION['entity_sub'], '80', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
+					$url = $_SESSION['single_post_endpoint'];
+					$url = str_replace("{entity}", urlencode($entity_sub), $url);
+					$url = str_replace("{post}", $id, $url);
+					$mac = generate_mac('hawk.1.header', $time, $nonce, 'PUT', str_replace($_SESSION['entity'], "/", $url), $_SESSION['entity_sub'], '443', $_SESSION['client_id'], $_SESSION['hawk_key'], false);
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $_SESSION['new_post_endpoint']."/".urlencode($entity_sub)."/".$id);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT"); 
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $updated_list);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, $time, $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/list/v0.1#'));
-					$update_list = curl_exec($ch);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(generate_auth_header($_SESSION['access_token'], $mac, $time, $nonce, $_SESSION['client_id'])."\n".'Content-Type: application/vnd.tent.post.v0+json; type="http://cacauu.de/tasky/list/v0.1#"'));
+					$update_list = json_decode(curl_exec($ch), true);
 					curl_close($ch);
-					var_export($update_list);
-					/*if (!isset($update_task['error'])) {
+					if (!isset($update_list['error'])) {
 						$_SESSION['updated'] = $_POST['title'];
 						header('Location: index.php');
-					}*/
+					}
+					else { ?>
+						<p>Error: <?php echo $update_list['error']; ?></p>
+					<?php }
 					break;
 
 				case 'delete':
