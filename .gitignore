@@ -4,3 +4,5 @@ logins/
 /composer.phar
 
 /vendor/
+
+/composer.lock
