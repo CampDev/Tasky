@@ -1,0 +1,18 @@
+{
+    "name" : "campdev/tasky",
+    "description" : "Tasky is a Tent-based task-management application",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Cacauu/librejo"
+        }
+    ],
+    "require" : {
+    	"librejo/librejo": "dev-master",
+        "guzzle/guzzle": "dev-master",
+        "silex/silex": "1.0.*@dev",
+        "symfony/serializer": "~2.1@rc",
+        "symfony/twig-bridge": "~2.1",
+        "twig/twig": ">=1.8,<2.0-dev"
+    }
+}
