@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ app.request.baseUrl }}/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ app.request.baseUrl }}/js/functions.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script type="text/javascript">window.scrollTo(0,0)</script>
+    <title>Tasky</title>
+</head>
+
+<body>
+    <div class="header"></div>
+    <div id="mobile-menu"></div>
+    <div class="container main">
+        {% block content %}Nothing to see here{% endblock %}
+    </div>
+    <div id="lean_overlay"></div>
+</body>
+</html>
