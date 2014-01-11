@@ -12,4 +12,4 @@ $app['twig'] = $app->share($app->extend('twig', function ($twig, $c) {
 	return $twig;
 }));
 
-$app['deubg'] = true;
+$app['debug'] = true;
