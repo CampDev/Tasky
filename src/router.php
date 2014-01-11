@@ -16,4 +16,10 @@ $app->get('/', function() use ($app) {
 
 $app->get('/auth/{entity}', function($entity) use ($app) {
 	return 'Lets authenticate you...';
-});
+});if($app['debug'] == true){
+if($app['debug'] == true){
+	$app->get('/session/', function() {
+		var_export($_SESSION);
+		return '';
+	});
+}
