@@ -1,0 +1,24 @@
+{
+  "type": "https://tent.io/types/app/v0#",
+  "content": {
+    "name": "Tasky",
+    "url": "https://dev.campnews.org/tasky",
+    "types": {
+      "read": [
+        "http://cacauu.de/tasky/task/v0.1",
+        "http://cacauu.de/tasky/list/v0.1"
+      ],
+      "write": [
+        "http://cacauu.de/tasky/task/v0.1",
+        "http://cacauu.de/tasky/list/v0.1"
+      ]
+    },
+    "scopes": [
+      "permissions"
+    ],
+    "redirect_uri": "http://localhost:8888/tasky_git/redirect/"
+  },
+  "permissions": {
+    "public": false
+  }
+}
