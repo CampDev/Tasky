@@ -5,13 +5,26 @@
     <link rel="stylesheet" type="text/css" href="{{ app.request.baseUrl }}/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="{{ app.request.baseUrl }}/js/functions.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            load_image('{{ app.request.baseUrl }}/img/logo.png', $('.logo'));
+        });
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script type="text/javascript">window.scrollTo(0,0)</script>
     <title>Tasky</title>
 </head>
 
 <body>
-    <div class="header"></div>
+    <div class="header">
+        <div class="container">
+            <div id="header-inner">
+                <a href="{{ app.request.baseUrl }}" style="float: left; font-size: 32px; margin-top: 5px; font-family: 'Raleway', sans-serif; font-weight: 300;">
+                <img width="auto" height="50px" src="img/logo-small.png" class="logo">
+                </a>
+            </div>
+        </div>
+    </div>
     <div id="mobile-menu"></div>
     <div class="container main">
         {% block content %}Nothing to see here{% endblock %}
