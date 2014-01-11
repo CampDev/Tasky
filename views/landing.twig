@@ -2,11 +2,11 @@
 {% block content %}
 	<div id="fadeinfast" class="padded-container" style="padding-top: 75px; padding-bottom: 75px;">
 		<h2>Clear your mind and become productive!</h2>
-		<form align="center" action="auth.php" method="get" style="margin-top: 35px;"> 
-				<input type="url" name="entity" placeholder="https://name.tent-provider.com" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 200px;"> 
-				<input type="submit" class="sign-in" value="Sign in with Tent">
-			</form>
-			</div>
+		<form align="center" action="{{ app.request.baseUrl }}/auth/" method="get" style="margin-top: 35px;"> 
+			<input type="url" name="entity" placeholder="https://name.tent-provider.com" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 200px;"> 
+			<input type="submit" class="sign-in" value="Sign in with Tent">
+		</form>
+	</div>
 
 	<div id="features" style="background: #F7F7F7; border-top: 1px solid #ddd; padding-top: 0px;">
         <div class="padded-container" id="fadeinslow"> 
